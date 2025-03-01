@@ -1,0 +1,48 @@
+🤔 waterfall model vs Agile methodology
+🅰️ ➡️ Waterfall Model: A linear and sequential approach to software development where each phase 
+   (Requirements → Design → Implementation → Testing  → Deployment → Maintenance) is completed before moving to the next.
+
+    ➡️ Agile Model: An iterative and incremental approach where the project is broken into smaller cycles (sprints) with continuous feedback and adaptation. 
+    1️⃣ Product Backlog(Requirements Gathering) → 2️⃣ Sprint Planning(Task Breakdown) → 3️⃣ Sprint Execution  (Development & Testing)→  
+    4️⃣ Sprint Review(Demo to Stakeholders) → 5️⃣ Sprint Retrospective (Process Improvement) → 🔄 Repeat Next Sprint  (Iterate & Improve)
+
+    Imagine building a house:
+
+    Waterfall Model:
+    🏠 Step 1: Plan everything → Step 2: Design the entire blueprint → Step 3: Construct → Step 4: Paint & furnish → Step 5: Move in.
+    👉 If a problem arises at the end (e.g., a wrong window size), fixing it is costly.
+
+    Agile Model:
+    🏠 Build one room at a time, get feedback, and improve in small steps. If the customer dislikes the paint color, you can change it before painting the next room.
+    👉 Iterative adjustments make it flexible and responsive to changes.
+
+
+    | Feature                   | Waterfall Model                           | Agile Model |
+       
+    | Approach                  | 	Sequential                              | Iterative & Incremental  |
+    | Flexibility               | Rigid, changes are costly                 | 	Highly flexible  |
+    | Customer Involvement      | Only at the beginning & end               | Continuous feedback  |
+    | Testing                   | 	Done after implementation               | Done in every sprint  |
+    | Delivery                  | One-time, final product                   | Frequent releases  |
+    | Risk Handling             | High (late-stage issues are expensive)    | Lower (early issue detection)  |
+
+    ❌ Don't say Agile is always better.
+    ✅ Say "It depends on project needs" and discuss the trade-offs.
+
+----------------------------------------------------------------------------------------------------------------------------------------
+Q. Agile ceremony -> scrum meeting, sprint planing, sprint Retrospective calls, sprint review, daily standup call, Refinment meetings.
+
+----------------------------------------------------------------------------------------------------------------------------------------
+Q. what are roles in agile -> scrum master, product owner, development team, testing team.
+
+----------------------------------------------------------------------------------------------------------------------------------------
+Q. what is user story, Jira task sub-task,  how Jira story point,
+
+----------------------------------------------------------------------------------------------------------------------------------------
+Q. what is velocity in agile ?
+
+----------------------------------------------------------------------------------------------------------------------------------------
+In an Interview
+I need to explain to an interviewer "Difference between inline, block, inline-block ?" ?
+can you tell me how should I explain to him? also explain your solution in visual manner.
+what would be the edge cases/corner cases "Difference between inline, block, inline-block ?" ?

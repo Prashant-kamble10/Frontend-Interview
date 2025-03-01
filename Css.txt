@@ -1,5 +1,33 @@
-Q. How to center a div ?
+🤔 How to center a div ?
+🅰️ multiple ways to center a div
+    1️⃣ Using flexbox
+    .parent {
+       display: flex;
+       justify-content: center;  /* Centers horizontally */
+       align-items: center;      /* Centers vertically */
+       height: 100vh;            /* Full viewport height */
+     }
+     Edge Case: If the parent has no defined height, align-items: center; won’t work.
 
+     2️⃣ using grid
+         .parent{
+            display: grid;
+            place-items: center;   /* Centers both horizontally and vertically */
+            height: 100vh;
+         }
+      Edge Case: Requires a height for the parent container.
+
+      3️⃣ Using position: absolute + transform
+          .child{
+            position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+          }
+        Edge Case: If the parent is not position: relative;, the child may center relative to the <body>
+  
+        😮 Mention responsive considerations (e.g., using min-height instead of fixed height).
+            
 ----------------------------------------------------------------------------------------------------------------------------
 Q. css flexbox ?
 
@@ -23,7 +51,44 @@ Q. rem, em, %, px, cm units ?
 Q. css animation & @keyframes ?
 
 ----------------------------------------------------------------------------------------------------------------------------
-Q. Difference between inline, block, inline-block ?
+🤔 Difference between inline, block, inline-block ?
+🅰️ 1️⃣ Block Elements (display: block;)
+        A block element takes up the full width available.
+        It starts on a new line (pushing the next element to a new line).
+        You can set width & height explicitly.
+
+        Examples: <div>, <p>, <h1>-<h6>, <section>, <article>, etc.
+
+        Always starts on a new line.
+        Width is 100% by default (unless specified).
+        Supports margin, padding, width, height.
+        
+        Edge Cases: If you don’t define a width, it stretches full width.
+
+    2️⃣ Inline Elements (display: inline;)
+        An inline element only takes up as much width as its content.
+        It does NOT start on a new line (it stays within the same line).
+        You cannot set width & height.
+
+        Examples: <span>, <a>, <strong>, <em>, <b>, etc.
+
+        Stays on the same line with other elements.
+        Does not accept width & height.
+        Margins & padding only affect left & right (not top & bottom).
+
+        Edge Cases: If you try width: 100px;, nothing happens!
+                    Padding & margin (top/bottom) won't push elements away (it affects only left/right).
+    
+    3️⃣  Inline-Block Elements (display: inline-block;)
+            Similar to inline, but supports width & height.
+            Stays in the same line as inline elements.
+            Allows block-like styling (width, height, margin, padding).
+
+            Examples: <img>, <button>, <input>, <label>.
+
+            Stays in the same line (like inline).
+            Can set width & height (like block).
+            Margins & paddings work in all directions.
 
 ----------------------------------------------------------------------------------------------------------------------------
 Q. @mediaQuery, resposivness ?
@@ -45,5 +110,8 @@ Q. CSS variables ?
 
 ----------------------------------------------------------------------------------------------------------------------------
 Q. Transition, Transform & animation ?
+
+---------------------------------------------------------------------------------------------------------------------------- 
+Q. Tailwind css, bootstrap, sccs, material UI, etc what are this ? 
 
 ---------------------------------------------------------------------------------------------------------------------------- 
