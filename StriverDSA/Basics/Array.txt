@@ -1,0 +1,12 @@
+🤔 Array ?
+🅰️ array starts with zero indexing, In array we are not sure where will zeroth index will get store(In which address location), but we are sure index 1,2 & so on will be surely getting stored consequetly beside zeroth index, that is for sure.
+
+2D Array Example:
+so below 3 rows & 5 columns are there. 
+
+let arr1 = [4,5,6,7,8]
+let arr2 = [2,8,6,9,2]
+let arr3 = [1,4,3,5,7]
+
+⚠️ it is Index, so we can add some value to existing value or we can replace existing value withh new value.
+-------------------------------------------------------------------------------------------------------------------------------------------------

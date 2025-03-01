@@ -1,0 +1,46 @@
+🤔 DataTypes pass by value & pass by reference ?
+🅰️  In JavaScript, primitive types (like numbers, strings, and booleans) are passed by value,
+     while objects (including arrays and functions) are passed by reference.
+
+Example:
+
+function changeValue(x) {
+    x = 10; // Modifying the copy
+    console.log("Inside function:", x);
+}
+
+let num = 5;
+console.log("Before function call:", num);    // Before function call: 5
+changeValue(num);                             // Inside function: 10
+console.log("After function call:", num);     After function call: 5
+
+✅ The original variable remains unchanged because num is passed by value.
+
+Example:
+
+function changeObject(obj) {
+    obj.name = "Updated"; // Modifying the original object
+}
+
+let person = { name: "John" };
+console.log("Before function call:", person.name);     // Before function call: John
+changeObject(person);
+console.log("After function call:", person.name);       // After function call: Updated
+
+
+function modifyArray(arr) {
+    arr.push(4); // Modifying the original array
+}
+
+let numbers = [1, 2, 3];
+console.log("Before function call:", numbers);    // Before function call: [1, 2, 3]
+modifyArray(numbers);
+console.log("After function call:", numbers);     // After function call: [1, 2, 3, 4]
+
+✅ The original array is modified because arrays are also passed by reference.
+
+⚠️ If you want to avoid modifying the original object, use the spread operator (...) or Object.assign() to pass a copy instead of the reference.
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+

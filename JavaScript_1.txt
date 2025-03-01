@@ -25,7 +25,8 @@ Q. closures, closures with setTimeout, setInterval, Tust Issues with setTimeout 
 Q. Normal function vs arrow function ?
 
 ----------------------------------------------------------------------------------------------------------------------------
-Q. types of function ?
+🤔. types of function ?
+🅰️ Void function: functions which does not return anything, they just display value.
 
 ----------------------------------------------------------------------------------------------------------------------------
 Q. How many ways you can pass arguments to the functions ?

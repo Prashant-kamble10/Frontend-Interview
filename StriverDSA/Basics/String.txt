@@ -1,0 +1,10 @@
+🤔 String ?
+🅰️ String also stores the every char in terms of indexes
+
+Example:
+
+let str = "prashant"
+console.log(str.charAt(0))    // p
+
+⚠️ In JavaScript, strings are immutable, meaning you cannot directly modify a character in a string. However, you can create a new string with the desired replacement. 
+-----------------------------------------------------------------------------------------------------------------------------------------------
