@@ -1,0 +1,52 @@
+🤔 Time complexity ?
+🅰️ Time complexity != time taken by a piece of code to execute
+    Defination =  Rate at which time taken increases w.r.t to input size.
+
+------------------------------------------------------------------------------------
+🤔 Big O notation ?
+🅰️ In an interview when you have been asked to anylse time complexity for a piece of code, so you will answer the time complexity in big O notation format instead of
+saying in 2sec, 3sec etc
+
+Big O notation -> O(time taken)
+------------------------------------------------------------------------------------
+🤔 3 rules to compute time complexity ?
+🅰️   1️⃣(best case, avg case, worst case) think for worst case scenerio.  
+         worst case = Big O notation (upper bond)
+         avg case = Theta notation (avg bond)
+         best case = Omega notation (lower bond)
+      2️⃣ avoid constants.
+      3️⃣ avoid lower values.
+
+------------------------------------------------------------------------------------
+🤔 Find time complexity for below code snippet ?
+🅰️ for(let i=0; i <=3; i++){
+            for(let j=1; j<=3; j++){
+                console.log(`value of i =${i} & j=${j}`)
+            }
+        }
+
+    O(n2)
+
+    for(let i=0; i <=n; i++){
+                for(let j=0; j<=i; j++){
+                    console.log(`value of i =${i} & j=${j}`)
+                }
+            }
+
+        O()
+
+------------------------------------------------------------------------------------
+🤔 space complexity (memory space) ?
+🅰️ space complexity can also be defined by Big O notation,
+        Auxiliary space (space that you take to solve the problem) + input space(the space you take to store the input) 
+
+        function sum(a,b){
+            c = a + b 
+
+            c = Auxiliary space
+            a & b = input space (Never do anything to input space, never manipulate)
+        }
+
+        ⚠️ never manipulate the input data variable instead store it in a new variable and then do operation on it.
+
+------------------------------------------------------------------------------------
