@@ -1,0 +1,215 @@
+🤔 meta tags ?
+
+🅰️ Why Meta Tags?
+    Meta tags in HTML are essential for providing metadata about a webpage.
+     They help search engines understand the page's content, improve SEO (Search Engine Optimization), 
+     and control how the page is displayed in search results or social media previews.
+
+    How Do Meta Tags Work?
+    Meta tags are placed inside the <head> section of an HTML document. 
+    They do not appear on the webpage but provide crucial information to browsers, search engines, and social media platforms. 
+    They use the <meta> element with attributes like name, content, and charset.
+
+    What Are Meta Tags?
+    Meta tags are HTML elements that define metadata for a webpage. Some common meta tags include:
+
+    Charset Meta Tag <meta charset="UTF-8">
+    Viewport Meta Tag <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    Description Meta Tag <meta name="description" content="This is a sample webpage about HTML meta tags.">
+    Keywords Meta Tag <meta name="keywords" content="HTML, meta tags, SEO, web development">
+    Author Meta Tag  <meta name="author" content="John Doe">
+
+----------------------------------------------------------------------------------------------------------------------------
+🤔 semantic tags ?
+
+🅰️ Why Semantic Tags?
+    Semantic tags were introduced in HTML5 to improve the readability and structure of web pages. Before HTML5, 
+    developers used <div> and <span> for everything, making it hard to understand the page’s content.
+
+    Better Readability: Code is more understandable for developers.
+    SEO Friendly: Search engines can interpret page content more accurately
+
+    How Do Semantic Tags Work?
+    Semantic tags describe the purpose of the content inside them.
+
+    Unlike <div> (which is generic), semantic elements clearly indicate their meaning.
+    Browsers and search engines process them differently to improve accessibility and SEO.
+    Example: Instead of using <div class="header">, use <header>.
+
+    What Are Semantic Tags?
+    Semantic tags convey meaning about their content. Some common semantic tags include:
+
+    Tag	            Purpose
+    <header>	    Represents the header of a webpage or section.
+    <nav>	        Defines a navigation menu.
+    <section>	    Groups related content.
+    <article>	    Represents an independent piece of content.
+    <aside>	        Contains additional information (like sidebars).
+    <footer>	    Defines the footer of a page or section.
+    <figure>	    Groups media content like images, videos, or captions.
+    <main>	        Defines the primary content of a webpage.
+    <mark>	        Highlights important text.
+
+----------------------------------------------------------------------------------------------------------------------------
+🤔 Difference between HTML & XHTML ?
+
+🅰️ Why Was XHTML Introduced?
+    HTML (HyperText Markup Language) was widely used but was not strict about syntax, leading to inconsistent webpages.
+    XHTML (Extensible HyperText Markup Language) was introduced as a stricter, XML-compliant version of HTML.
+    It ensures better structure, consistency, and compatibility with other XML-based applications.
+
+    How Does XHTML Differ from HTML?
+    XHTML follows stricter rules than HTML.
+    It is case-sensitive, requires well-formed code, and needs proper closing of tags.
+
+    HTML (Allowed) <img src="image.jpg">
+    
+    XHTML (Strict, Requires Closing Tag)  <img src="image.jpg" />
+
+    What Is the Difference Between HTML & XHTML?
+    | Feature	            | HTML	                                         | XHTML
+    | Syntax	            | Less strict, allows errors	                 | Strict syntax, must be well-formed
+    | Tag                 | Closing	Some tags can be left open (<br>)	     | All tags must be closed (<br />)
+    | Case Sensitivity	 | Not case-sensitive (<TITLE> = <title>)	         | Case-sensitive (<title> is correct, <TITLE> is wrong)
+    | Attribute Values	| Can be unquoted (<input type=text>)	             | Must be quoted (<input type="text" />)
+    | Attribute Names	    | Can be uppercase (<INPUT>)	                 | Must be lowercase (<input>)
+    | Document Type	    | Uses <!DOCTYPE HTML>	                             | Uses <!DOCTYPE XHTML> and must follow XML rules
+----------------------------------------------------------------------------------------------------------------------------
+🤔 How does HTML DOM  model work ?
+
+🅰️ Why Do We Need the HTML DOM?
+    HTML is static by itself. To make it interactive and dynamic, we need a way to access and modify elements in a structured way.
+    The DOM (Document Object Model) allows JavaScript to dynamically access, update, and manipulate HTML and CSS on a webpage.
+    Example: When clicking a button changes text color, JavaScript modifies the DOM dynamically.
+
+    How Does the HTML DOM Model Work?
+    The DOM represents an HTML document as a tree structure, where each element is a node.
+
+    Types of Nodes in the DOM:
+    Document Node – Represents the entire webpage (document object in JS).
+    Element Nodes – Represents HTML elements like <div>, <h1>, etc.
+    Text Nodes – Represents text inside elements.
+    Attribute Nodes – Represents element attributes (id, class, etc.).
+    Comment Nodes – Represents comments inside HTML.
+
+    Example: HTML Structure → DOM Representation
+
+            <!DOCTYPE html>
+        <html>
+        <head>
+            <title>DOM Example</title>
+        </head>
+        <body>
+            <h1 id="heading">Hello, DOM!</h1>
+            <button onclick="changeText()">Click Me</button>
+
+            <script>
+                function changeText() {
+                    document.getElementById("heading").innerText = "DOM Updated!";
+                }
+            </script>
+        </body>
+        </html>
+
+        Document
+        ├── html
+        │   ├── head
+        │   │   ├── title → "DOM Example"
+        │   ├── body
+        │       ├── h1 (id="heading") → "Hello, DOM!"
+        │       ├── button (onclick="changeText()") → "Click Me"
+        │       ├── script → JavaScript code
+
+
+        What Is the HTML DOM?
+        The HTML DOM is an API that allows JavaScript to interact with HTML.
+        It treats everything as an object, providing methods to access and modify elements.
+
+        Method	                                      |      Description
+        document.getElementById("id")	              |  Selects an element by ID.
+        document.getElementsByClassName("class")	  |  Selects elements by class name.
+        document.getElementsByTagName("tag")	      |  Selects elements by tag name.
+        document.querySelector("selector")	          |  Selects the first matching element (CSS selector).
+        document.querySelectorAll("selector")	      |  Selects all matching elements (CSS selector).
+        element.innerHTML	                          |  Gets/sets the HTML content of an element.
+        element.innerText	                          |  Gets/sets the text content of an element.
+        element.style.property	                      |  Modifies CSS properties dynamically.
+        element.setAttribute("attr", "value")	      |  Modifies attributes of an element.
+        element.addEventListener("event", function)	  |  Attaches event listeners (click, keypress, etc.).
+
+----------------------------------------------------------------------------------------------------------------------------
+🤔 custom data attributes ?
+
+🅰️ Why Do We Need Custom Data Attributes?
+    HTML elements don’t store extra custom data by default.
+    Developers often need to attach additional metadata to elements without affecting their appearance or behavior.
+    Custom data attributes allow us to store custom data inside HTML elements, which can be easily accessed using JavaScript.
+
+    How Do Custom Data Attributes Work?
+    Custom data attributes must start with data-.
+    The attribute name should be lowercase and hyphen-separated (e.g., data-user-id, data-item-name).
+    These attributes do not affect the element’s default behavior.
+
+    Example:    <button id="buyBtn" data-product-id="123" data-price="500">
+                    Buy Now
+                    </button>
+
+                    Use the .dataset property to retrieve values.
+
+                    let button = document.getElementById("buyBtn");
+
+                    // Accessing custom data attributes
+                    console.log(button.dataset.productId); // Output: "123"
+                    console.log(button.dataset.price); // Output: "500"
+
+                    // Modifying a custom data attribute
+                    button.dataset.price = "550"; 
+                    console.log(button.dataset.price); // Output: "550"
+
+    What Are Custom Data Attributes?
+    Custom attributes allow developers to store extra information within HTML elements.
+    They do not affect rendering and are accessible using JavaScript.
+    These attributes help in scenarios where storing additional metadata in JavaScript objects might not be ideal.
+
+    ⚠️ Edge cases: 1. Custom attributes store only strings.
+                    2. HTML attributes are case-insensitive, but JavaScript’s .dataset converts them to camelCase.
+
+                    <div id="box" data-user-name="Alice"></div>
+
+                    let box = document.getElementById("box");
+                    console.log(box.dataset.userName); // Correct ✅
+                    console.log(box.dataset.user-name); // Incorrect ❌ (Syntax Error)
+
+                    3. Problem: If data- attributes hold sensitive information, they can be accessed using document.querySelector().
+
+----------------------------------------------------------------------------------------------------------------------------
+Q. Lazy loading in HTML ?
+
+----------------------------------------------------------------------------------------------------------------------------
+Q. Difference between <div> and <section> ?
+
+----------------------------------------------------------------------------------------------------------------------------
+Q. defer attribute work in a <script> How is it Difference from async ?
+
+----------------------------------------------------------------------------------------------------------------------------
+Q. Different types of Input Element ?
+
+----------------------------------------------------------------------------------------------------------------------------
+Q. Different ways to include external resources in (css, JS) in HTML ?
+
+----------------------------------------------------------------------------------------------------------------------------
+Q. <head> <body> <main> ?
+
+----------------------------------------------------------------------------------------------------------------------------
+Q. Difference between action, method attributes of a <form> tag ?
+
+----------------------------------------------------------------------------------------------------------------------------
+Q. <no script> tag ?
+
+----------------------------------------------------------------------------------------------------------------------------
+Q. Difference between id & class attributes ?
+
+----------------------------------------------------------------------------------------------------------------------------
+Q. DangeourslySetHTML ?
+
+----------------------------------------------------------------------------------------------------------------------------
