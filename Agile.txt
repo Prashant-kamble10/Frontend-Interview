@@ -46,3 +46,9 @@ In an Interview
 I need to explain to an interviewer "Difference between inline, block, inline-block ?" ?
 can you tell me how should I explain to him? also explain your solution in visual manner.
 what would be the edge cases/corner cases "Difference between inline, block, inline-block ?" ?
+
+In an Interview
+I need to explain to an interviewer " Difference between HTML & XHTML " ? 
+can you tell me how should I explain to him? 
+also explain it in why, how, what terminology to me ?
+what would be the edge cases/corner cases " Difference between HTML & XHTML " ?

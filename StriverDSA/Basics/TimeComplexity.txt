@@ -2,6 +2,11 @@
 🅰️ Time complexity != time taken by a piece of code to execute
     Defination =  Rate at which time taken increases w.r.t to input size.
 
+    single loop : O(n)
+    nested loop : O(n2)
+    nested inside nested loop : O(n3)
+    O(log (n))
+    O(sqrt n)
 ------------------------------------------------------------------------------------
 🤔 Big O notation ?
 🅰️ In an interview when you have been asked to anylse time complexity for a piece of code, so you will answer the time complexity in big O notation format instead of
@@ -33,7 +38,7 @@ Big O notation -> O(time taken)
                 }
             }
 
-        O()
+        O(n2)
 
 ------------------------------------------------------------------------------------
 🤔 space complexity (memory space) ?
