@@ -183,33 +183,263 @@
                     3. Problem: If data- attributes hold sensitive information, they can be accessed using document.querySelector().
 
 ----------------------------------------------------------------------------------------------------------------------------
-Q. Lazy loading in HTML ?
+🤔 Lazy loading in HTML ?
+
+🅰️ What is Lazy Loading?
+    Lazy loading is an optimization technique in web development that defers the loading of non-essential resources 
+    (like images, iframes, and scripts) until they are needed. Instead of loading all images when a page initially loads, 
+    lazy loading loads them only when they are about to be visible in the viewport.
+
+    Why is Lazy Loading Important?
+    Lazy loading improves performance and user experience by:
+    ✅ Reducing Initial Load Time – The browser doesn’t load unnecessary resources upfront.
+    ✅ Improving Page Speed & SEO – Faster load times positively impact Core Web Vitals and search rankings.
+    ✅ Reducing Bandwidth Usage – Saves network resources, especially useful for users on slow or limited connections.
+    ✅ Enhancing User Experience – Users don’t wait for offscreen images to load immediately.
+
+    How to Implement Lazy Loading in HTML?
+    ✅ For Images (Using loading="lazy" Attribute)
+    The simplest way is by adding the loading="lazy" attribute to <img> and <iframe> elements.
+
+    <img src="large-image.jpg" alt="Example" loading="lazy" />
+
+    For Iframes (e.g., Embedding YouTube Videos)
+
+    <iframe src="https://www.youtube.com/embed/example" loading="lazy"></iframe>
 
 ----------------------------------------------------------------------------------------------------------------------------
-Q. Difference between <div> and <section> ?
+🤔 Difference between <div> and <section> ?
+
+🅰️ What is the Difference Between <div> and <section>?
+| Feature	            | <div> (Division)	                                         | <section> (Semantic Section)
+| Definition	        |A generic container for styling/layout.	                 | A semantic grouping of related content.
+| Purpose              | Used for styling & layout                                 | Used for structuring content meaningfully.
+| Semantic Meaning     | No inherent meaning. It does not indicate content type.   |Has meaning – represents a standalone content section.
+|SEO & Accessibility   |Not SEO-friendly – search engines and screen               | SEO-friendly – search engines recognize it as a content block.
+                        readers don’t interpret it.
+| When to Use?          | When no semantic meaning is needed.                | When content is thematically grouped (like blog sections, FAQ, etc.).
+
+
+    Why is the Difference Important?
+     ✅ SEO & Accessibility
+
+    <section> is more SEO-friendly because it helps search engines understand the page structure.
+    Screen readers recognize <section> as a meaningful content block.
+    <div> is only presentational and does not improve accessibility.
+    ✅ Better Code Organization
+
+    Using <section> makes HTML more readable and structured.
+    <div> is useful for styling but can lead to div soup (excessive nested <div> elements).
+    ✅ Maintainability & Scalability
+
+    <section> improves long-term maintainability by providing clear sections of a webpage.
+    <div> makes sense for small layout elements, not for structuring large content blocks.
+    
+     How to Use <div> and <section> ?
+
+          ✅   <div class="card">
+                <h2>Title</h2>
+                <p>Some text content.</p>
+                </div>
+
+          ❌  <div>
+                <h2>Blog Posts</h2>
+                <article>
+                    <h3>Post 1</h3>
+                    <p>Content of the post.</p>
+                </article>
+                </div>
+
+            ✅   <section>
+                    <h2>Blog Posts</h2>
+                    <article>
+                        <h3>Post 1</h3>
+                        <p>Content of the post.</p>
+                    </article>
+                </section>
+----------------------------------------------------------------------------------------------------------------------------
+🤔 defer attribute work in a <script> How is it Difference from async ?
+
+🅰️ Refer this image  https://i.sstatic.net/pI1Wn.png
+
+    What is the async Attribute in <script>?
+    The async attribute ensures that a script is downloaded in parallel with HTML parsing and executed immediately when available 
+    (without waiting for DOM parsing to complete).
+    
+    <script src="script.js" async></script>
+
+    What is the defer Attribute in <script>?
+    The defer attribute ensures that a script is downloaded in parallel with the HTML parsing but waits until the entire HTML document 
+    is parsed before execution.
+
+    <script src="script.js" defer></script>
+
+    Why Does This Difference Matter?
+    ✅ When to Use defer?
+
+    When the script depends on the DOM being fully loaded (e.g., modifying elements in document.body).
+    When maintaining execution order of multiple scripts is crucial.
+    For better performance without blocking page rendering.
+    ✅ When to Use async?
+
+    When the script is independent of the DOM (e.g., analytics, ads, tracking scripts).
+    When the script doesn't depend on other scripts.
+    When you need fast execution without waiting for HTML parsing.
+
 
 ----------------------------------------------------------------------------------------------------------------------------
-Q. defer attribute work in a <script> How is it Difference from async ?
+🤔 Different types of Input Element ?
+
+🅰️ <input type="text" placeholder="Enter your name">
+    <input type="password">
+    <input type="email">   Validates email format
+    <input type="search">  Optimized for search queries
+    <input type="tel">     Accepts telephone numbers
+    <input type="url">    Validates a URL input
+
+    <input type="number" min="1" max="100">  Accepts only numeric input
+    <input type="range" min="0" max="100">   Creates a slider input
+
+    <input type="date">               Selects a date
+    <input type="datetime-local">    	Selects date and time (without timezone)
+    <input type="time">               Selects a time
+    <input type="month">                Selects a month & year
+    <input type="week">                Selects a week & year
+
+    <input type="radio" name="gender" value="male"> Male
+    <input type="checkbox" name="hobby" value="sports"> Sports
+
+    <input type="file">
+    <input type="image" src="submit.png">
+
+    <input type="button" value="Click Me">
+    <input type="submit" value="Submit">      Submits form data
+    <input type="reset" value="Reset">         Resets form fields
 
 ----------------------------------------------------------------------------------------------------------------------------
-Q. Different types of Input Element ?
+🤔 Different ways to include external resources (css, JS) in HTML ?
+
+🅰️  Including CSS in HTML
+
+    ✅External CSS (Best Practice)
+        <head>
+            <link rel="stylesheet" href="styles.css">
+        </head>
+
+    ✅ Internal CSS (Embedded)
+        <head>
+            <style>
+                body {
+                    background-color: lightgray;
+                }
+            </style>
+        </head>
+
+    ✅ Inline CSS (Avoid for Large Projects)
+        <p style="color: red; font-size: 20px;">This is an inline styled paragraph.</p>
+
+    Including JavaScript in HTML
+
+    ✅  External JavaScript (Best Practice)
+            <head>
+                <script src="script.js" defer></script>
+            </head>
+
+    ✅  Internal JavaScript (Embedded)
+            <script>
+                console.log("Hello, world!");
+            </script>
+
+    ✅   Inline JavaScript (Not Recommended)
+            <button onclick="alert('Button Clicked!')">Click Me</button>
+
+    📌 Place <script> at the end of <body> or use defer to prevent render-blocking.
+
 
 ----------------------------------------------------------------------------------------------------------------------------
-Q. Different ways to include external resources in (css, JS) in HTML ?
+🤔 <head> <body> <main> ?
+
+🅰️ <head> | Contains metadata, styles, and scripts  | Helps SEO, performance, and external resources of(css&JS)
+   <body> | Holds all visible elements              | Displays content, handles user interactions
+   <main> | Wraps the primary content of the page   | Boosts SEO, improves accessibility
+----------------------------------------------------------------------------------------------------------------------------
+🤔 Difference between action, method attributes of a <form> tag ?
+
+🅰️ 📌action Attribute
+    What is it?
+    The action attribute specifies the URL (or endpoint) where the form data should be sent after submission.
+
+    <form action="https://example.com/submit" method="post">
+        <input type="text" name="username">
+        <button type="submit">Submit</button>
+    </form>
+
+    📌method Attribute
+    What is it?
+    The method attribute specifies how the form data should be sent to the server. It accepts two main values:
+
+    GET → Sends data in the URL query string.
+    POST → Sends data in the request body.
+
+    <form action="search.php" method="get">
+        <input type="text" name="query" placeholder="Search...">
+        <button type="submit">Search</button>
+    </form>
 
 ----------------------------------------------------------------------------------------------------------------------------
-Q. <head> <body> <main> ?
+🤔 <no script> tag ?
+
+🅰️ The <noscript> tag in HTML is used to define alternative content that is displayed only
+     when JavaScript is disabled or not supported in a user’s browser.
+
+     If JavaScript is enabled, content inside <noscript> is ignored.
+
+     Why is <noscript> Important?
+    ✅ Better User Experience – Ensures users without JavaScript still see important content.
+    ✅ SEO & Accessibility – Search engines and screen readers may benefit from fallback content.
+    ✅ Security Awareness – Some users disable JavaScript for security reasons, so they should still access key information.
+
+<noscript>
+    <p>Your browser does not support JavaScript or it is disabled. Please enable JavaScript for a better experience.</p>
+</noscript>
 
 ----------------------------------------------------------------------------------------------------------------------------
-Q. Difference between action, method attributes of a <form> tag ?
+🤔 Difference between id & class attributes ?
+
+ 🅰️ id is a unique identifier for a single element.
+    class is used to group multiple elements that share the same styling or behavior.
+
+    📌id has higher specificity than class.
+    📌class has lower specificity, overridden by id.
+
+    “In HTML, both id and class are used to identify and style elements, but they serve different purposes.
+
+    The id attribute is unique and can be used to target a specific element for styling or JavaScript manipulation.
+    The class attribute is reusable and allows multiple elements to share the same styles and behavior.
 
 ----------------------------------------------------------------------------------------------------------------------------
-Q. <no script> tag ?
+🤔 DangeourslySetHTML ?
 
-----------------------------------------------------------------------------------------------------------------------------
-Q. Difference between id & class attributes ?
+🅰️  WHAT is dangerouslySetInnerHTML?
+    dangerouslySetInnerHTML is a React prop that allows you to directly inject raw HTML into a component.
+    It is similar to innerHTML in vanilla JavaScript but comes with security risks.
 
-----------------------------------------------------------------------------------------------------------------------------
-Q. DangeourslySetHTML ?
+    Example: Using dangerouslySetInnerHTML
 
+    function MyComponent() {
+        const htmlContent = "<h2 style='color:red;'>This is rendered as raw HTML</h2>";
+
+        return <div dangerouslySetInnerHTML={{ __html: htmlContent }} />;
+    }
+
+    📌 This will render the HTML inside the <div> instead of treating it as a string.
+
+    WHY Do We Need dangerouslySetInnerHTML?
+    ✔ Rendering HTML from External Sources – Sometimes, data from APIs, CMS, or Markdown parsers contain HTML.
+    ✔ Displaying Pre-Formatted Content – Blogs, email templates, or rich-text editors require HTML rendering.
+    ✔ SSR (Server-Side Rendering) or Pre-rendered Content – Some applications require injecting raw HTML dynamically.
+
+    HOW Does It Work?
+    Instead of using {someHtmlString}, we use { __html: someHtmlString }.
+    The double underscore (__html) is a deliberate design choice by React to highlight potential security risks.
 ----------------------------------------------------------------------------------------------------------------------------
