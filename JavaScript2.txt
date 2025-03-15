@@ -1,7 +1,60 @@
-Q. ES 6 feature ?
+🤔 ES 6 feature ?
+🅰️ ES6 (ECMAScript 2015) introduced several new features to JavaScript.
+
+    let and const (Block-scoped Variables)
+    let and const provide block-scoping, unlike var, which is function-scoped
+
+    Arrow Functions
+    Provides a shorter syntax for functions.
+
+    Template Literals
+    Allows embedding expressions inside strings using backticks
+
+    Destructuring Assignment
+    Extracts values from arrays or properties from objects
+
+    Default Parameters
+    Allows functions to have default values for parameters.
+
+    Spread and Rest Operator (...)
+    Spread: Expands an array into individual elements.
+    Rest: Gathers arguments into an array.
+
+    Promises
+    Handles asynchronous operations
+
+    Modules (import & export)
+    Enables modular JavaScript.
+
+    Map and Set
+    Map: Key-value pairs with any type as a key.
+    Set: Collection of unique values.
+
+    for...of Loop
+    Iterates over iterables like arrays, strings, etc.
+
+    📌 ES8 (ECMAScript 2017)
+            async/await
+            Simplifies asynchronous code using Promise.
+
+    📌 ES11 (ECMAScript 2020)
+            Optional Chaining (?.)
+            Prevents errors when accessing deeply nested properties.
+
+            Nullish Coalescing (??)
+            Returns the right-hand operand if the left-hand operand is null or undefined.
 
 ----------------------------------------------------------------------------------------------------------------------------
-Q. JS Engine ?
+🤔 JS Engine ?
+
+🅰️    "A JavaScript Engine is a program that interprets and executes JavaScript code. 
+        It takes human-readable JavaScript code, converts it into machine code, and runs it efficiently."
+
+        Popular JS Engines
+            V8 Engine (Google Chrome, Node.js) – Used in Chrome & Node.js
+            SpiderMonkey (Mozilla Firefox) – Developed by Mozilla
+            JavaScriptCore (WebKit/Safari) – Apple's JS Engine
+            Chakra (Microsoft Edge, older version) – Used in older Microsoft Edge versions
 
 ----------------------------------------------------------------------------------------------------------------------------
 Q. TIme & space complexity ?
@@ -19,7 +72,39 @@ Q. OOPS, classes, constructor ?
 Q. call, bind & apply ?
 
 ----------------------------------------------------------------------------------------------------------------------------
-Q. JS Object vs JSON vs REST API ?
+🤔 JS Object vs JSON vs REST API ?
+🅰️  JavaScript Object
+       defination - A data structure used in JavaScript to store key-value pairs.
+       Format -  Uses key-value pairs with functions, variables, etc.
+       Data Type - Can store any JS data type (string, number, boolean, array, function, etc.).
+       Usage - Used within JavaScript programs for manipulating and storing data.
+
+    JSON (JavaScript Object Notation)
+       defination - A lightweight data format for storing and transferring data.
+       Format - Purely text-based with key-value pairs in a structured format. 
+       Data Type - Only supports string, number, boolean, array, and null.
+       Usage - Used for data exchange between web applications and APIs.
+
+       💡 JavaScript to JSON Conversion
+          let jsonData = JSON.stringify(person); // Converts JS Object to JSON String
+          console.log(jsonData); // {"name":"John","age":30,"isAdmin":true}
+
+        💡 JSON to JavaScript Conversion
+            let parsedData = JSON.parse(jsonData); // Converts JSON String back to JS Object
+            console.log(parsedData.name); // John
+
+
+    REST API (Representational State Transfer API)
+       defination - A web architecture style used for communication between client and server.
+       Format - Uses HTTP methods (GET, POST, PUT, DELETE) to interact with resources. 
+       Data Type - Can return JSON, XML, HTML, or other formats.
+       Usage - Used to send/receive data between a client and a server.
+
+    How They Are Related
+    ✅ JavaScript Objects are used in JavaScript programs for data manipulation.
+    ✅ JSON is used to transfer data between JavaScript and APIs.
+    ✅ REST APIs often return JSON responses, which JavaScript can parse and use.
+
 
 ----------------------------------------------------------------------------------------------------------------------------
 Q.  prototype ?

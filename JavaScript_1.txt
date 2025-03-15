@@ -1,13 +1,125 @@
-Q. Execution context & call stack ?
+🤔 Execution context & call stack ?
+🅰️  📌 Why (Why do we need Execution Context & Call Stack?)
+        JavaScript is a single-threaded language, meaning it executes one operation at a time.
+         To efficiently manage function execution and keep track of which function is currently running, 
+         JavaScript uses Execution Context and Call Stack.
+        Without them, JavaScript wouldn't know which function to execute next or how to maintain function scopes.
 
+    📌 How (How does Execution Context & Call Stack work?)
+            Execution Context
+            When JavaScript executes a script, it creates an Execution Context to manage the execution of code.
+
+            Each Execution Context has two phases:
+            1️⃣ Creation Phase
+
+                Creates the Variable Environment (stores variables & functions).
+                Sets up the Lexical Environment (scopes & references).
+                Sets this keyword based on the context.
+
+            2️⃣ Execution Phase
+
+                Assigns values to variables.
+                Executes function calls & statements.
+
+            Call Stack
+            The Call Stack is a stack data structure that follows LIFO (Last In, First Out) to manage function execution.
+
+            When a function is called, its Execution Context is pushed onto the Call Stack.
+            When the function completes, it is popped off the stack.
+            If a function calls another function, the new function’s Execution Context is pushed on top.
+
+            Example : function first() {
+                            console.log("First Function");
+                            second();
+                        }
+                        function second() {
+                            console.log("Second Function");
+                            third();
+                        }
+                        function third() {
+                            console.log("Third Function");
+                        }
+                        first();
+
+            Call Stack Flow:
+
+                first() is called → first Execution Context is pushed.
+                Inside first(), second() is called → second Execution Context is pushed.
+                Inside second(), third() is called → third Execution Context is pushed.
+                third() completes → Removed from the stack.
+                second() completes → Removed from the stack.
+                first() completes → Removed from the stack.
+                The stack is now empty.
+
+    📌 What of execution context & call stack ?
+    
+    The Execution Context manages function execution (GEC, FEC).
+    The Call Stack maintains the order of function calls.
+
+    ⚠️ Edge Cases / Corner Cases
+
+        Stack Overflow (Infinite Recursion)
+        Asynchronous Functions & Call Stack : JavaScript uses the Event Loop & Callback Queue for asynchronous operations.
+        Lexical Scope & Closures : Nested functions can retain access to outer function variables.
 ----------------------------------------------------------------------------------------------------------------------------
 Q. Hoisting var, let, const, temporal dead zone ?
+   
 
 ----------------------------------------------------------------------------------------------------------------------------
 Q. Window & this keyword ?
 
 ----------------------------------------------------------------------------------------------------------------------------
-Q. undefined vs not defined vs null ?
+🤔 undefined vs not defined vs null ?
+🅰️   📌 why ?
+        JavaScript has multiple ways to represent missing or uninitialized values,
+        and understanding the differences between them helps in debugging and avoiding runtime errors. 
+        Using the wrong type can lead to unexpected behaviors.
+
+    📌 how ?
+        ✅undefined
+        A variable is declared but not assigned a value.
+        Functions without a return statement return undefined by default.
+        Accessing an object property that doesn’t exist returns undefined.
+
+        ✅not defined
+        A variable is not declared at all.
+        Accessing a variable that has never been declared will throw a ReferenceError.
+
+        ✅null
+        null is an explicit assignment to indicate "no value".
+        It must be manually assigned to a variable.
+        Often used to reset a variable or indicate missing values in databases.
+
+        🔥 Edge Cases / Corner Cases
+
+            console.log(typeof undefined); // "undefined"
+            console.log(typeof null); // "object" (historical JS bug)
+            console.log(typeof x); // "undefined" (if declared but uninitialized)
+            console.log(typeof notDeclaredVariable); // "undefined" (no ReferenceError)
+
+            The reason typeof notDeclaredVariable returns "undefined" instead of throwing a ReferenceError is due to ECMAScript specification design.
+            This behavior was intentionally introduced to make JavaScript more fault-tolerant.
+
+            Early versions of JavaScript needed fault tolerance
+
+            In early JavaScript implementations, encountering an undeclared variable would have caused a crash.
+            Allowing typeof to return "undefined" instead of throwing an error prevented unnecessary runtime failures.
+
+            console.log(typeof undeclaredVar); // ✅ "undefined"
+            console.log(undeclaredVar); // ❌ ReferenceError: undeclaredVar is not defined
+
+
+
+            console.log(null == undefined); // true (loose equality)
+            Because JavaScript considers them both "empty" values and treats them as equal in loose comparisons.
+            console.log(null === undefined); // false (strict equality)
+            console.log(null == false); // false
+            console.log(undefined == false); // false
+            console.log(null == 0); // false
+            console.log(undefined == 0); // false
+
+            JSON.stringify({ a: null, b: undefined });    // '{"a":null}' (undefined is removed!)
+           
 
 ----------------------------------------------------------------------------------------------------------------------------
 Q. scope, scope chain, lexical env ?
