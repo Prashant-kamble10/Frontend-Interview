@@ -9,8 +9,9 @@
     O(sqrt n)
 ------------------------------------------------------------------------------------
 🤔 Big O notation ?
-🅰️ In an interview when you have been asked to anylse time complexity for a piece of code, so you will answer the time complexity in big O notation format instead of
-saying in 2sec, 3sec etc
+🅰️ In an interview when you have been asked to anylse time complexity for a piece of code, 
+        so you will answer the time complexity in big O notation format instead of
+        saying in 2sec, 3sec etc
 
 Big O notation -> O(time taken)
 ------------------------------------------------------------------------------------
