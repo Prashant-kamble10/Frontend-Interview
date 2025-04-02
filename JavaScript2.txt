@@ -57,14 +57,33 @@
             Chakra (Microsoft Edge, older version) – Used in older Microsoft Edge versions
 
 ----------------------------------------------------------------------------------------------------------------------------
-Q. TIme & space complexity ?
+🤔 TIme & space complexity ?
+ 
+🅰️     📌 Time complexity != time taken by a piece of code to execute
+                Defination =  Rate at which time taken increases w.r.t to input size.
 
+                single loop : O(n)
+                nested loop : O(n2)
+                nested inside nested loop : O(n3)
+                O(log (n))
+                O(sqrt n)
+    
+        📌 space complexity can also be defined by Big O notation,
+                Auxiliary space (space that you take to solve the problem) + input space(the space you take to store the input) 
+
+                function sum(a,b){
+                        c = a + b 
+
+                        c = Auxiliary space
+                        a & b = input space (Never do anything to input space, never manipulate)
+                }
 ----------------------------------------------------------------------------------------------------------------------------
 Q. type coercin ?
 
 ----------------------------------------------------------------------------------------------------------------------------
-Q. Deep copy vs shallow copy ?
+🤔 Deep copy vs shallow copy ?
 
+🅰️ 
 ----------------------------------------------------------------------------------------------------------------------------
 Q. OOPS, classes, constructor ?
 
@@ -117,16 +136,72 @@ Q.  pollyfills ?
 Q.  spread vs Rest operator, optional chaining, nullish coalescing operator ?
 
 ----------------------------------------------------------------------------------------------------------------------------
-Q. Destructuring in object & array ?
+🤔 Destructuring in object & array ?
 
+🅰️ Destructuring allows you to extract values from arrays or objects into variables in a clean and concise way.
+
+        🔹 Object Destructuring
+
+                ✅const person = { name: "Alice", age: 25 };
+
+                        const { name, age } = person;
+                        console.log(name); // "Alice"
+                        console.log(age);  // 25
+
+                ✅const person = { name: "Alice", age: 25, country: "USA" };
+
+                        const { name, ...rest } = person;
+                        console.log(rest); // { age: 25, country: "USA" }
+
+        🔹 Array Destructuring
+
+                ✅ const numbers = [1, 2, 3];
+
+                        const [first, second] = numbers;
+                        console.log(first); // 1
+                        console.log(second); // 2
+
+                ✅const numbers = [1, 2, 3];
+
+                        const [, second, third] = numbers;
+                        console.log(second); // 2
+                        console.log(third);  // 3
+
+                ✅const numbers = [1, 2, 3, 4, 5];
+
+                        const [first, ...rest] = numbers;
+                        console.log(first); // 1
+                        console.log(rest);  // [2, 3, 4, 5]
+
+                ✅ let a = 10, b = 20;
+                        [a, b] = [b, a];
+
+                        console.log(a); // 20
+                        console.log(b); // 10
 ----------------------------------------------------------------------------------------------------------------------------
 Q. Array like objects ? How to convert into Array ?
 
 ----------------------------------------------------------------------------------------------------------------------------
-Q. for loop, while loop, Do while, for...of, foor...in, forEach loop, map function ?
+Q. for loop, while loop, Do while, for...of, for...in, forEach loop, map function ?
 
 ------------------------------------------------------------------------------------------------------------------------------
-Q. syntax error, referenece error, TypeError, range error ?
+🤔 syntax error, referenece error, TypeError, range error ?
+
+🅰️     ✅ Syntax Error
+                When? Happens when the JavaScript code is not written correctly (violates language rules).
+                Why? The interpreter is unable to parse the code.
+
+        ✅ Reference Error
+                When? Occurs when trying to use a variable that hasn’t been declared.
+                Why? The variable is undefined or does not exist in the current scope.
+
+        ✅ Type Error
+                When? Happens when performing an operation on a value of the wrong type.
+                Why? You’re trying to use a method or property that does not exist on that type.
+
+        ✅ Range Error
+                When? Occurs when a value is outside the allowed range.
+                Why? Examples include calling functions with invalid arguments.
 
 -------------------------------------------------------------------------------------------------------------------------------
 Q. throw statement, try {} catch(){ }, finally{ }

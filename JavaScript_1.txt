@@ -132,8 +132,51 @@ Book through hoil
 Q. function scope, block scope, global scope ?
 
 ----------------------------------------------------------------------------------------------------------------------------
-Q. Difference  between closure and scope ?
+🤔 Difference  between closure and scope ?
+🅰️  ✅ Scope:
+        Scope determines where variables are accessible in your code. It defines the lifetime and visibility of a variable.
+        Global Scope → Variables declared outside any function are accessible everywhere.
+        Function Scope → Variables declared inside a function are only accessible within that function.
+        Block Scope (Introduced with let & const) → Variables inside {} blocks are limited to that block.
 
+    ✅ Closure:
+        A closure is a function that remembers the variables from its parent scope, even after the parent function has executed.
+        Closures help in data encapsulation and creating private variables.
+        It allows functions to maintain state between executions.
+
+    🔥 Edge Cases / Corner Cases
+         🔹   Edge Case 1: Closure Retaining Stale Data, Issue: Each instance of createCounter() has its own closure.
+
+                    function createCounter() {
+                    let count = 0;
+                    return function () {
+                        count++;
+                        return count;
+                    };
+                    }
+
+                const counter1 = createCounter();
+                const counter2 = createCounter();
+
+                console.log(counter1()); // 1 (same closure share state)
+                console.log(counter1()); // 2
+
+                console.log(counter2()); // 1 (Separate closure, doesn't share state)
+
+          🔹 Edge Case 2: Loop with var in Closures
+
+                    for (var i = 0; i < 3; i++) {
+                        setTimeout(() => console.log(i), 1000);
+                    }
+
+                    3
+                    3
+                    3
+         
+                    Because var is function-scoped, so the final value of i (which is 3) is used for all closures.
+
+
+          
 ----------------------------------------------------------------------------------------------------------------------------
 Q. closures, closures with setTimeout, setInterval, Tust Issues with setTimeout ?
 
@@ -189,11 +232,85 @@ Q. Promises, promises stage/state ?
 Q. promise chain ?
 
 ----------------------------------------------------------------------------------------------------------------------------
-Q. Promise API ?
+🤔 Promise API ?
 
-Book through hoil (he already kelay)
-----------------------------------------------------------------------------------------------------------------------------
-Q. async await ?
+🅰️      let myPromise = new Promise((resolve, reject)=>{
 
-Book through hoil (he already kelay)
-----------------------------------------------------------------------------------------------------------------------------
+        let success =  true;
+
+        console.log("before promise")
+        setTimeout(()=>{
+            if(success){
+                resolve("operation succesfully")
+                console.log("In promise")
+            }else{
+                reject("operation failed")
+            }
+        }, 5000)
+
+        console.log("After promise")
+        })
+
+        myPromise.then((result) => console.log(result))      // operation succesfully
+        .catch((error)=> console.log(error))                 // operation failed
+
+        // PROGRAM FLOW :-
+
+        // before promise
+        // After promise
+        // operation successfull
+
+        // Async/Await is Better for simplicity and Readablility: If you are working with asynchronous code that involves sequential operation,
+         async/await id generally the preferred approach because it makes the code look like its synchronous (which is easier to follow and debug)
+
+        // Promise are useful for parallelism and complex flows: If you're dealing with multiple asynchronous operation that don't depend on each other
+         (or need to run in parallel), Promises and methods like Promise.all() or Promise.race() are label.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+🤔 async await ?
+
+🅰️  let myPromise = new Promise((resolve, reject) => {
+
+        let success = true;
+
+        setTimeout(() => {
+          if (success) {
+            resolve("operation successfull");
+          } else {
+            reject("operation failed");
+          }
+        }, 5000);
+      });
+
+      myPromise
+        .then((result) => console.log(result)) // "operation successfull"
+        .catch((error) => console.log(error)); // operation failed
+
+      async function asyncFunction() {
+        try {
+          console.log("Before async await");
+
+          let result = await myPromise; //  waits for the promise to resolve or reject
+          console.log("After1 async await");
+          console.log(result); // operation successfull
+          console.log("After2 async await");
+        } catch (error) {
+          console.log(error); // operation failed
+        }
+      }
+
+      asyncFunction();
+
+      // PROGRAM FLOW:
+      
+      // before async await
+      // operation successfull
+      // After1 async await
+      // operation successfull
+      // After2 async await
+
+      // Async/Await is Better for simplicity and Readablility: If you are working with asynchronous code that involves sequential operation,
+       async/await id generally the preferred approach because it makes the code look like its synchronous (which is easier to follow and debug)
+
+      // Promise are useful for parallelism and complex flows: If you're dealing with multiple asynchronous operation that don't 
+      depend on each other (or need to run in parallel), Promises and methods like Promise.all() or Promise.race() are label.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

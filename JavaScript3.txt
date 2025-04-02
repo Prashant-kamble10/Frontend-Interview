@@ -34,10 +34,44 @@ Q. HTML vs/& DOM ?
 Q. DOM VS virtual DOM ?
 
 -------------------------------------------------------------------------------------------------------------------------------------
-Q. InnerHTML vs InnerText ?
+🤔 InnerHTML vs InnerText ?
 
+🅰️  innerHTML and innerText are used to get or set content inside an element. 
+    innerHTML allows us to work with HTML tags and render them, whereas innerText only deals with plain text and does not parse HTML.
+    A major edge case is security: using innerHTML with untrusted input can lead to XSS attacks.
+    Another consideration is performance—innerText triggers reflow (causing layout re calculation)
+
+     ✅<div id="example">
+            <b>Hello</b> World!
+        </div>
+
+        let div = document.getElementById("example");
+        console.log(div.innerHTML); // "<b>Hello</b> World!" (Includes HTML tags)
+        console.log(div.innerText); // "Hello World!" (Only visible text)
+
+
+    ✅ document.getElementById("demo").innerHTML = "<h1>New Content</h1>";
+          Result in Browser:
+            🖥 New Content (Rendered as an <h1> tag)
+
+        document.getElementById("demo").innerText = "<h1>New Content</h1>";
+            Result in Browser:
+            🖥 <h1>New Content</h1> (Displayed as plain text)
 -------------------------------------------------------------------------------------------------------------------------------------
-Q. local storage vs session storage ?
+🤔 local storage vs session storage ?
+
+🅰️ Local Storage and Session Storage are both used for storing key-value pairs in the browser,
+    but they differ in scope and lifespan. Local Storage retains data indefinitely, even after the browser is closed,
+    while Session Storage only persists as long as the tab is open. Both have a 5MB limit and are restricted to the same domain. 
+    A key edge case is that they are synchronous and may impact performance when handling large amounts of data. 
+    If you frequently access large data from local storage, it may slow down page performance.
+
+    Visualizing Data Persistence
+    📌 Local Storage (Persistent Data)
+    [Open Tab] → Save Data → [Close Tab] → [Reopen] ✅ Data is still available
+
+    📌 Session Storage (Temporary Data)
+    [Open Tab] → Save Data → [Close Tab] ❌ Data is lost
 
 -------------------------------------------------------------------------------------------------------------------------------------
 Q. Debouncing ?
