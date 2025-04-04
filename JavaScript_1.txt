@@ -62,9 +62,448 @@
         Asynchronous Functions & Call Stack : JavaScript uses the Event Loop & Callback Queue for asynchronous operations.
         Lexical Scope & Closures : Nested functions can retain access to outer function variables.
 ----------------------------------------------------------------------------------------------------------------------------
-Q. Hoisting var, let, const, temporal dead zone ?
+🤔 Hoisting var, let, const, temporal dead zone ?
  
- Book through hoil
+🅰️ Hoisting:- By which you can access variable & functions even before you have initialized it or you have put some value in it,
+                you can access it without any error.
+
+                ✅ code snippet 1
+                      var x = 7
+
+                        function getName(){
+                            console.log("Namaste Javascript")
+                        }
+
+                        getName()
+                        console.log(x)    
+
+                        output :
+                        Namaste Javascript
+                        7
+
+                ✅ code snippet 2
+
+                        getName()
+                        console.log(x)
+
+                        var x = 7
+
+                        function getName(){
+                            console.log("Namaste Javascript")
+                        }
+
+                          output :
+                          Namaste Javascript
+                          undefined
+
+                ✅ code snippet 3
+
+                          getName()
+                          console.log(x)
+
+                          function getName(){
+                              console.log("Namaste Javascript")
+                          }
+
+                          output :
+                          Namaste Javascript
+                          ReferenceError: x is not defined
+
+                ✅ code snippet 4
+
+                          var x = 7
+
+                            function getName(){
+                                console.log("Namaste Javascript")
+                            }
+
+                            console.log(getName)
+
+                            or 
+
+                              console.log(getName)
+
+                              var x = 7
+
+                              function getName(){
+                                  console.log("Namaste Javascript")
+                              }
+
+
+                            output :
+                            ƒ getName(){
+                                  console.log("Namaste Javascript")
+                              }
+
+
+
+                ✅ code snippet 5
+
+                              getName()
+                              console.log(x)
+                              console.log(getName)
+
+                              var x = 7
+
+                              function getName(){
+                                  console.log("Namaste Javascript")
+                              }
+
+                               output :
+                               Namaste Javascript
+                                undefined
+                                ƒ getName(){
+                                  console.log("Namaste Javascript")
+                              }
+
+
+                ✅ code snippet 6
+
+                                  getName()
+                                  console.log(x)
+                                  console.log(getName)
+
+                                  var x = 7
+
+                                  var getName = ()=> {   
+                                      console.log("Namaste Javascript")
+                                  }
+
+                                   output :
+                                   TypeError: getName is not a function
+                                   Reason = In this getName is arrow function, so here it behaves like a variable,
+                                            so in memory creation getName = undefined 
+
+                ✅ code snippet 7
+
+                                  getName()
+                                  console.log(x)
+                                  console.log(getName)
+
+                                  var x = 7
+
+                                  var getName = function() {   
+                                      console.log("Namaste Javascript")
+                                  }
+
+                                  output :
+                                   TypeError: getName is not a function
+                                   Reason = In this getName is arrow function, so here it behaves like a variable,
+                                            so in memory creation getName = undefined 
+
+                ✅ code snippet 8
+
+                                    getName()
+                                    console.log(x)
+                                    console.log(getName)
+
+                                    var x = 7
+
+                                    function getName() {
+                                        console.log("Namaste Javascript")
+                                    }
+
+                                    output :
+                                    Namaste Javascript
+                                    undefined
+                                    ƒ getName(){
+                                        console.log("Namaste Javascript")
+                                    }
+
+                ✅ code snippet 9
+                                  
+                                  var name = "vinod"
+                                  console.log(name)      // vinod
+
+                                  let name = "bahadur"
+                                  console.log(name)      // bahadur
+
+                                  const name = "thapa"
+                                  console.log(name)      // thapa
+
+                ✅ code snippet 10
+                                  
+                                  var name = "vinod"
+                                  var name = "thapa"
+                                  console.log(name)      // thapa
+
+                                  let name = "vinod"
+                                  let name = "thapa"
+                                  console.log(name)      // SyntaxError: Identifier 'name' has already been declared
+                                  // you can declare the same variable using "let" more than once in the same scope
+
+                                   let name = "vinod"
+                                  name = "thapa"
+                                  console.log(name)       // thapa
+
+                                  const name = "vinod"
+                                  const name = "thapa"
+                                  console.log(name)       // SyntaxError: Identifier 'name' has already been declared
+
+                                  const name = "vinod"
+                                   name = "thapa"
+                                  console.log(name)       // TypeError: Assignment to constant variable.
+
+                ✅ code snippet 11
+
+                                  function modJS(love){
+                                    if(love){
+                                        let name = "vinod"
+                                        const sname = "thapa"
+                                        console.log(name + sname)     // vinodthapa
+                                    }                                  
+                                  }
+                                  
+                                  modJS(true)
+
+
+                                  function modJS(love){
+                                    if(love){
+                                        var name = "vinod"
+                                        var sname = "thapa"
+                                        console.log(name + sname)     // vinodthapa
+                                    }                                  
+                                  }
+                                  
+                                  modJS(true)
+
+
+                                  function modJS(love){
+                                    if(love){
+                                        var name = "vinod"
+                                        var sname = "thapa"                                        
+                                    }      
+                                    console.log(name + sname)     // vinodthapa                            
+                                  }
+                                  
+                                  modJS(true)
+
+
+                                  function modJS(love){
+                                    if(love){
+                                        let name = "vinod"
+                                        const sname = "thapa"                                        
+                                    }      
+                                    console.log(name + sname)     // ReferenceError: name is not defined                           
+                                  }
+                                  
+                                  modJS(true)
+
+                ✅ code snippet 12
+
+                                  var whoWins = "India"
+
+                                    if(true){
+                                        var whoWins = "NZ"
+                                        console.log(whoWins)       // NZ
+                                    }
+                                    console.log(whoWins)            // NZ
+
+
+                                  let whoWins = "India"
+
+                                    if(true){
+                                        let whoWins = "NZ"
+                                        console.log(whoWins)       // NZ
+                                    }
+                                    console.log(whoWins)            // India
+
+
+                                  const whoWins = "India"
+
+                                    if(true){
+                                        const whoWins = "NZ"
+                                        console.log(whoWins)       // NZ
+                                    }
+                                    console.log(whoWins)            // India
+
+                  ✅ code snippet 13
+
+                                    console.log(b)        // undefined
+                                      let a = 100
+                                      var b = 100
+
+                                    console.log(a)        // ReferenceError: Cannot access 'a' before initialization
+                                      let a = 100
+                                      var b = 100
+                                    
+                                      let a = 100
+                                      console.log(a)        // 100
+                                      var b = 100
+
+  Temporal Dead Zone = is the time since when this, let a / const xyz was hoisted & till it is initialised same value.
+                          time btn both of this id known as "temporal dead zone"
+
+                          whenever you access a variable in temporal dead zone it throws "Reference error"
+
+                          both, let a & var b memory was allocated but var b was attached to global object,
+                          let a & const xyz they are also allocated memory & that is what is called Hoisting,
+                          but, they are stored in diff memory space & you cannot access this memory space before you
+                          have put any value in them/ Initialised/ decalred. 
+                                
+                 ✅ code snippet 14
+
+                                    console.log(x)      // ReferenceError: x is not defined
+                                    let a = 100
+                                    var b = 100
+
+                                    let a = 10
+                                    let a = 100
+                                    console.log(a)      // SyntaxError: Identifier 'a' has already been declared
+
+                                    let a = 10
+                                    let a = 100
+                                    console.log(a)      // SyntaxError: Identifier 'a' has already been declared
+                                    
+                                    let a = 10
+                                     a = 100
+                                    console.log(a)      // 100
+
+                                   let a = 10
+                                    var b =  100
+                                    var b = 1000
+                                    console.log(b)     // 1000
+
+                                    let a                    -> declare
+                                    const b =  100
+                                    a = 1000                  -> Initialize
+                                    console.log(a)      // 1000
+
+                                    const b;
+                                    b = 1000
+                                    console.log(b)     // SyntaxError: Missing initializer in const declaration
+
+                                    const b = 10
+                                    b = 1000
+                                    console.log(b)    // TypeError: Assignment to constant variable.
+
+                                    const b = 1000
+                                    console.log(b)     // 1000
+
+                  ✅ code snippet 15
+                                    {
+                                      var a = 10;  // a hoisted in global space
+                                      let b = 20;  // b & c are hoisted in different memory space
+                                      const c =30
+                                      
+                                      console.log(a)      // 10
+                                      console.log(b)      // 20
+                                      console.log(c)      // 30
+                                  }
+
+                                  console.log(a)      // 10
+                                  console.log(b)      ReferenceError: b is not defined
+                                  console.log(c)  
+
+                  ✅ code snippet 16  (shadowing in JS)
+
+                                    var a = 100; (both var a, are pointing to same global scope)
+                                      {
+                                          var a = 10;
+                                          let b = 20;
+                                          const c = 30;
+                                          console.log(a)      // 10
+                                      }
+                                      console.log(a)          // 10
+
+                                      let b = 100;     // here b has a script scope
+                                          {
+                                              var a = 10;    //  here a has global scope
+                                              let b = 20;    // here b has block scope
+                                              const c = 30;  // here c has block scope
+                                              console.log(b)    // 20
+                                          }
+                                          console.log(b)      // 100
+
+                                      const c = 100;
+                                            {
+                                                var a = 10;
+                                                let b = 20;
+                                                const c = 30;
+                                                console.log(c)    // 30
+                                            }
+                                            console.log(c)        // 100
+
+
+                                        const c = 100;
+                                            function x(){
+                                                const c = 30
+                                                console.log(c)    // 30
+                                            }
+
+                                            x()
+                                            console.log(c)          // 100
+
+                    ✅ code snippet 16  (illegal shadowing in JS)
+
+                                        var a = 20
+                                        {
+                                          var a = 20   ✅
+                                        }
+
+
+                                        let a = 20
+                                        {
+                                          var a = 20   ❌  // syntax error : Identifier a is already been declared.
+                                          var crossing this block scope interfying with let, var is always attached to 
+                                          global scope, no matter where it is declare & also var is a function scope.
+                                        }
+
+                                        let a = 20
+                                        function x(){
+                                          var a = 20          ✅
+                                        }
+
+                                        let a = 20;
+                                        {
+                                          let a = 20;         ✅
+                                        }
+
+
+                                        var a = 20;
+                                        {
+                                          let a = 20;         ✅
+                                        }
+
+                      ✅ code snippet 17
+
+                                        const a = 20
+                                            {
+                                                const a = 100
+                                                {
+                                                    const a = 200
+                                                    console.log(a)    // 200
+                                                }
+                                            }
+                                      
+
+                                      const a = 20
+                                            {
+                                                const a = 100
+                                                {
+                                                    const a = 200
+                                                    
+                                                }
+                                                console.log(a)          // 100
+                                            }
+
+
+                                      const a = 20
+                                            {
+                                                const a = 100
+                                                {
+                                                    console.log(a)          // 100    
+                                                }         
+                                            }
+
+                                       const a = 20
+                                            {
+                                                const a = 100
+                                                {
+                                                    const a = 200
+                                                }
+                                            }
+                                                console.log(a)         // 20
 
 ----------------------------------------------------------------------------------------------------------------------------
 Q. Window & this keyword ?
@@ -131,6 +570,8 @@ Book through hoil
 ----------------------------------------------------------------------------------------------------------------------------
 Q. function scope, block scope, global scope ?
 
+var is function scoped
+let & const is block scoped
 ----------------------------------------------------------------------------------------------------------------------------
 🤔 Difference  between closure and scope ?
 🅰️  ✅ Scope:
