@@ -654,7 +654,7 @@ Book through hoil
           console.log(x); // ✅ Works! (Function Scoped)
           }
           test();
-          
+
 
       let and const respect block scope
             function test() {
@@ -716,11 +716,65 @@ Q. closures, closures with setTimeout, setInterval, Tust Issues with setTimeout 
 Book through hoil
 
 ----------------------------------------------------------------------------------------------------------------------------
-Q. Normal function vs arrow function ?
+🤔 Normal function vs arrow function ?
 
+🅰️    ✅ code snippet 1  (normal function/ function statement/ function declaration)
+            a()   ✅
+           function a(){
+                console.log("a called")
+            }
+
+      ✅ code snippet 2  (arrow function/ function expression/ function acts like a value)
+
+              b()      ❌
+              var b = function(){
+                    console.log("b callled")      // TypeError: b is not a function 
+                }
+
+              ba()     ❌
+              var ba = ()=>{
+                  console.log("b callled")
+              }
+
+              
+
+        Difference btn code snippet 1 & 2 is "Hoisting", code snippet 2 behave like a variable having a value.
+        see the function calling position in both the code snippet.
 ----------------------------------------------------------------------------------------------------------------------------
 🤔. types of function ?
-🅰️ Void function: functions which does not return anything, they just display value.
+🅰️  🔴Void function: functions which does not return anything, they just display value.
+     🔴anonymous Function
+
+        eg: function(){
+                  
+                }
+
+    🔴first class function (eg: shown in respective question )
+    🔴call back function  (eg: shown in respective question )
+    🔴Higher order function  (eg: shown in respective question )
+    🔴arrow function (eg: shown in respective question )
+    🔴pure function  (eg: shown in respective question )
+    🔴function statement == function declaration (eg: shown in respective question )
+    🔴function expression (eg: shown in respective question )
+    🔴Named function expression
+
+        eg: var b = function xyz(){
+                    console.log("function called")
+                }
+
+                b()
+                xyz()    // ReferenceError: xyz is not defined
+
+
+        eg: var b = function xyz(){
+                    console.log(xyz)     // ƒ xyz(){
+                                         //  console.log(xyz)
+                                         //    }
+                  }
+
+                 b() 
+
+
 
 ----------------------------------------------------------------------------------------------------------------------------
 Q. How many ways you can pass arguments to the functions ?
