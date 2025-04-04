@@ -632,10 +632,38 @@ Book through hoil
                           console.log(b)   // ReferenceError: b is not defined
           
 ----------------------------------------------------------------------------------------------------------------------------
-Q. function scope, block scope, global scope ?
+🤔 function scope, block scope, global scope ?
 
-var is function scoped
-let & const is block scoped
+🅰️  var is function scoped
+    let & const is block scoped
+
+    In JavaScript, variables have three types of scope: Global Scope, Function Scope, and Block Scope. 
+    Global variables can be accessed anywhere, Function Scope means a variable is accessible only inside a function, 
+    and Block Scope applies to variables declared inside {} using let or const.
+
+    Edge Case: If a global variable is declared using var, it will be added to the window object in browsers.
+    Edge Case: If a variable is declared with var inside a function, it will still have function scope but will 
+                not be block-scoped inside loops or conditionals.
+    
+
+      var inside a block still has function scope, not block scope
+          function test() {
+          if (true) {
+              var x = 10;
+          }
+          console.log(x); // ✅ Works! (Function Scoped)
+          }
+          test();
+          
+
+      let and const respect block scope
+            function test() {
+            if (true) {
+                let y = 20;
+            }
+            console.log(y); // ❌ ReferenceError: y is not defined
+        }
+        test();
 ----------------------------------------------------------------------------------------------------------------------------
 🤔 Difference  between closure and scope ?
 🅰️  ✅ Scope:
