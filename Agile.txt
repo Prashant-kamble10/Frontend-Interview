@@ -52,3 +52,5 @@ I need to explain to an interviewer " Difference between HTML & XHTML " ?
 can you tell me how should I explain to him? 
 also explain it in why, how, what terminology to me ?
 what would be the edge cases/corner cases " Difference between HTML & XHTML " ?
+
+https://chatgpt.com/share/67f2a7af-2830-8002-8b49-99c98d0f7464
