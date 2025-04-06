@@ -777,13 +777,156 @@ Book through hoil
 
 
 ----------------------------------------------------------------------------------------------------------------------------
-Q. How many ways you can pass arguments to the functions ?
+🤔 How many ways you can pass arguments to the functions ?
+🅰️   ✅ Positional Arguments
+            Arguments are passed based on the position they appear in the function call.
+            The first value goes to the first parameter, second to the second, and so on.
+
+                function add(a, b) {
+                    return a + b;
+                    }
+                    add(2, 3); // 2 is assigned to a, 3 to b
+
+      ✅ Default Parameters - Used to provide default values for parameters if no argument (or undefined) is passed.
+                 
+                 function greet(name = "Guest") {
+                    console.log(`Hello, ${name}`);
+                    }
+                    greet();       // Hello, Guest
+                    greet("Sam");  // Hello, Sam
+
+        ✅  Rest Parameters - Allows a function to accept an indefinite number of arguments as an array. Syntax: ...rest
+
+                    function sum(...numbers) {
+                        return numbers.reduce((a, b) => a + b, 0);
+                        }
+                        sum(1, 2, 3); // 6
+
+        ✅ Arguments Object
+                An array-like object available inside functions (non-arrow functions).
+                Contains all arguments passed to the function, regardless of the defined parameters.
+                ❌ Not allowed in arrow function.
+                
+                It's a built-in object available inside non-arrow functions.
+                It contains an array-like collection of all arguments passed to the function, regardless of how many parameters the function declares.
+
+                function showArguments() {
+                    console.log(arguments);       // [Arguments] { '0': 'apple', '1': 'banana', '2': 'cherry' }
+                    }
+
+                    showArguments("apple", "banana", "cherry");
+
+
+                function showArgs() {
+                    for (let i = 0; i < arguments.length; i++) {
+                        console.log(arguments[i]);
+                    }
+                    }
+                    showArgs("a", "b", "c");
+
+        ✅  Object as Parameter (Named Arguments)
+                A single object is passed to the function with named properties.
+                Useful for functions with many optional parameters.
+
+                function createUser({ name, age }) {
+                    console.log(name, age);
+                    }
+                    createUser({ name: "John", age: 25 });
+
+        ✅  Array as Parameter
+                Pass an array directly and access values via indexing or destructuring.
+
+                function processData([a, b]) {
+                        console.log(a, b);
+                        }
+                        processData([10, 20]); // 10 20
+
+        ✅ Function as Argument (Callback)
+                Functions can accept other functions as arguments and invoke them.
+
+                function executor(callback) {
+                        callback();
+                        }
+                        executor(() => console.log("Hello from callback"));
 
 -----------------------------------------------------------------------------------------------------------------------------
-Q. How to use default parameters in function ?
+🤔 How to use default parameters in function ?
 
+🅰️ Alraedy Done.
 ------------------------------------------------------------------------------------------------------------------------------
-Q. pure vs Impure function ?
+🤔 pure vs Impure function ?
+
+🅰️     ✅ Pure Functions
+
+            Always returns the same output for the same input.
+            Does not cause any side effects (e.g., modifying global variables, DOM, files, etc.).
+
+            characteristics:
+            Deterministic: Same input → Same output.
+            No side effects: Doesn’t change external state.
+            Testable and predictable.
+
+              function add(a, b) {
+                    return a + b;
+                    }
+
+            add(2, 3) will always return 5, no matter when or where it's called.
+
+        ✅ Impure Functions
+
+              May return different outputs for the same inputs.
+              Causes side effects — like modifying external variables, I/O, or state.
+
+               Side Effects Examples:
+                    Changing a global variable
+                    Logging to console
+                    Writing to a file or DB
+                    Fetching API data
+                    Modifying DOM
+
+                let count = 0;
+                    function increment() {
+                    count++;
+                    return count;
+                    }
+
+                Calling increment() will give different results each time because it mutates external state (count).
+
+                function getDate() {
+                    return new Date();
+                    }
+
+                Seems pure, but returns different output every time → impure.
+
+                function square(x) {
+                    console.log(x); // side effect
+                    return x * x;
+                    }
+
+                Output is consistent, but console.log is a side effect → impure.
+
+                function double(arr) {
+                    arr[0] = arr[0] * 2;
+                    return arr;
+                    }
+
+                Modifies input array → side effect → impure.
+
+                function getRandom() {
+                    return Math.random();
+                    }
+
+                Non-deterministic output → impure.
+
+            ✅ Bonus Tip: How to Spot a Pure Function?
+
+                Ask yourself:
+                ❓ Does it depend only on its inputs?
+                ❓ Does it modify anything outside its scope?
+                ❓ Will it always give the same result for the same input?
+                        If YES → Pure
+                        If NO → Impure
+
 
 ------------------------------------------------------------------------------------------------------------------------------
 Q. first class function ?
@@ -804,7 +947,57 @@ Q. map, reduce, filter ?
 
 Book through hoil
 ----------------------------------------------------------------------------------------------------------------------------
-Q. IIFE ?
+🤔  IIFE ?
+
+🅰️   ✅ What is an IIFE?
+        IIFE stands for Immediately Invoked Function Expression.
+        It is a function that runs as soon as it is defined.
+        It’s a design pattern used to create a private scope in JavaScript.
+
+    ✅ How does it work?
+          (function() {
+            // code here
+            })();
+
+            (() => {
+                // code here
+                })();
+
+            The outer parentheses () turn the function declaration into an expression.
+            The second () immediately invokes the function.
+
+     ✅ Why use an IIFE?
+             Create private scope	Avoid polluting the global namespace
+             Encapsulation	Encapsulate variables to avoid conflicts
+             Module pattern (pre-ES6)	Used to simulate modules before ES6 introduced import/export
+             Immediate execution	Useful for code that runs once (e.g., init setup)
+
+    ✅ When should you use IIFE?
+            When you want to execute code immediately during script load.
+            When you need to protect variables from leaking into the global scope.
+            In legacy JS (ES5 or earlier) where modules weren't available.
+            When writing a self-contained utility block or one-time setup code.
+
+    ⚠️ Edge Cases / Corner Cases with IIFE
+            1. Forgetting to wrap in parentheses
+                function() {
+                    // invalid syntax ❌    Fix: Wrap in () to make it a function expression.
+                    }();  
+
+            2. Arrow function IIFE and this context
+                (() => {
+                    console.log(this); // `this` is lexical, not dynamic
+                    })();
+
+                In arrow functions, this is not bound to the function — it takes this from the surrounding scope.
+
+            3. IIFE return value capturing
+                const result = (function(x, y) {
+                    return x + y;
+                    })(2, 3);
+
+                    console.log(result); // 5 
+                You can store the result of an IIFE in a variable.
 
 ----------------------------------------------------------------------------------------------------------------------------
 Q. Currying function ?

@@ -78,8 +78,57 @@
                         a & b = input space (Never do anything to input space, never manipulate)
                 }
 ----------------------------------------------------------------------------------------------------------------------------
-Q. type coercin ?
+🤔 type coercin ?
 
+🅰️ ✅ What is Type Coercion?
+        Type Coercion is JavaScript's automatic or implicit conversion of one data type to another.
+        JS is dynamically typed, so it tries to coerce values when operands are of different types.
+
+   ✅ How does it happen?
+        Implicit => JS auto-converts types during operations (+, ==, etc.)
+        Explicit => Developer manually converts types (e.g., Number(), String())
+
+        🔴 Implicit    '5' + 1     // '51' (number → string)
+                        '5' - 1     // 4   (string → number)
+                        true + 1    // 2   (boolean → number)
+                        null == 0   // false
+                        null == undefined // true
+
+        🔴 Explicit    Number('5');       // 5
+                        String(123);       // "123"
+                        Boolean(0);        // false
+
+     ⚠️ Edge / Corner Cases in Type Coercion
+             1. + is both numeric and string operator
+                       '5' + 1       // "51" (string)
+                        5 + '1'       // "51"
+                        5 + 1         // 6   (number)
+                If either operand is a string, it becomes a string concat!
+             
+             2. == vs === (loose vs strict equality)
+                        '0' == 0      // true  ❗ (coercion)
+                        '0' === 0     // false ✅ (no coercion)
+                        false == 0    // true
+                        false === 0   // false
+                Always prefer === to avoid coercion issues in comparisons.
+
+             3. Falsy values in boolean contexts
+                    value -> (0, null, undefined, ' ', Nan)  Boolean conversion -> false
+        
+             4. null and undefined
+                        null == undefined   // true ✅
+                        null === undefined  // false ❌
+                        null == 0           // false
+                        undefined == 0      // false
+             
+             5. NaN (Not a Number)
+                         NaN == NaN       // false ❌
+                        isNaN(NaN)       // true ✅
+                 Special case: NaN is not equal to itself.
+                 
+             💡 Interview Tip:
+                “Type coercion makes JS flexible, but also tricky. I always prefer === and
+                explicit conversions (Number(), Boolean(), String()) to avoid unexpected behavior.”
 ----------------------------------------------------------------------------------------------------------------------------
 🤔 Deep copy vs shallow copy ?
 
@@ -179,7 +228,28 @@ Q.  spread vs Rest operator, optional chaining, nullish coalescing operator ?
                         console.log(a); // 20
                         console.log(b); // 10
 ----------------------------------------------------------------------------------------------------------------------------
-Q. Array like objects ? How to convert into Array ?
+🤔 Array like objects ? How to convert into Array ?
+
+🅰️  ✅ What are Array-like Objects?
+        Objects that look like arrays but are not real arrays.
+        They have:
+        Indexed elements (e.g., obj[0], obj[1], ...)
+        A length property
+        But they do not have array methods like .push(), .map(), .filter(), etc.
+
+     ✅ How to Convert Array-like to Array
+          function demo() {
+                const argsArray = Array.from(arguments);
+                console.log(argsArray);                  // [1,2,3]
+                }
+
+
+                demo(1,2,3)
+
+           function demo() {
+                const argsArray = [...arguments];
+                console.log(argsArray);
+                }
 
 ----------------------------------------------------------------------------------------------------------------------------
 Q. for loop, while loop, Do while, for...of, for...in, forEach loop, map function ?
