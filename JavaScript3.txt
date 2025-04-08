@@ -1,37 +1,421 @@
-Q. object, arrays & strings in built methods ?
+🤔 object, arrays & strings in built methods ?
+
+🅰️  https://overapi.com/javascript
+    📌 Array Methods
+            concat()
+            indexOf()
+            join()
+            lastIndexOf()
+            pop()
+            push()
+            reverse()
+            shift()
+            slice()
+            sort()
+            splice()
+            toString()
+            unshift()
+            valueOf()
+    📌  Array Properties
+            constructor
+            length
+            prototype
+
+    📌 String Methods
+            charAt()
+            charCodeAt()
+            concat()
+            fromCharCode()
+            indexOf()
+            lastIndexOf()
+            match()
+            replace()
+            search()
+            slice()
+            split()
+            substr()
+            substring()
+            toLowerCase()
+            toUpperCase()
+            valueOf()
+    📌 String Properties
+            constructor
+            length
+            prototype
+
+    📌 Date Methods
+            getDate()
+            getDay()
+            getFullYear()
+            getHours()
+            getMilliseconds()
+            getMinutes()
+            getMonth()
+            getSeconds()
+            getTime()
+            setDate()
+            setFullYear()
+            setHours()
+            setMilliseconds()
+            setMinutes()
+            setMonth()
+            setSeconds()
+            setTime()
+    
+    📌 DOM events
+             click
+             change
+             onSubmit
+             addEventListener()
 
 -------------------------------------------------------------------------------------------------------------------------------------
-Q. strings -> interpolation vs template literal, Immutability, methods ?
+🤔 strings -> interpolation vs template literal, Immutability, methods ?
+
+🅰️  ✅ Template Literals (introduced in ES6)
+            const name = "Alice";
+            const age = 25;
+
+            const intro = `My name is ${name} and I am ${age} years old.`;
+        
+    ✅ Traditional Interpolation (Manual Concatenation)
+            const intro = "My name is " + name + " and I am " + age + " years old.";
+
+    🔒 String Immutability
+            let str = "Hello";
+            str[0] = "h";   // ❌ Won’t change anything
+            console.log(str); // "Hello"
+
+            In JavaScript, strings are immutable.
+            Any operation that "changes" a string actually returns a new string, leaving the original unchanged.
+-------------------------------------------------------------------------------------------------------------------------------------
+🤔 How manys ways to create Objects ?
+
+🅰️ ✅ Ways to Create Objects in JavaScript
+        1. Object Literal Syntax
+             const obj = { name: 'Alice', age: 25 };
+
+             Use When - For simple one-off objects
+
+        2. Using new Object()
+            const obj = new Object();
+            obj.name = 'Alice';
+
+            Use when - Rarely used, not recommended
+
+        3. Constructor Function 
+            function Person(name, age) {
+                    this.name = name;
+                    this.age = age;
+                }
+                const p1 = new Person('Alice', 25);
+
+             Use when - Before ES6; still used but less often
+
+        4. ES6 Class Syntax 
+            class Person {
+                constructor(name, age) {
+                    this.name = name;
+                    this.age = age;
+                 }
+                }
+                const p1 = new Person('Alice', 25);
+
+             Use when -  When you need reusable blueprints / OOP structure
+
+        5. Object.create()
+            const proto = { greet() { console.log('Hi'); } };
+                const obj = Object.create(proto);
+                obj.name = 'Alice';
+
+                Use when - When you want to set prototype manually
+
+        6. Factory Function
+                function createPerson(name, age) {
+                    return { name, age };
+                    }
+                const p1 = createPerson('Alice', 25);
+
+               Use when - When you want reusable object creation without new keyword
+
+        7. Using JSON
+                const jsonStr = '{"name":"Alice","age":25}';
+                const obj = JSON.parse(jsonStr);
+
+                Use when - When parsing data, especially from APIs or localStorage
+
+        🧠 Pro Tip:
+            If you’re building many similar objects, go for Factory Functions or Classes.
+            If it’s one-time config-style data, object literals are perfect.
 
 -------------------------------------------------------------------------------------------------------------------------------------
-Q. object, arrays & strings in built methods ?
+🤔 set vs map Objects ?
+
+🅰️ Set and Map are both ES6 additions in JavaScript that provide more powerful alternatives to plain objects when managing collections of data.
+      |  Feature       |	Set	                                     |   Map
+      |  Stores	      |  Unique values only	                         |   Key-value pairs
+      |  Keys	      |  Values themselves act as keys	             |   Any value (objects, functions, primitives) as keys
+      |  Order	      |  Maintains insertion order	                 |   Maintains insertion order
+      |  Duplicates	  |  Not allowed	Keys must be unique,         |   values can repeat
+      |  Use case	  |  Tracking unique items	                     |   Associating data with unique keys
+
+      🔹 Set Example
+           const mySet = new Set();
+            mySet.add(1);
+            mySet.add(2);
+            mySet.add(2); // Won't be added again
+
+            console.log(mySet); // Set(2) {1, 2}
+            console.log(mySet.has(1)); // true
+            mySet.delete(1);
+            console.log(mySet); // Set(1) {2}
+
+       🔸 Map Example
+            const myMap = new Map();
+            myMap.set('name', 'Alice');
+            myMap.set('age', 25);
+            myMap.set({ id: 1 }, 'Object as key');
+
+            console.log(myMap);  //  Map(3) { 'name' => 'Alice', 'age' => 25, { id: 1 } => 'Object as key' }
+            console.log(myMap.get('name')); // Alice
+            console.log(myMap.has('age')); // true
+-------------------------------------------------------------------------------------------------------------------------------------
+🤔 How add, delete, modify properties in Object ?
+
+🅰️ 🔹 Add Property
+         const obj = {};
+        obj.name = "Alice";          // Dot notation
+        obj["age"] = 25;             // Bracket notation
+
+    🔸 Modify Property
+          obj.name = "Bob";           // Just reassign it
+
+    ❌ Delete Property
+            delete obj.age;             // Removes the "age" property
 
 -------------------------------------------------------------------------------------------------------------------------------------
-Q. How manys ways to create Objects ?
+🤔 How add, delete, modify elements in array ?
+
+🅰️  🔹 Add Elements
+            const arr = [1, 2];
+
+            // At the end
+            arr.push(3);        // [1, 2, 3]
+
+            // At the beginning
+            arr.unshift(0);     // [0, 1, 2, 3]
+
+            // At a specific index
+            arr.splice(2, 0, 1.5); // insert 1.5 at index 2 => [0, 1, 1.5, 2, 3]
+
+    🔸 Modify Elements
+            arr[1] = 10;       // Changes value at index 1
+
+    ❌ Delete Elements
+            arr.pop();         // Removes from end
+            arr.shift();       // Removes from start
+            arr.splice(1, 1);   // Removes 1 element at index 1
+
+            // Caution: delete leaves undefined hole
+            delete arr[1];     // Don't use this unless you know what you're doing
 
 -------------------------------------------------------------------------------------------------------------------------------------
-Q. set vs map Objects ?
+🤔 common methods to iterate over properties of object ?
 
--------------------------------------------------------------------------------------------------------------------------------------
-Q. How add, delete, modify properties ?
+🅰️  1. for...in loop - ✅ Iterates over all enumerable properties, including inherited ones (use hasOwnProperty() to filter).
+    2. Object.keys() - ✅ Iterates only own enumerable property names (no prototype keys)
+            Object.keys(obj).forEach(key => {
+                    console.log(key, obj[key]);
+                });
 
--------------------------------------------------------------------------------------------------------------------------------------
-Q. common methods to iterate over properties of object ?
+    3. Object.values() - ✅ Use when you're only interested in values.
+            Object.values(obj).forEach(value => {
+                     console.log(value);
+                });
 
+    4. Object.entries() - ✅ Useful when you want both key and value directly.
+            Object.entries(obj).forEach(([key, value]) => {
+                    console.log(key, value);
+                });
 -------------------------------------------------------------------------------------------------------------------------------------
-Q. confirm property exist or not in object ?
+🤔 common methods to iterate over elements of array ?
 
--------------------------------------------------------------------------------------------------------------------------------------
-Q. dot notation vs bracket notation ?
+🅰️ 1. for loop
+    2. for...of loop
+    3. forEach() loop
+    4. map()
+    4. filter()
+    5. reduce()
 
--------------------------------------------------------------------------------------------------------------------------------------
-Q. how to select, modify, create, remove DOM ?
+    🔧 Methods That Mutate the Original Array
+            
+            push()	Adds to end
+            pop()	Removes from end
+            shift()	Removes from start
+            unshift()	Adds to start
+            splice()	Add/remove elements at any index
+            sort()	Sorts original array
+            reverse()	Reverses in-place
+            fill()	Overwrites values
 
+    ✅ Methods That Return a New Array (Non-mutating)
+            
+            map()	Transforms elements
+            filter()	Filters based on condition
+            slice()	Returns a portion
+            concat()	Merges arrays
+            flat()	Flattens nested arrays
+            toSorted() (ES2023)	Sorted copy
+            toReversed() (ES2023)	Reversed copy
+            toSpliced() (ES2023)	Spliced copy
+            reduce()          Reduces to a single value (can also build new arrays/objects)
 -------------------------------------------------------------------------------------------------------------------------------------
-Q. HTML vs/& DOM ?
+🤔 confirm property exist or not in object ?
 
+🅰️ 1. in Operator
+      const obj = { name: "Alice", age: 25 };
+
+        console.log("name" in obj);  // ✅ true
+        console.log("salary" in obj); // ❌ false
+
+    2. hasOwnProperty()
+         obj.hasOwnProperty("age");       // ✅ true
+         obj.hasOwnProperty("toString");  // ❌ false 
 -------------------------------------------------------------------------------------------------------------------------------------
-Q. DOM VS virtual DOM ?
+🤔 confirm elements exist or not in array ?
+
+🅰️ 1. includes() 
+            const arr = [1, 2, 3, 4];
+
+            console.log(arr.includes(3)); // ✅ true
+            console.log(arr.includes(5)); // ❌ false
+
+    2. some() - ✅ Great for arrays of objects — you can check by condition.
+            const users = [{ id: 1 }, { id: 2 }];
+
+            const hasUser = users.some(user => user.id === 2); // ✅ true
+-------------------------------------------------------------------------------------------------------------------------------------
+🤔 dot notation vs bracket notation ?
+
+🅰️  Already done.
+-------------------------------------------------------------------------------------------------------------------------------------
+🤔 how to select, modify, create, remove DOM ?
+
+🅰️ 1. Select Elements
+        // By ID
+        document.getElementById("title");
+
+        // By class name
+        document.getElementsByClassName("item");
+
+        // By tag name
+        document.getElementsByTagName("p");
+
+        // Using CSS selectors (recommended)
+        document.querySelector(".item");          // first match
+        document.querySelectorAll(".item");       // all matches
+
+    2. Modify Elements
+         const title = document.getElementById("title");
+
+        // Change text
+        title.innerText = "Hello, World!";
+
+        // Change HTML
+        title.innerHTML = "<em>Welcome!</em>";
+
+        // Change style
+        title.style.color = "blue";
+
+        // Change attribute
+        title.setAttribute("class", "highlight");
+
+        // Add a class
+        title.classList.add("active");
+
+        // Remove a class
+        title.classList.remove("inactive");
+
+    3. Create Elements
+        const newDiv = document.createElement("div");
+        newDiv.innerText = "I’m a new div!";
+        newDiv.className = "new-class";
+
+        // Add it to the page
+        document.body.appendChild(newDiv);
+
+    4. Remove Elements
+        const element = document.getElementById("to-remove");
+
+        // Method 1: remove directly
+        element.remove();
+
+        // Method 2: remove via parent
+        element.parentNode.removeChild(element);
+
+    ✅ Pro Tip (for Interviews)
+    Use querySelector and querySelectorAll for most modern use cases — they support CSS-like selectors and are more flexible.
+-------------------------------------------------------------------------------------------------------------------------------------
+🤔 HTML vs/& DOM ?
+
+🅰️  📌 HTML (HyperText Markup Language)
+    Definition: Standard markup language used to create and structure content on the web.
+    Purpose: Defines the structure and layout of a web page using elements and tags.
+    Not a programming language, but a markup language.
+
+    📌 DOM (Document Object Model)
+    Definition: A programming interface for HTML and XML documents.
+    Represents the page as a tree-like structure (node tree).
+    Each HTML element is a node in the DOM tree.
+    Allows scripts (JavaScript) to read, access, and manipulate:
+    Structure (add/remove elements)
+    Content (text, attributes)
+    Style (via CSS properties)
+    Dynamic behavior of websites relies on DOM manipulation.
+
+    Example: document.getElementById("myDiv").innerText = "Hello!";
+
+    📌 Relationship Between HTML & DOM
+    HTML is the code written by developers.
+    DOM is the browser’s in-memory representation of that HTML.
+    When a browser loads an HTML file, it parses it and creates a DOM.
+    Any change in the DOM (via JS) reflects immediately on the page.
+
+    🏠 House Analogy
+    HTML is like the blueprint of a house. It defines what rooms exist (kitchen, bedroom),
+    where they are placed, and what goes inside (furniture, doors, windows).
+    It’s static and just a design.
+    DOM is like the actual constructed house based on that blueprint.
+    It's what the browser builds in memory from the HTML code.
+    You can walk into the house (DOM), move furniture around, paint walls, or even add/remove rooms — all in real-time using JavaScript.
+    
+-------------------------------------------------------------------------------------------------------------------------------------
+🤔 DOM VS virtual DOM ?
+
+🅰️ DOM (Document Object Model)
+    Definition: A programming interface for HTML and XML documents.
+    Represents the web page as a tree-like structure (nodes/elements).
+    Allows developers to access and manipulate HTML content, structure, and style using JavaScript.
+
+    Problem:
+    Real DOM is slow when it comes to frequent or complex updates.
+    Updating even a small part of the UI causes the entire DOM to re-render, leading to performance issues.
+
+    Virtual DOM (VDOM)
+    Definition: A lightweight copy of the real DOM kept in memory.
+    Introduced by libraries like React to optimize UI rendering.
+    Any changes in the UI are first reflected in the Virtual DOM, not the real DOM.
+    React then compares the new VDOM with the previous one using a process called diffing.
+    It then applies the minimal set of changes to the actual DOM (called reconciliation).
+
+    Analogy – Book Editing
+    Real DOM: Editing a book by rewriting the entire book every time a sentence changes.
+    Virtual DOM: Using a draft copy, marking the changes, and only updating the changed sentence in the final book.
+
+    
+    Why Virtual DOM is Useful (Especially in React)
+    Improves performance and efficiency.
+    Enables reactive programming – UI auto-updates when data changes.
+    Keeps code declarative and easier to manage.
 
 -------------------------------------------------------------------------------------------------------------------------------------
 🤔 InnerHTML vs InnerText ?
