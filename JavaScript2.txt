@@ -132,14 +132,161 @@
 ----------------------------------------------------------------------------------------------------------------------------
 🤔 Deep copy vs shallow copy ?
 
-🅰️ 
+🅰️  📌 This is for object
+
+     🔴What is a Shallow Copy?
+        A shallow copy creates a new object, but only copies references for nested objects.
+        Changes to nested structures in the copy affect the original.
+
+        ✅ Example:
+                const original = { a: 1, b: { c: 2 } };
+                const shallow = { ...original }; // OR Object.assign({}, original)
+                shallow.b.c = 99;
+                console.log(original.b.c); // 99 ❗️
+
+     🔴 What is a Deep Copy?
+                A deep copy creates a completely new object, recursively copying all nested objects/arrays.
+                Changes to the copy do not affect the original.
+
+        ✅ Example:
+                const original = { a: 1, b: { c: 2 } };
+                const deep = structuredClone(original); // OR JSON.parse(JSON.stringify(original))
+                deep.b.c = 99;
+                console.log(original.b.c); // 2 ✅
+
+      🔴 Shallow Copy Methods:
+                Object.assign({}, obj)
+                { ...obj } (spread operator)    
+
+      🔴 Deep Copy Methods:
+                structuredClone(obj) ✅ Recommended (modern)
+                JSON.parse(JSON.stringify(obj)) ⚠️ (has limitations)
+                Recursive custom function
+
+       ❗️ Shallow Copy Limitations:
+                Only top-level properties are cloned
+                Nested objects/arrays are still shared references
+
+       ❗️ Deep Copy Caveats:
+                JSON.stringify removes: undefined, functions, symbols
+                Fails on circular references
+                structuredClone handles most edge cases, but needs newer environments   
+
+        📌 This is for Array
+
+        🔴  What is a Shallow Copy of an Array?
+                A shallow copy creates a new array, but nested arrays or objects inside it are still referenced, not cloned.
+                So changes to nested elements in the copy will reflect in the original.
+
+          ✅ Example: const original = [1, 2, [3, 4]];
+                        const shallow = [...original]; // OR original.slice()
+                        shallow[2][0] = 99;
+                        console.log(original[2][0]); // 99 ❗️  
+
+        🔴 What is a Deep Copy of an Array?
+                A deep copy creates a new array and recursively copies all nested structures.
+                Changes in the copied array do not affect the original.
+
+          ✅ Example: const original = [1, 2, [3, 4]];
+                        const deep = structuredClone(original);
+                        deep[2][0] = 99;
+                        console.log(original[2][0]); // 3 ✅
+
+        🔴 Shallow Copy Methods:
+                        [...arr] (spread operator)
+                        arr.slice()
+                        Array.from(arr)
+                        arr.concat([])
+
+        🔴 Deep Copy Methods:
+                structuredClone(arr) ✅ Recommended (modern environments)
+                JSON.parse(JSON.stringify(arr)) ⚠️ (removes undefined, functions)
+                Custom recursive function
+
+        ❗️ Shallow Copy Limitations:
+                Works fine for flat arrays
+                Still shares reference for nested arrays or objects
+
+        ❗️ Deep Copy Caveats:
+                JSON.parse(JSON.stringify(...)) removes non-serializable items
+                Doesn’t work for circular references
+                structuredClone() solves these issues but requires a modern browser/Node version
 ----------------------------------------------------------------------------------------------------------------------------
 Q. OOPS, classes, constructor ?
 
 ----------------------------------------------------------------------------------------------------------------------------
-Q. call, bind & apply ?
+🤔 call, bind & apply ? [used for sharing methods of objects]
 
-Book through hoil
+🅰️ By using call() we can borrow function/method from other object & use it with the data of other object.
+
+    📌 call()
+        eg: 1
+                let name = {
+                                firstName : "prashant",
+                                lastName: "kamble",
+                                printFullName: function(){
+                                        console.log(this.firstName + " " + this.lastName)    // prashant kamble
+                                }
+                        }
+
+                        name.printFullName()
+
+        eg: 2
+                let name = {
+                                firstName : "prashant",
+                                lastName: "kamble",
+                                printFullName: function(){
+                                        console.log(this.firstName + " " + this.lastName)    // prashant kamble
+                                }
+                        }
+
+                        name.printFullName()
+
+                        let name2 = {
+                                firstName: "sachin",
+                                lastName: "tendulkar"
+                        }
+
+                        name.printFullName.call(name2)
+
+        📌 apply() =  the only difference btn call() & apply method id how we pass the arguments
+
+                eg: 1   let printFullName = function(hometown, state){
+                                console.log(this.firstName + " " + this.lastName + hometown + state )
+                        }       
+                        let name = {
+                        firstName : "prashant",
+                        lastName: "kamble",
+                        }
+                        let name2 = {
+                        firstName: "sachin",
+                        lastName: "tendulkar"
+                        }
+
+                        printFullName.call(name, "Navi Mumbai", "maharashtra") // prashant kamble Navi Mumbai maharashtra
+                        printFullName.call(name2, "Mumbai", "maharashtra")  // sachin tendulkar Mumbai maharashtra
+
+                        printFullName.apply(name2, ["Mumbai", "maharashtra"])  // sachin tendulka Mumbai maharashtra
+
+        📌 bind() =  bindes the method & returns us the copy of that method & use it later,
+                        Syntax little bit similar to call.
+
+                eg: 1  let printFullName = function(hometown, state){
+                                console.log(this.firstName + " " + this.lastName + hometown + state )  // prashant kamble Navi Mumbai maharashtra
+                        }       
+                        let name = {
+                                firstName : "prashant",
+                                lastName: "kamble",
+                        }
+
+                        let output = printFullName.bind(name, "Navi Mumbai", "maharashtra")
+                        console.log(output) 
+                        
+                          // ƒ (hometown, state){
+                                        console.log(this.firstName + " " + this.lastName + hometown + state )
+                                }
+
+                        output()           
 ----------------------------------------------------------------------------------------------------------------------------
 🤔 JS Object vs JSON vs REST API ?
 🅰️  JavaScript Object
