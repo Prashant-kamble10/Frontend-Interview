@@ -912,10 +912,396 @@
 
           
 ----------------------------------------------------------------------------------------------------------------------------
-Q. closures, closures with setTimeout, setInterval, Tust Issues with setTimeout ?
+🤔 closures, closures with setTimeout, setInterval, Tust Issues with setTimeout ?
 
-Book through hoil
+🅰️  closures in js only work with functions
+    closures ie Inner function can have access to the outer function variable as well as global variables.
+    imp: It access to reference of variable & not to memory variable value.
+    1.     <script>
+                function x(){
+                    var a = 7
+                    function y(){
+                        console.log(a)     // 7
+                    }
+                    y()
+                }
 
+                x()
+            </script>
+
+    2.      Assigning a function to the variable
+
+            <script>
+                    function x(){
+                        var a = function y(){
+                            console.log(a)     
+                        }  
+                        y()
+                    }
+
+                    x()
+            </script> 
+
+    3.      on function call you can pass a another function as a argument/parameter
+
+            <script>
+                function x(){
+                    var a = 7
+                    
+                    y()
+                }
+
+                x( function y(){
+                        console.log(a)     
+                    })
+            </script>
+
+    4.      Similarly you can even return this functions from function
+
+            <script>
+                function x(){
+                    var a = 7
+                        function y(){
+                            console.log(a)     // 7
+                        }
+                        return y 
+                    }
+
+                    var z = x()
+                    console.log(z)   // ƒ y(){
+                                        //   console.log(a)     
+                                        // }
+                    z()
+            </script>
+
+            x() ch kaam zhala ahe, so yach execution context, call stack madhun vanish zhala ahe & callstack is empty but z madhe fun  y(){......} ahe,
+            ani te ata function scope cha baher ahe, means te ata global scope madhe ahe but tevha z() la call karto tevha tyachi value 7 yete but 
+            commonly bagyala gela tar z() global madhe allymule tyachi value "undefined" or "null" alli phaije
+            but
+            when function are returned from another function they still maintain there lexical scope (they remember where they were actually present) & Also
+            remember parameter & varaible value. 
+
+            uses of closures - module design pattern, function currying, memoize, HOF, maintaining state in async world, setTimeouts & iterators ......
+
+        5.      cool developers do this but not cool now onwards
+
+            <script>
+                function x(){
+                    var a = 7
+                      return function y(){
+                            console.log(a)     // 7
+                        } 
+                    }
+
+                    var z = x()
+                    console.log(z)   // ƒ y(){
+                                        //   console.log(a)     
+                                        // }
+                                        
+                    z()           // 7
+            </script>
+
+        6.    <script>
+                function x(){
+                    var a = 7
+                       function y(){
+                            console.log(a)     // 100
+                        } 
+                    a = 100;
+                    return y
+                    }
+
+                    var z = x()
+                    console.log(z)           
+                    z()                       // 100
+            </script>
+
+        7.    <script>
+                   
+                    function z() {
+                        var b = 900;
+                         function x() {
+                            var a = 7;
+                            function y() {
+                                console.log(a, b);      // 7, 900
+                            }
+                         y();
+                        }
+                      x();
+                    }
+
+                    z();
+      
+         // calling inner function is imp, If you don't code won't get executed
+            </script>
+
+            🔴 setTimeout + closures
+
+        8.     // here after 3000 milli sec/ 3sec will print 1
+                    <script>
+                    function x() {
+                        var i = 1;
+                        setTimeout(function () {
+                        console.log(i);
+                        }, 3000);
+                    }
+
+                    x();
+                    </script>
+
+        9.     // here after 3000 milli sec/ 3sec will print 1
+                    <script>
+                        function x() {
+                            var i = 1;
+                            setTimeout(function () {
+                            console.log(i);
+                            }, 3000);
+                            console.log("Namaste JS")
+                        }
+
+                        x();
+                    </script>
+
+                    after 3 sec => 1 => Namaste JS  ❌
+                    namste js => after 3 sec => 1   ✅
+
+                    here setTimeout forms closures with lexical env,
+                    it takes the function and stores it in some other place & attach timer to it & wait for expiry.
+
+                    TIME, TIDE AND JS WAITS FOR NONE.
+
+        10.   // same memory loaction geting updated
+                     <script> 
+                        // because of var, function looks for the reference of (i) in memory location 
+
+                        function x(){
+                            for(var i = 1; i <= 5 ; i++){
+                            setTimeout(function() {
+                                console.log(i)
+                            }, i * 1000);
+                            }
+                            console.log("Namaste JS")
+                        }
+
+                        x()
+
+                        // Namaste jS 
+                        // 6,6,6,6,6
+                    </script>
+
+        11.   // Different memory location allocated because of let.
+                     <script> 
+
+                        function x(){
+                            for(let i = 1; i <= 5 ; i++){
+                            setTimeout(function() {
+                                console.log(i)
+                            }, i * 1000);
+                            }
+                            console.log("Namaste JS")
+                        }
+
+                        x()
+
+                        // Namaste jS 
+                        // 1,2,3,4,5
+                    </script>
+
+        12.   // Different execution context created with closures each time having new var value.
+                     <script> 
+                               function x() {
+                                    for (var i = 1; i <= 5; i++) {
+                                    function close(x) {
+                                        setTimeout(function () {
+                                        console.log(x);
+                                        }, x * 1000);
+                                    }
+                                    close(i);
+                                    }
+                                    console.log("Namaste JS");
+                                }
+
+                                x();
+
+                         // Namaste jS 
+                        // 1,2,3,4,5
+
+                    </script>
+
+             🔴 Interview [closures]
+
+        13.     <script>
+                    function outer(){
+                    var a =10;
+                        function inner(){
+                        console.log(a)         // 10
+                        }
+                        return inner
+                    }
+
+                    outer()()
+                </script>
+
+        14.     <script>
+                    function outer(){
+                        var a =10;
+                            function inner(){
+                            console.log(a)        // 10
+                            }
+                            return inner
+                        }
+
+                        var close = outer()
+                        close()
+                </script>
+
+        15.     <script>
+                    function outer(){
+                        function inner(){
+                        console.log(a)         // 10
+                        }
+                        var a =10;
+                        return inner
+                    }
+
+                    var close = outer()
+                    close()
+                </script>
+
+        16.     <script>
+                    function outer(){
+                        let a =10;
+                            function inner(){
+                            console.log(a)      // 10
+                            }
+                            return inner
+                        }
+
+                        var close = outer()
+                        close()
+                </script>
+
+        17.     <script>
+                    function outer(b){
+                        let a =10;
+                            function inner(){
+                            console.log(a, b)      // 10 'Namaste Duniya'
+                            }
+                            return inner
+                        }
+
+                        var close = outer("Namaste Duniya")
+                        close()
+                </script>
+
+
+        18.     <script>
+                    function outest() {
+                        let c = 20;
+                        function outer(b) {
+                        let a = 10;
+                        function inner() {
+                            console.log(a, b, c);      // 10 'Namaste Duniya' 20
+                        }
+                        return inner;
+                        }
+                        return outer;
+                    }
+
+                    var close = outest()("Namaste Duniya");
+                    close();
+                </script>
+
+        19.     <script>
+                    function outest() {
+                        let c = 20;
+                        function outer(b) {
+                        function inner() {
+                            console.log(a, b, c);      // 10 'Namaste Duniya' 20
+                        }
+                        let a = 10;
+                        return inner;
+                        }
+                        return outer;
+                    }
+                    let a = 100;
+
+                    var close = outest()("Namaste Duniya");
+                    close();
+                </script>
+
+        20.     <script>
+                    function outest() {
+                        let c = 20;
+                        function outer(b) {
+                        function inner() {
+                            console.log(a, b, c);     // 100 'Namaste Duniya' 20
+                        }
+                        return inner;
+                        }
+                        return outer;
+                    }
+                    let a = 100;
+
+                    var close = outest()("Namaste Duniya");
+                    close();
+                </script>
+
+        21.     <script>
+                    function outest() {
+                        var c = 20;
+                        function outer(b) {
+                        function inner() {
+                            console.log(a, b, c);      // 10 'Namaste Duniya' 20
+                        }
+                        let a = 10;
+                        return inner;
+                        }
+                        return outer;
+                    }
+
+                    var c = 100;
+
+                    var close = outest()("Namaste Duniya");
+                    close();
+                </script>
+
+        22.     <script>
+                    function outest() {
+                        function outer(b) {
+                            function inner() {
+                                console.log(a, b, c);           // 10 'Namaste Duniya' 100
+                            }
+                        let a = 10;
+                        return inner;
+                        }
+                        return outer;
+                    }
+
+                    var c = 100;
+
+                    var close = outest()("Namaste Duniya");
+                    close();
+                </script>
+
+        23.     <script>
+                    function outest() {
+                        var c = 20
+                        function outer(b) {
+                        function inner() {
+                            console.log(a, b, c);    // Uncaught ReferenceError: a is not defined
+                        }
+                        return inner;
+                        }
+                        return outer;
+                    }
+
+                    var close = outest()("Namaste Duniya");
+                    close();
+                </script>
+
+        // garbage collector : it is a program in a browser or js engine which frees up the unutilised memory.
+           unused variable : It takes out of memory whenever it finds out that variable is no longer needed. 
 ----------------------------------------------------------------------------------------------------------------------------
 🤔 Normal function vs arrow function ?
 
