@@ -1,0 +1,302 @@
+🤔 what is OOPS ?
+
+🅰️ To write code there are 3 ways
+    1. procedural programming - writing code logic line by line, will execute line by line code.
+    2. functional programming - code are written in function POV.
+    3. OOPS programing - we think each thing as an object, we will create big object, inside it we will keep our data & function in it.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+🤔 4 pillars of OOPS ?
+
+🅰️ 1. encapsulation - fitting different things at one place, Data hiding.
+                        Encapsulation is the practice of bundling data and methods, restricting direct access to internal details to protect integrity.
+
+                const user = {
+                    firstname : "anurag",
+                    lastname : "singh",
+                    age: 27,
+                    
+                    
+                    getAge : function (){
+                        return new Date().getFullYear() - user.age
+                         return new Date().getFullYear() - this.age
+
+                         // above both lines provides same output
+                    }
+
+                    // new syntax to write the code for method present inside object.
+                     getAge (){
+                        return new Date().getFullYear() - user.age   
+                    }
+                }
+
+                console.log(user.getAge())
+
+                👉 Your current code shows partial encapsulation (grouping data + methods),
+                    but to fully meet the OOP definition, you'd want data protection via classes or closures.
+
+    2. Abstraction - not showing the complexity, whoever uses the method/function does not need to look for anything more complicated.
+                    Abstraction hides complex implementation details and shows only essential features, making programs easier to understand, use, and maintain.
+
+                
+                const user = {
+                        firstname : "anurag",
+                        lastname : "singh",
+                        age: 27
+                }
+
+                function getAge(age){
+                    return new Date().getFullYear() - age
+                }
+
+                console.log(getAge(user.age))
+    
+    3. polymorphism
+    4. Inheritance
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+🤔 Factory Function in reactjs ?
+
+🅰️ To get the age of 2 users I have to so much line of code, you can see below :
+        const user1 = {
+                firstname : "anurag",
+                lastname : "singh",
+                age: 27
+            }
+
+            function getAge(age){
+            return new Date().getFullYear() - age
+            }
+
+            console.log(getAge(user1.age))    // 1998
+
+            const user2 = {
+                firstname : "akshay",
+                lastname : "saini",
+                age: 30
+            }
+
+            function getAge(age){
+            return new Date().getFullYear() - age
+            }
+
+            console.log(getAge(user2.age))     // 1995
+    
+    📌 So this not the efficient way to write the code,
+         so to counter this problem, factory function concept came into picture.
+         with factory function we can create as many object we want with minimum line of code. you can see below :
+
+         function createUser(firstname, lastname, age){
+                const user = {
+                    firstname : firstname,
+                    lastname : lastname, 
+                    age : age,
+                
+                // above and below both user block code meaning is same.
+                // const user = {
+                //     firstname,
+                //     lastname, 
+                //     age
+                // }
+                
+                getAge () {
+                    return new Date().getFullYear() - user.age
+                }
+                }
+                return user
+            }
+
+            const user1 = createUser("anurag", "singh", 25)
+            console.log(user1)                   // object is getting print in the console
+
+            firstname: "anurag"     
+            lastname: "singh"
+            age: 25
+            getAge: ƒ getAge()
+            [[Prototype]]: Object
+
+            console.log(user1.getAge())           //  age is getting print  // 2000
+
+            const user2 = createUser("akshay", "saini", 30)
+            console.log(user2)
+
+            firstname: "akshay"     
+            lastname: "saini"
+            age: 30
+            getAge: ƒ getAge()
+            [[Prototype]]: Object
+
+            console.log(user2.getAge())     // 1995
+
+            👀 but
+            console.log(user1.getAge() === user2.getAge())     // false
+            console.log(user1.getAge === user2.getAge)        // false
+
+            reason we are getting false, because getAge() method is stored in user1 memory location as well as it also again stored in 
+            user2 memory location. though getAge() is doing the same work. kayde se it should be stored in one memory loaction.
+            means if we create 10 object with factory function, getAge() method will get stored in each 10 objects memory location.
+            ye acchi baat nahi hai (sardar khan)
+
+            to counter this new concept got developed, ie Constructor function.kayde se method should be stored in one memory loaction.
+
+            aur woh kab ek memory loaction mein store hoga ? jab usse hum object ke prototype main daalenge tab. 
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+🤔 polymorphism ?
+
+🅰️ Polymorphism allows different objects to respond to the same method name with behavior specific to their own implementation.
+
+    with the below code without using constructor function, we can make getAge() method to store at one memory location.
+        so if we create 10 object, from factory function, method will be created once.
+
+    here, there is one function but the value of this is getting changed according to the objects.
+    same function is being used by user1, user2 .... etc
+
+    <script>
+      function  getAge() {
+            return new Date().getFullYear() - this.age;
+          }
+
+      function createUser(firstname, lastname, age) {
+        const user = {
+          firstname: firstname,
+          lastname: lastname,
+          age: age,
+         getAge,
+        };
+        return user;
+      }
+
+      const user1 = createUser("anurag", "singh", 25);
+      console.log(user1);
+      console.log(user1.getAge());
+
+      const user2 = createUser("akshay", "saini", 30);
+      console.log(user2);
+      console.log(user2.getAge());
+
+      console.log(user1.getAge() === user2.getAge());     // false
+      console.log(user1.getAge === user2.getAge);         // true
+    </script>
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+🤔 How to create a key-value pairs on the function to get a common method ?
+
+ 🅰️  <script>                                                     👀 observe output
+      function createUser(firstname, lastname, age) {
+        const user = {
+          firstname: firstname,
+          lastname: lastname,
+          age: age,
+          getAge: createUser.commonMethods.getAge,
+        };
+        return user;
+      }
+
+      // behind the scene function are also object in js
+      createUser.commonMethods = {
+        getAge() {
+          return new Date().getFullYear() - this.age;
+        },
+      };
+
+    // behind the scene function are also object in js
+      createUser.commonMethods = {
+        getAge: function() {
+          return new Date().getFullYear() - this.age;
+        },
+      };
+
+      const user1 = createUser("anurag", "singh", 25);
+      console.log(user1);
+      console.log(user1.getAge());
+
+      const user2 = createUser("akshay", "saini", 30);
+      console.log(user2);
+      console.log(user2.getAge());
+
+      console.log(user1.getAge() === user2.getAge()); // false
+      console.log(user1.getAge === user2.getAge); // true
+    </script>
+
+    🔴 in this code getAge() method/function has kept inside function, it is not in the global space anymore.
+        so no one can access it in getAge() in global space.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+🤔 prototype ?
+
+🅰️ jevha pan function create hoto in js, tya function sobat ek property automatically attach hote, tya property ch naav ahe "prototype",
+    ani prototype la attach ek property aste tyacha naav ahe "constructor".
+
+    
+    <script>     👀 please observe the output
+
+        function sayHi(){
+            return "Hi"
+            }
+
+        console.log(sayHi())               
+        console.log(sayHi)               
+        console.dir(sayHi.prototype)
+        console.log(new sayHi())
+    </script>
+
+    <script>      👀 please observe the output
+
+      function sayHi() {
+        console.log(this);
+      }
+
+      sayHi();          // window
+      new sayHi();     //  sayHi {}
+                           [[Prototype]]: Object
+                              constructor: ƒ sayHi()
+                              [[Prototype]]: Object
+
+    whenever we call a function with new keyword, it creates an object and returns it, if the function returning nothing, 
+    then also it returns object that's why this is pointing towards that created object.
+     
+    </script>
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+🤔 what is constructor function and new keyword in js ?
+
+🅰️ constructor function kiva new keyword kiva oops concept yenyamagch karn ch he ahe ki apla code (data + method)
+     global space madhun kon pan manupilate karu naye mahnun.
+
+    <script>
+
+      function createUser(firstname, lastname, age){
+        this.firstname = firstname,
+        this.lastname = lastname,
+        this.age = age
+      }
+
+      const user1 = new createUser("anurag", "singh", 25)    // here we are calling function through new keyword
+      const user2 = new createUser("akshay", "saini", 30)
+
+      console.log(user1)   // createUser {firstname: 'anurag', lastname: 'singh', age: 25}
+      console.log(user2)   // createUser {firstname: 'akshay', lastname: 'saini', age: 30}
+    </script>
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+ 🤔 inheritance ?
+
+ 🅰️ Inheritance allows one class to acquire properties and methods of another, enabling code reuse and establishing hierarchical relationships between classes.
+
+   <script>
+     function createUser(firstname, lastname, age){
+      this. firstname = firstname,
+      this. lastname = lastname,
+      this.age = age
+     }
+
+     createUser.prototype.getAge = function(){
+      return new Date().getFullYear() - this.age
+     }
+
+     const user1 = new createUser("anurag", "singh", 25)
+     const user2 = new createUser("akshay", "saini", 30)
+
+     console.log(user1)          // createUser {firstname: 'anurag', lastname: 'singh', age: 25}
+     console.log(user1.getAge())   // 2000
+     console.log(user1.getAge === user2.getAge)     // true
+   </script>
+   ------------------------------------------------------------------------------------------------------------------------------------------------------------

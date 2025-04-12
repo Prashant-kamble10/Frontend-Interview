@@ -1130,19 +1130,90 @@ Book through hoil
 
 
 ------------------------------------------------------------------------------------------------------------------------------
-Q. first class function ?
+🤔 first class function ?
 
-Book through hoil
+🅰️ A function that can be treated like any other variable in a programming language. This mean that it can be passed
+    as an argument to another function, returned as a value from a function, & assigned to a variable.
+    Also known as first class citizen function.
+
+    📌 Stored in a Variable
+            const sayHello = function() {
+                    console.log("Hello!");
+                };
+
+                sayHello(); // ✅ Output: Hello!
+
+    📌 Passed as an Argument
+            function greet(name, callback) {
+                    console.log("Hi, " + name);
+                    callback(); // Call the passed function
+                }
+
+                function sayGoodbye() {
+                    console.log("Goodbye!");
+                }
+
+                greet("Alice", sayGoodbye);
+
+                // ✅ Output:
+                // Hi, Alice
+                // Goodbye!
+
+            👉 We're passing a function (sayGoodbye) as an argument to another function (greet).
+
+    📌 Returned from Another Function
+                function multiplier(factor) {
+                    return function(number) {
+                        return number * factor;
+                    };
+                }
+
+                const double = multiplier(2);
+                console.log(double(5)); // ✅ Output: 10
+
+            👉 multiplier returns another function, and we store it in double.
 
 ----------------------------------------------------------------------------------------------------------------------------
-Q. callback function ?
+🤔 callback function ?
 
+🅰️ A function that is passed as an argument to another functiion and is executed inside the function it was passed to it.
+    The purpose of a callback functiion is to allow the caller to specify what action should be taken after the
+    function it was passed to has completed its task.
 
-Book through hoil
+      function greetUser(name, callback) {
+                console.log("Hi " + name);
+                callback();
+            }
+
+            function sayBye() {
+                console.log("Bye!");
+            }
+
+            greetUser("Alice", sayBye);
+
+            // ✅ Output:
+            // Hi Alice
+            // Bye!
+
+     👉 sayBye is a callback function passed into greetUser.
 ----------------------------------------------------------------------------------------------------------------------------
-Q. Higher order function ?
+🤔 Higher order function ?
 
-Book through hoil
+🅰️ A function that takes one or more functions as arguments and/or returns a function as its result. It is called
+    "higher order" bcoz it operates on other functions, either byy taking them as arguments or by returning them as
+    results. Hogher order functions are often used to create abstractions that can be reused accross multiple parts 
+    of a program
+
+    function multiplyBy(factor) {
+            return function(num) {
+                return num * factor;
+            };
+        }
+
+        const double = multiplyBy(2);
+        console.log(double(5)); // ✅ Output: 10
+
+    👉 multiplyBy is a higher-order function because it returns another function.
 ----------------------------------------------------------------------------------------------------------------------------
 🤔 map, reduce, filter ?
 

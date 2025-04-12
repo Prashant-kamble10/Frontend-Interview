@@ -211,9 +211,7 @@
                 JSON.parse(JSON.stringify(...)) removes non-serializable items
                 Doesn’t work for circular references
                 structuredClone() solves these issues but requires a modern browser/Node version
-----------------------------------------------------------------------------------------------------------------------------
-Q. OOPS, classes, constructor ?
-
+                
 ----------------------------------------------------------------------------------------------------------------------------
 🤔 call, bind & apply ? [used for sharing methods of objects]
 
