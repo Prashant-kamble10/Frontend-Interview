@@ -458,17 +458,350 @@
     [Open Tab] → Save Data → [Close Tab] ❌ Data is lost
 
 -------------------------------------------------------------------------------------------------------------------------------------
-Q. Debouncing ?
+🤔 Debouncing ?
+
+🅰️ Debouncing is a programming pattern used to limit the rate at which a function gets executed. 
+    It ensures that a function is only called after a certain period of inactivity,
+     even if it's triggered multiple times in quick succession.
+     It waits for a pause in action before executing the function.
+
+     It’s especially useful for performance optimization in cases where events fire rapidly, like:
+        resize events
+        scroll events
+        keyup/input events in a search bar
+        Mouse movements
+
+    <input type="text" id="searchInput" placeholder="Search..." />
+
+    <script>
+
+      function debounce(fn, delay) {
+        let timer;
+        return function (value) {
+          clearTimeout(timer);
+          timer = setTimeout(() => fn(value), delay);
+        };
+      }
+
+      function search(query) {
+        console.log("Searching for:", query);
+      }
+
+      const debouncedSearch = debounce(search, 500);
+
+      document.getElementById("searchInput").addEventListener("input", (e) => {
+        debouncedSearch(e.target.value);
+      });
+
+    </script>
+
 
 -------------------------------------------------------------------------------------------------------------------------------------
-Q. Throttling ?
+🤔 Throttling ?
+
+🅰️  Throttling is a technique used to limit how often a function is executed.
+    Even if an event (like scroll or resize) keeps firing rapidly, throttling makes sure the function runs only once every X milliseconds.
+
+    Imagine we have a button that performs an action when clicked,
+     but we want to prevent it from firing too often, like only once every 5 seconds.
+
+        <button id="clickBtn">Click Me</button>
+
+    <script>
+
+      function throttle(func, delay) {
+        let canRun = true;
+
+        return function () {
+          if (canRun) {
+            func(); // Run the function
+            canRun = false; // Block further calls
+
+            setTimeout(() => {
+              canRun = true; // Allow it again after the delay
+            }, delay);
+          }
+        };
+      }
+
+      function handleClick() {
+        console.log("Button clicked at", new Date().toLocaleTimeString());
+      }
+
+      const throttledClick = throttle(handleClick, 5000); // 2 seconds
+
+      document
+        .getElementById("clickBtn")
+        .addEventListener("click", throttledClick);
+        
+    </script>
+-------------------------------------------------------------------------------------------------------------------------------------
+🤔 Recursion ?
+
+🅰️ 🧠 Thumb Rules for Recursion in JavaScript
+
+    1. Identify the base case 
+         This is the condition where the recursion stops. Without it, you’ll get an infinite loop (or stack overflow).
+    2. Identify the recursive case 
+         This is where the function calls itself with a smaller/simpler version of the input.
+    3. Think in terms of smaller subproblems
+         Break down the problem: “Can I solve a smaller version of this, and build up the full answer from that?”
+    4. Trust the recursion (Don’t try to trace it fully)
+         When writing recursive code, assume the recursive call works as expected, and build logic around that.
+    5. Dry run with a small input
+         Pick a small value like n = 3, and write down what happens at each step. This helps visualize how the function behaves.
+    6. Avoid unnecessary calculations
+         Sometimes you solve the same subproblem multiple times. That’s where memoization or dynamic programming can help.
+    7. Use helper functions for extra variables
+         If you need to track multiple values (like index, path, etc.), write an inner helper function inside your main function.
+
+    🔁 Template You Can Follow for Recursion
+
+            function recurse(input) {
+                // Base case
+                if (/* base condition */) {
+                    return /* base result */;
+                }
+
+                // Recursive case
+                let result = recurse(smallerInput);
+
+                // Do something with result
+                return finalResult;
+            }
+
+            👇 Example: Factorial
+                    function factorial(n) {
+                        if (n === 0) return 1; // Base case
+                        return n * factorial(n - 1); // Recursive case
+                    }
+
+        ✅ Beginner-Friendly Recursion Questions
+                Factorial of a number, Input: 5 → Output: 120
+                
+                Fibonacci Sequence, Input: 5 → Output: 5 (0, 1, 1, 2, 3, 5)
+
+                Sum of digits, Input: 1234 → Output: 10 (1+2+3+4)                
+
+                Reverse a string,  Input: "hello" → Output: "olleh"               
+
+                Check if a string is a palindrome, Input: "racecar" → Output: true
+
+        🟡 Intermediate Recursion Questions
+                Print all numbers from N to 1, Example: 5 → 5, 4, 3, 2, 1
+
+                Print all numbers from 1 to N, Example: 5 → 1, 2, 3, 4, 5
+
+                Calculate power of a number, Input: pow(2, 3) → Output: 8
+
+                Binary Search (Recursive), Input: Sorted array + target
+
+                Check if array is sorted (recursive), Input: [1, 2, 3, 4] → Output: true
+
+
+        🔴 Advanced Recursion + Backtracking
+                Generate all subsets (Power Set), Input: [1, 2] → Output: [[], [1], [2], [1,2]]
+
+                Generate all permutations of a string/array, Input: "abc" → Output: "abc", "acb", "bac", "bca", "cab", "cba"
+
+                N-th Tribonacci Number, Similar to Fibonacci but with 3 previous numbers.
+
+                Tower of Hanoi, Classic problem for understanding recursive strategy.
+
+                Maze Path / Rat in a Maze, Count number of paths or print all possible ways from (0,0) to (N-1,N-1)
+
+                Generate Parentheses, Input: n = 3 → Output: all combinations of well-formed parentheses.
+
+                Word Break Problem, Given a string and a dictionary, return if the string can be segmented into words.
+
+                Flatten a Nested Array, Input: [1, [2, [3, 4]], 5] → Output: [1, 2, 3, 4, 5]
+
+        🧪 Bonus: Recursion + Memoization (Dynamic Programming flavor)
+                Climbing Stairs, Number of ways to reach the top of stairs taking 1 or 2 steps.
+
+                Maximum sum of non-adjacent elements, Think: House Robber problem
+
+
 
 -------------------------------------------------------------------------------------------------------------------------------------
-Q. Recursion ?
+🤔  event-related concepts or mechanisms -> bubbling,  capturing/trickling, delegation, propogation ?
+
+🅰️  ✅ Event propogation
+
+        Event Propagation is the process that defines how events move through the DOM tree when an event occurs on a nested element
+        (like clicking a button inside a div). The overall process of how events move in DOM (includes capturing & bubbling).
+
+        It happens in three phases:
+         1. Capturing Phase (Trickling Down)
+            The event travels from the root (<html>) down to the target element.
+            This phase is not active by default unless specified using { capture: true }.
+
+        2. Target Phase
+            The event reaches the target element — the element that was actually clicked or interacted with.
+            The event listeners on the target element are called here.
+
+        3. Bubbling Phase (Bubbling Up)
+            After reaching the target, the event bubbles up from the target to the root, calling any event handlers along the way.
+            This is the default phase used in most event listeners.
+
+    ✅ Event bubbling
+
+        Event Bubbling is a concept in the DOM (Document Object Model) 
+        where an event triggered on a child element bubbles up (i.e., moves up) through its parent elements.
+        It means the event is first handled by the target element, 
+        and then it automatically triggers the same event on its parent, grandparent, and so on — unless stopped.
+
+        📘 Real-World Analogy
+        Imagine you tap a small button (child) inside a box (parent) — the action starts at the button and bubbles up to the box.
+
+            <div id="parent" style="padding: 20px; background-color: lightblue">
+            Parent
+            <button id="child" style="margin: 10px">Click Me</button>
+            </div>
+
+            <script>
+
+            document.getElementById("parent").addEventListener("click", function () {
+                console.log("Parent clicked");
+            });
+
+            document.getElementById("child").addEventListener("click", function () {
+                console.log("Child button clicked");
+            });
+            
+            </script>
+
+        🧠 What Happens When You Click the Button?
+             Console Output: Child button clicked
+                                Parent clicked
+
+         Why?
+            You clicked the child button, so its handler runs first.
+            Then the event bubbles up and triggers the parent's click handler too.      
+
+        Key Points to Mention:
+            Bubbling is the default behavior in js for most DOM events.
+            Event goes from the target (child) to ancestors (parents).
+            You can stop bubbling using event.stopPropagation() if needed.                 
+
+        ✋ Bonus: Stopping the Bubbling
+
+            document.getElementById("child").addEventListener("click", function (event) {
+                console.log("Child button clicked");
+                event.stopPropagation(); // Stops the event from reaching parent
+                });
+
+    ✅ Event Capturing/Trickling
+
+            Event Capturing (also called trickling) is a phase in the DOM event flow where the event 
+            starts from the topmost parent (like <body> or <html>) and travels down to the target element (child).
+            This happens before the bubbling phase, but it only works if the event listener is set with { capture: true }.
+
+            📘 Real-World Analogy
+            Imagine pouring water on a tree — the water trickles down from the top branches (parent) to the leaves (child).
+
+                <div id="parent" style="padding: 20px; background-color: lightblue">
+                    Parent
+                    <button id="child" style="margin: 10px">Click Me</button>
+                    </div>
+
+                    <script>
+
+                    document.getElementById("parent").addEventListener(
+                        "click",
+                        function () {
+                        console.log("Parent clicked (capturing phase)");
+                        },
+                        true // 👈 This enables capturing!
+                    );
+
+                    document.getElementById("child").addEventListener("click", function () {
+                        console.log("Child button clicked");
+                    });
+                    
+                    </script>
+
+            🧠 What Happens When You Click the Button?
+                Console Output: Parent clicked (capturing phase)
+                                    Child button clicked
+
+            Why?
+                The event first goes down to the child (capturing).
+                The parent handler runs first because we used { capture: true }.
+                Then the child handler runs.
+
+            Key Points to Mention:
+                Capturing phase	    Event goes top to bottom (parent → child)
+                Default behavior	JavaScript uses bubbling by default. Capturing must be enabled manually.
+                Use case	        Useful when you want to catch the event before it reaches the target.
+
+            ✋ Bonus Tip: You Can Stop the Event in Capturing Too!
+
+                 document.getElementById("parent").addEventListener(
+                    "click",
+                    function (event) {
+                        console.log("Parent clicked (capturing)");
+                        event.stopPropagation(); // Stops event from reaching child
+                    },
+                    true
+                    );
+
+    ✅ Event delegation
+            Event Delegation is a technique where you attach a single event listener to a parent element, 
+            and it handles events for current and future child elements by using event bubbling.
+            Instead of adding event listeners to each child individually, you "delegate" the responsibility to the parent.
+
+            📘 Why Use Event Delegation?
+                🧼 Cleaner code – fewer event listeners
+                🚀 Better performance – especially with many child elements
+                🧩 Dynamic elements – handles new elements added later
+
+                     <ul id="itemList">
+                        <li>Item 1</li>
+                        <li>Item 2</li>
+                        <li>Item 3</li>
+                     </ul>
+
+                    <script>
+
+                        document
+                            .getElementById("itemList")
+                            .addEventListener("click", function (event) {
+                            // Check if a <li> was clicked
+                            if (event.target.tagName === "LI") {
+                                console.log("You clicked:", event.target.textContent);
+                            }
+                            });
+                            
+                    </script>
+
+                    console Output : You clicked: Item 3
+                                     You clicked: Item 1
+                                     You clicked: Item 2
+                
+            🧠 What’s Happening Here?
+                We add one listener to <ul> (the parent).
+                When any <li> is clicked, the event bubbles up to <ul>.
+                We check event.target to know which child was clicked.
+
+            Key Points to Mention :
+                Event Delegation	Parent handles events for child elements using bubbling
+                Efficient	        Reduces number of event listeners
+                Dynamic	            Works for elements added later too
+
+            ✋ Bonus: Dynamic Elements Example
+                You can even add new <li> items later, and the same event listener will still work — no need to attach a new one!
+
+                const newItem = document.createElement("li");
+                newItem.textContent = "Item 4";
+                document.getElementById("itemList").appendChild(newItem);
 
 -------------------------------------------------------------------------------------------------------------------------------------
-Q. events objects, bubbling,  capturing/trickling, delegation, propogation ?
+🤔  Example of an Actual Event Object ?
 
+🅰️  element.addEventListener("click", function(event) {
+        console.log(event.type); // 'click' ← this 'event' is the Event object
+        });
 -------------------------------------------------------------------------------------------------------------------------------------
 Q. event loop in js browser and event loop in nodejs ?
 
