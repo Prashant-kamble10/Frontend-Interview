@@ -1,0 +1,102 @@
+🟢 2. JavaScript Objects: The Basics
+
+🧠 2.1 What is an Object?
+
+    In JavaScript, an object is a collection of key-value pairs. It can store multiple related data and behavior in one place.
+
+    🎬 Wasseypur Analogy: Think of an object as a character’s full dossier from Wasseypur Intelligence Unit: Faizal Khan’s object contains:
+
+            name
+            age
+            enemy
+            favorite weapon
+            actions (like attack, smuggle)
+
+    💻 Code: 
+
+    const faizalKhan = {
+        name: "Faizal Khan",
+        age: 26, 
+        enemy: "Ramadhir Singh",
+        weapon: "AK-47", 
+        attack() { 
+            console.log("Sabka badla lega re tera Faizal!"); } 
+            };
+
+    faizalKhan.attack(); // Output: Sabka badla lega re tera Faizal!
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+🧠 2.2 Object Literals
+
+    Object literals are the simplest way to create objects using curly braces {}.
+
+    🎬 Analogy: Creating a character sheet manually.
+
+    💻 Code: 
+
+    const ramadhir = {
+        name: "Ramadhir Singh",
+        age: 65, 
+        politicalPower: true
+        };
+
+        console.log(ramadhir.name); // Ramadhir Singh
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+🧠 2.3 Accessing Object Properties
+
+    You can access object properties using:
+
+        Dot notation → object.property
+        Bracket notation → object["property"]
+
+    🎬 Analogy: Dot notation is like calling someone by name. Bracket is like looking up details from a file 📁
+
+    💻 Code:
+
+    const definite = { 
+        name: "Definite Khan", 
+        trait: "Silent Killer",
+        "entry style": "Scooter se entry"
+        };
+
+        console.log(definite.name); // Dot notation 
+        console.log(definite["entry style"]); // Bracket notation for multi-word keys
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+🧠 2.4 Adding, Updating, Deleting Properties
+
+    JS objects are dynamic. You can add new info, update existing ones, or delete.
+
+    🎬 Analogy: Faizal changed his favorite weapon after using a rocket launcher once. And Definite was removed from the gang list after betrayal.
+
+    💻 Code: 
+    
+    const faizal = { 
+        name: "Faizal Khan", 
+        weapon: "AK-47" 
+        };
+
+    // Add faizal.enemy = "Ramadhir Singh";
+    // Update faizal.weapon = "Rocket Launcher";
+    // Delete delete faizal.enemy;
+
+    console.log(faizal);
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+🧠 2.5 Nesting Objects
+
+        An object can contain other objects. Like a whole hierarchy.
+
+        🎬 Analogy: Sardar Khan has two sons — Faizal and Danish. You can nest them inside Sardar’s object like a family tree 👨‍👦‍👦
+
+        💻 Code:
+        
+         const sardar = {
+             name: "Sardar Khan", 
+             sons: { danish: 
+                        { name: "Danish Khan", 
+                                status: "Dead" }, 
+                    faizal: { name: "Faizal Khan", 
+                                status: "Don" }
+                    } 
+                };
+
+        console.log(sardar.sons.faizal.name); // Faizal Khan
+----------------------------------------------------------------------------------------------------------------------------------------------------------------

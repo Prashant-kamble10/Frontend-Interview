@@ -1,0 +1,70 @@
+🟢 1. Introduction to OOP
+
+🧠 1.1 What is Object-Oriented Programming (OOP)?
+
+    OOP is a programming paradigm where we organize code using objects — like real-world entities. 
+    Think of it as creating "blueprints" (classes) for things (objects) that have "properties" (data) and "methods" (actions/behavior).
+
+    🎬 Wasseypur Analogy: Let’s say you want to code the whole Wasseypur storyline. Now instead of writing everything chaotically, you define:
+    Characters = Objects (e.g., Sardar Khan, Faizal Khan, Ramadhir Singh)
+    Each character has properties (name, age, gang, enemy) and methods (attack(), betray(), smoke())
+
+    You're organizing all this complex behavior into bite-sized reusable objects. That’s the essence of OOP.
+
+    💡 JavaScript Example: javascript
+
+    let sardarKhan = {
+        name: "Sardar Khan",
+        gang: "Khan Gang", 
+        attack()
+        { console.log(${this.name} is attacking with katta!); }
+            };
+
+    sardarKhan.attack(); // Sardar Khan is attacking with katta!
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+🧠 1.2 Why use OOP in JavaScript?
+
+    Because it makes your code:
+
+    Organized (grouped logic in one place)
+    Reusable (create multiple characters from one blueprint)
+    Scalable (add new features without rewriting everything)
+    Easier to debug and maintain
+
+    🎬 Wasseypur Analogy: Let’s say you’ve coded Sardar Khan. Now Faizal Khan has the same base traits but with a twist — more weed, less patience 😎
+
+    Using OOP, you can reuse the Character "class" and extend/customize it. Like kaandiyon ka legacy passing on.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+🧠 1.3 OOP vs Functional Programming
+
+OOP = focuses on objects and their interactions
+Functional = focuses on pure functions and data transformation (no side effects)
+
+🎬 Wasseypur Analogy: Let’s say:
+
+OOP is like Ramadhir Singh running his empire with proper hierarchy, roles, and loyal workers (objects) doing specific jobs.
+Functional is like Definite Khan—solo assassin, no attachments, comes in, kills, exits. Very pure. No baggage, no shared state.
+
+💬 Code-wise:
+
+OOP style:
+    class GangMember { 
+        constructor(name) { 
+            this.name = name; 
+            } 
+            shoot() {
+                console.log(${this.name} shoots! 💥); } 
+                }
+
+    const definite = new GangMember("Definite Khan"); 
+    definite.shoot();
+
+Functional style: 
+    function shoot(name) { 
+        console.log(${name} shoots! 💥); 
+        }
+
+    shoot("Definite Khan");
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
