@@ -1863,18 +1863,319 @@
             Useful in event handlers, form validations, or middleware patterns where parameters are passed in stages.
 
 ----------------------------------------------------------------------------------------------------------------------------
-Q. callback hell ?
+🤔 callback hell ?
+
+🅰️   good and bad parts of callbacks in JavaScript.
+        Good part of callbacks: essential for handling asynchronous operations in JavaScript by allowing code to execute later.
+        bad parts of callbacks: callback hell(pyramid of doom) horizontal expansion of code, inversion of control
+
+        Inversion of control: when callbacks are passed to other functions, developers lose control over the execution of the code,
+        which can lead to issues like callbacks not being called or being called multiple times.
+
+        🧠 Context: Making a Pizza (Step-by-step)
+                You're building a pizza-making app where:
+                You start making the dough
+                Then you add toppings
+                Then you bake the pizza
+                Then you serve the pizza
+            Each step takes time (asynchronous), and must wait for the previous step to complete.
+
+        function makeDough(callback) {
+        setTimeout(() => {
+            console.log("1. Dough is ready");
+            callback();
+        }, 1000);
+        }
+
+        function addToppings(callback) {
+        setTimeout(() => {
+            console.log("2. Toppings added");
+            callback();
+        }, 1000);
+        }
+
+        function bakePizza(callback) {
+        setTimeout(() => {
+            console.log("3. Pizza is baked");
+            callback();
+        }, 1000);
+        }
+
+        function servePizza() {
+        setTimeout(() => {
+            console.log("4. Pizza is served 🍕");
+        }, 1000);
+        }
+
+        // Callback Hell starts here (nested callbacks)
+        makeDough(function () {
+        addToppings(function () {
+            bakePizza(function () {
+            servePizza();
+            });
+        });
+        });
+
+        🧠 Why it's "Callback Hell"
+                Notice how each function is nested inside the previous one.
+                The code is moving to the right with each step → hard to read and maintain.
+                Imagine if there were 10 steps 😬 — it would get messy fast!
+
 
 ----------------------------------------------------------------------------------------------------------------------------
-Q. Promises, promises stage/state ?
+🤔 Promises, promises stage/state ?
+
+🅰️ Before promises, developers used callbacks to handle async operations,
+    but this created an "inversion of control" problem where you blindly trust external code to call your callback.
+
+    With promises, API returns a promise object that initially contains undefined data but 
+    will eventually be filled with the result of the async operation.
+
+    Instead of passing callbacks to functions, you attach callbacks to promise objects using .then(),
+    which guarantees the callback will be called exactly once when data is available.
+
+    Promises have three possible states: pending (initial state), fulfilled (successful completion), or rejected (failed operation).
+          ✅ resolve, success, fulfilled.
+          ❌ reject, failure, rejected.
+
+    A promise is defined as "an object representing eventual completion of an async operation."
+
+    Promises solve the "callback hell" problem by allowing chaining with .then() methods, 
+    transforming horizontal nested callbacks into a vertical, more readable chain.
+
+    Key advantages of promises: they maintain control of your program flow, guarantee callbacks are called exactly once, 
+    and provide a more readable way to handle asynchronous operations.
+
+    HERE WE ARE CONSUMING PROMISE
+
+            function makeDough() {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+            console.log("1. Dough is ready");
+            resolve();
+            }, 1000);
+        });
+        }
+
+        function addToppings() {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+            console.log("2. Toppings added");
+            resolve();
+            }, 1000);
+        });
+        }
+
+        function bakePizza() {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+            console.log("3. Pizza is baked");
+            resolve();
+            }, 1000);
+        });
+        }
+
+        function servePizza() {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+            console.log("4. Pizza is served 🍕");
+            resolve();
+            }, 1000);
+        });
+        }
+
+        // Promise chaining - much cleaner and avoids callback hell
+        makeDough()
+        .then(() => addToppings())
+        .then(() => bakePizza())
+        .then(() => servePizza());
+
+        // Alternative more concise syntax:
+        // makeDough()
+        //   .then(addToppings)
+        //   .then(bakePizza)
+        //   .then(servePizza);
+
+        The key changes:
+
+        Each function now returns a Promise instead of accepting a callback
+        Inside each function, we wrap the setTimeout in a Promise constructor with a resolve function
+        We call resolve() when the operation completes to signal success
+        We chain the functions using .then() which creates a clean, vertical flow
+        The alternative syntax shows you can directly pass function references when not needing to modify parameters
+----------------------------------------------------------------------------------------------------------------------------
+🤔  how to create custom Promises, implement proper error handling, and manage asynchronous operations effectively ?
+
+🅰️ HARE WE ARE CREATING PROMISE
+
+    Promises in JavaScript follow a producer-consumer model where one part of the code creates and resolves/rejects a Promise
+     while another part consumes it by attaching callbacks. 
+
+                // Step 1: Make Dough
+            function makeDough() {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                console.log("1. Dough is ready");
+                resolve(); // Everything is good, so we resolve the Promise
+                }, 1000);
+            });
+            }
+
+            // Step 2: Add Toppings
+            function addToppings() {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                const isToppingAvailable = true; // change to false to simulate an error
+                if (isToppingAvailable) {
+                    console.log("2. Toppings added");
+                    resolve();
+                } else {
+                    reject("No toppings available!");
+                }
+                }, 1000);
+            });
+            }
+
+            // Step 3: Bake Pizza
+            function bakePizza() {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                console.log("3. Pizza is baked");
+                resolve();
+                }, 1000);
+            });
+            }
+
+            // Step 4: Serve Pizza
+            function servePizza() {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                console.log("4. Pizza is served 🍕");
+                resolve();
+                }, 1000);
+            });
+            }
+
+            // Chaining promises with error handling
+            makeDough()
+            .then(() => {
+                return addToppings(); // if this fails, it will jump to catch block
+            })
+            .then(() => {
+                return bakePizza();
+            })
+            .then(() => {
+                return servePizza();
+            })
+            .catch((error) => {
+                // This will run if any of the above promises reject
+                console.error("❌ There was an error making your pizza:", error);
+            });
 
 ----------------------------------------------------------------------------------------------------------------------------
-Q. promise chain ?
+🤔 promise API ?
 
-----------------------------------------------------------------------------------------------------------------------------
-🤔 Promise API ?
+🅰️  Promise.all(),
+    Promise.allSettled()
+    Promise.race()
+    Promise.any()
 
-🅰️      let myPromise = new Promise((resolve, reject)=>{
+    are used in JavaScript to handle multiple promises in parallel, often used for parallel API calls.
+
+📌 Promise.all([p1, p2, p3]) - fail fast, It will not wait for other promises.
+    output of api call array (good case)
+    result p1 -> 3sec ✅
+    result p2 -> 1sec ✅
+    result p3 -> 2sec ✅
+
+    we get output after 3sec because all calls are parallel & wait all of them to finish & then collect result & gives output.
+
+    output of api call array (bad case)
+    result p1 -> 3sec ✅
+    result p2 -> 1sec ❌
+    result p3 -> 2sec ✅
+
+    Immediately as soon as any of the promise gets rejected promise.all() throw error & whatever error thrown by promise same
+    is in output we will get.
+    & whatever time that rejected promise taking after that only we get output didn't wait for other to finish other will 
+    execute but we already get result output as soon as anyone fails, here just after 1sec.
+
+    Use when all results are required and you want to fail fast.
+
+📌 Promise.allSettled([p1, p2, p3])
+    output of api call array (good case)
+    result p1 -> 3sec ✅
+    result p2 -> 1sec ✅
+    result p3 -> 2sec ✅
+
+    output of api call array (bad case)
+    result p1 -> 3sec ✅
+    result p2 -> 1sec ✅
+    result p3 -> 2sec ❌
+
+    Here even If any promise fail, it didn't through error directly it will wait for other to finish their call execution
+    & then gives array will all result & error output.
+
+    output = ([result p1, result p2, error p3]) after 3 sec
+
+    Use when you want all results, regardless of success or failure.
+
+📌 Promise.race([p1, p2, p3]) - result of 1st settled promise - success/fail
+    output of api call array (good case) => resultp2
+    result p1 -> 3sec ✅
+    result p2 -> 1sec ✅
+    result p3 -> 2sec ✅
+
+    as soon as 1st promise resolve, it will give result of that particular promise value not array
+
+    Resolves or rejects as soon as the first promise settles.
+    Use when you're interested in only the first result, e.g., fastest response or timeout race.
+
+📌 Promise.any([p1, p2, p3]) - result of 1st success promise (success seeking)
+    output of api call array (good case) => resultp2
+    result p1 -> 3sec ✅
+    result p2 -> 1sec ✅
+    result p3 -> 2sec ✅
+
+    Resolves as soon as any promise resolves.
+    Ignores rejections unless all fail, then it rejects with an AggregateError.
+    Use when you just need any successful result.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+🤔 async await ?
+
+🅰️  async/await
+       ⬇️
+    wraps value in promise (if it is already in promise then he won't wrap again in promise) 
+       ⬇️ 
+    for consuming promise we convert it into readable
+       ⬇️ 
+    then we use that value in our code.
+
+
+    // Define an async function
+        async function fetchUserData() {
+        try {
+            // Await the fetch call
+            const response = await fetch('https://jsonplaceholder.typicode.com/users/1');
+            
+            // Await the conversion of response to JSON
+            const data = await response.json();
+            
+            // Log the user data
+            console.log('User Data:', data);
+        } catch (error) {
+            // Handle any errors
+            console.error('Error fetching data:', error);
+        }
+        }
+
+    // Call the async function
+        fetchUserData();
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ 🤔 Difference between promise & async await ?
+
+ 🅰️  📌  let myPromise = new Promise((resolve, reject)=>{
 
         let success =  true;
 
@@ -1900,15 +2201,23 @@ Q. promise chain ?
         // After promise
         // operation successfull
 
+        // JS waits for none so until then promise is completing it runs other things
+
+        🟩 Explanation:
+            Creates a Promise which resolves or rejects after 5 seconds.
+            Logs before promise and after promise immediately, because creating a Promise is synchronous.
+            When the Promise is fulfilled after 5 seconds, .then() is called.
+            If it were to reject, .catch() would handle it.
+            This code demonstrates non-blocking behavior — code after the promise runs immediately while the async operation continues in the background.
+
         // Async/Await is Better for simplicity and Readablility: If you are working with asynchronous code that involves sequential operation,
-         async/await id generally the preferred approach because it makes the code look like its synchronous (which is easier to follow and debug)
+         async/await is generally the preferred approach because it makes the code look like its synchronous (which is easier to follow and debug)
 
         // Promise are useful for parallelism and complex flows: If you're dealing with multiple asynchronous operation that don't depend on each other
          (or need to run in parallel), Promises and methods like Promise.all() or Promise.race() are label.
------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-🤔 async await ?
 
-🅰️  let myPromise = new Promise((resolve, reject) => {
+
+    📌 let myPromise = new Promise((resolve, reject) => {
 
         let success = true;
 
@@ -1948,9 +2257,21 @@ Q. promise chain ?
       // operation successfull
       // After2 async await
 
+      // after 5 sec other things after wait will execute so here JS engine wait for promise to resolve & after that only it will run in sequence but then/catch it 
+          didn't wait for promise to resolve.
+
+      🟩 Explanation:
+            Same myPromise is used, but now also consumed with async/await.
+            asyncFunction() logs Before async await, then waits for myPromise to resolve.
+            When the promise resolves, it logs After1 async await, then the result, then After2 async await.
+            If the promise had rejected, the catch block inside asyncFunction would handle it.
+            This shows synchronous-style coding for asynchronous operations, making code easier to read and maintain.
+
       // Async/Await is Better for simplicity and Readablility: If you are working with asynchronous code that involves sequential operation,
        async/await id generally the preferred approach because it makes the code look like its synchronous (which is easier to follow and debug)
 
       // Promise are useful for parallelism and complex flows: If you're dealing with multiple asynchronous operation that don't 
       depend on each other (or need to run in parallel), Promises and methods like Promise.all() or Promise.race() are label.
+
+🔴  Execution Flow	Non-blocking, continues immediately	Awaits/pause within async functions
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -803,6 +803,7 @@
         console.log(event.type); // 'click' ← this 'event' is the Event object
         });
 -------------------------------------------------------------------------------------------------------------------------------------
-Q. event loop in js browser and event loop in nodejs ?
+🤔 event loop in js browser and event loop in nodejs ?
 
+🅰️ Do it from book
 -------------------------------------------------------------------------------------------------------------------------------------
