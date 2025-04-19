@@ -321,11 +321,95 @@
 
 
 ----------------------------------------------------------------------------------------------------------------------------
-Q.  prototype ?
+🤔  prototype ?
 
+🅰️  Already done.
 ----------------------------------------------------------------------------------------------------------------------------
-Q.  pollyfills ?
+🤔  pollyfills ?
 
+🅰️  ✅ 🧩 What Are Polyfills in JavaScript?
+                Polyfills are code (usually JavaScript) that implement features that are not natively supported by a browser.
+
+                So if a browser doesn't support a modern JS feature (like Array.prototype.includes()),
+                a polyfill acts as a "backup version" of that feature using older JavaScript.
+
+        🧠 Think of it like this analogy:
+                "Polyfill is like a translator."
+                Imagine a browser from 2010 doesn’t understand the phrase “Array includes.” A polyfill jumps in and says:
+
+                “No worries, I’ll explain it in language you understand.”
+
+        🔥 In Interviews, Remember:
+                Polyfills ≠ Transpiling
+                (e.g., Babel transpiles let to var, polyfills recreate behavior at runtime)
+
+                You can polyfill most methods that aren’t natively supported, 
+                especially ones from ES6+ (like find, flat, bind, Promise)
+
+        Frequently Asked Polyfills in JS Interviews
+        Here are some common ones interviewers love:
+
+                Polyfill	                                        Why it’s asked
+        Array.prototype.map()	                        Tests array iteration, callback usage
+        Array.prototype.filter()	                Shows understanding of array mutation
+        Array.prototype.reduce()	                Checks if you grasp accumulators/iteration
+        Array.prototype.forEach()	                Basic iteration comprehension
+        Function.prototype.bind()	                Closure + context (this) test
+        Promise	                                        Asynchronous flow and constructor logic
+        Object.create()	                                Tests prototypal inheritance knowledge
+        Array.prototype.flat()	                        Recursion + array handling
+        Array.isArray()	                                Type checking & Object.prototype.toString usage
+        call, apply	                                Tests how functions bind their context manually
+        debounce / throttle	                        Asynchronous control + closures
+
+        🧠 Hack / Technique to Write Any Polyfill
+                Here’s a technique I call the "Real + Custom + Step-by-Step" approach:
+
+                💡 1. Understand the Native Behavior
+                        Use the real method and try:
+
+                        [1, 2, 3].map(x => x * 2); // [2, 4, 6]
+
+                💡 2. Define It on the Prototype
+               
+                        if (!Array.prototype.myMap) {
+                                Array.prototype.myMap = function(callback) {
+                                // logic
+                                };
+                        }
+
+                💡 3. Use this Inside
+                        Remember: this refers to the array/object the method is called on.
+
+                💡 4. Use Loops or Recursion
+                        Use for, while, or recursion depending on the method.
+
+                💡 5. Return New Array/Object (if needed)
+                        Don't mutate original array unless required.
+
+                💡 6. Match Signature + Edge Cases
+                        Check callback args, thisArg, length, etc.
+
+                🛠 Example: Polyfill for Array.prototype.map
+
+                        if (!Array.prototype.myMap) {
+                                Array.prototype.myMap = function(callback, thisArg) {
+                                const result = [];
+                                for (let i = 0; i < this.length; i++) {
+                                if (this.hasOwnProperty(i)) {
+                                        result.push(callback.call(thisArg, this[i], i, this));
+                                }
+                              }
+                           return result;
+                            };
+                          }
+
+                🧙🏻‍♂️ Think Like an Interviewer
+                        They're looking for:
+                        Usage of this
+                        Edge cases (e.g., sparse arrays, non-array input)
+                        Callback behavior
+                        No use of original method internally
 ----------------------------------------------------------------------------------------------------------------------------
 🤔  spread vs Rest operator, optional chaining, nullish coalescing operator ?
 
