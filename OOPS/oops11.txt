@@ -1,0 +1,181 @@
+🧠 11.1 🏭 Factory Pattern
+Create objects without using class — decide object shape at runtime
+
+🎬 Analogy:
+Ramadhir Singh ke paas ek factory hai — har situation ke liye alag banda taiyaar hota hai 
+(Shooter, Driver, Politician) 🔫🚗🗳️
+
+💻 Code:
+
+function gangsterFactory(type) { 
+    const gangster = {};
+
+    if (type === "shooter") { 
+        gangster.role = "Shooter"; 
+        gangster.action = () => console.log("Goli maar diya! 🔫"); 
+        } else if (type === "driver") {
+             gangster.role = "Driver"; 
+             gangster.action = () => console.log("Gaadi bhaga di! 🚗"); 
+           }
+
+    return gangster; 
+    }
+
+const bhai1 = gangsterFactory("shooter"); 
+const bhai2 = gangsterFactory("driver");
+
+bhai1.action(); // Goli maar diya! 🔫
+bhai2.action(); // Gaadi bhaga di! 🚗
+
+Factory gives flexibility to create multiple object types dynamically.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------  
+🧠 11.2 Constructor Pattern
+        Use constructor functions or classes to build consistent object structure
+
+        🎬 Analogy:
+        Like every gang member follows Sardar Khan’s code — same structure, same rules
+
+        💻 Code:
+
+        function GangMember(name, weapon) { 
+            this.name = name; 
+            this.weapon = weapon; 
+            this.attack = function () { 
+                console.log(${this.name} attacks with ${this.weapon} 💥);
+                };
+            }
+
+        const fazlu = new GangMember("Fazlu", "Rifle"); 
+        fazlu.attack(); // Fazlu attacks with Rifle 💥
+
+        Constructor ensures same format and behavior across objects
+----------------------------------------------------------------------------------------------------------------------------------------------------------------  
+🧠 11.3 Module Pattern
+Encapsulation using closures — expose only what’s needed
+
+🎬 Analogy:
+Sultan ke plan sirf usko aur uske khas aadmiyon ko pata hota hai — public ko sirf result dikhai deta hai 🎭
+
+💻 Code:
+
+const secretMission = (
+    function () { 
+        const target = "Ramadhir Singh 😡";
+
+    function execute() {
+         console.log(Eliminating ${target} silently 🔪);
+         }
+
+    return { execute, }; 
+    })();
+
+    secretMission.execute(); // Eliminating Ramadhir Singh silently 🔪
+
+    Keeps variables/functions private & exposes only needed interface
+----------------------------------------------------------------------------------------------------------------------------------------------------------------  
+🧠 11.4 Singleton Pattern
+            Only one instance allowed — shared across code
+
+            🎬 Analogy:
+            Bas ek hi Don hota hai Dhanbad ka — Sardar Khan! 👑
+
+            💻 Code:
+
+            const DonSingleton = (
+                function () { 
+                    let instance;
+
+            function createInstance() { 
+                return { name: "Sardar Khan 👑" };
+                }
+
+            return { 
+                getInstance: function () {
+                    if (!instance) { 
+                        instance = createInstance(); 
+                    } 
+                return instance; 
+                },
+            };
+            
+            })();
+
+            const don1 = DonSingleton.getInstance();
+            const don2 = DonSingleton.getInstance();
+
+            console.log(don1 === don2); // true
+
+            Ensures single instance — shared memory, shared rule.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------  
+🧠 11.5 Observer Pattern
+        One updates → others automatically react (pub/sub)
+
+        🎬 Analogy:
+        Agar Faizal ne signal diya — poora gang react karta hai ek saath 🚨
+
+        💻 Code:
+
+        class GangInformer { 
+            constructor() { 
+                this.listeners = [];
+                 }
+
+        subscribe(bhai) { 
+            this.listeners.push(bhai);
+             }
+
+        notify(message) { 
+            this.listeners.forEach((b) => b.update(message));
+             }
+         }
+
+        class Bhai { 
+            constructor(name) { 
+                this.name = name;
+                 }
+
+        update(msg) { 
+            console.log(${this.name} got alert: ${msg} 🧠);
+             } 
+            }
+
+        const informer = new GangInformer();
+        const fazlu = new Bhai("Fazlu");
+        const definite = new Bhai("Definite");
+
+        informer.subscribe(fazlu); 
+        informer.subscribe(definite);
+
+        informer.notify("Ramadhir spotted at railway station 🚉");
+
+        Observer keeps multiple parts of app in sync
+----------------------------------------------------------------------------------------------------------------------------------------------------------------  
+🧠 11.6 Prototype Pattern
+            Create objects based on a template
+
+            🎬 Analogy:
+            Faizal ka clone — same gussa, same style, but different name 😎
+
+            💻 Code:
+
+            const gangster = { 
+                speak() { 
+                    console.log("Bhai bol raha hoon! 🎤");
+                    }, 
+                };
+
+            const faizalJunior = Object.create(gangster); 
+            faizalJunior.speak(); // Bhai bol raha hoon! 🎤
+
+            Prototype pattern is memory-efficient and ideal for many similar objects.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------  
+🎯 Recap Table: JS OOP Design Patterns
+
+Pattern	                Purpose	                                    Analogy (GOW Style)
+Factory	                Creates objects based on condition	        Ramadhir ka role factory 🏭
+Constructor	            Blueprint for consistent objects	        Sardar’s gang members 🧱
+Module	                Encapsulation using closures	            Secret mission plan 📦
+Singleton	            Only one instance shared everywhere	        Only 1 Don — Sardar Khan 👑
+Observer	            Notify many objects from one update	        Faizal ke signal pe sab active 🚨
+Prototype	            Clone object from template	                Faizal ka junior clone 🧬
+---------------------------------------------------------------------------------------------------------------------------------------------------------------- 

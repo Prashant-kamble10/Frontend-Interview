@@ -1,0 +1,120 @@
+🧠 4 What are Constructor Functions?
+
+        A constructor function is a blueprint to create multiple similar objects quickly, 
+        just like how Ramadhir created multiple neta-puppets 🎭
+
+        🎬 Analogy: Sardar Khan ek hi baar bana, par uski legacy se Danish aur Faizal jaise naye dons generate hue.
+            Similarly, Constructor Functions help us generate many "gang members" with shared structure.
+
+        💻 Code: 
+
+        function GangMember(name, role) {
+            this.name = name;
+            this.role = role; 
+            this.introduce = function () {
+                console.log(Main hoon ${this.name}, gang ka ${this.role});
+                };
+            }
+
+        const faizal = new GangMember("Faizal Khan", "Don"); 
+        const definite = new GangMember("Definite Khan", "Shooter");
+
+        faizal.introduce(); // Main hoon Faizal Khan, gang ka Don
+        definite.introduce(); // Main hoon Definite Khan, gang ka Shooter
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+🧠 4.1 Creating Custom Constructors
+
+        A custom constructor is just a normal function that starts with a Capital letter (PascalCase) and is meant to create objects with new.
+
+        🎬 Analogy: Tu Faizal ka character banana chahta hai? Ek FaizalFactory bana le bhai!
+
+        💻 Code: 
+                function GangMember(name, weapon) { 
+                    this.name = name; 
+                    this.weapon = weapon;
+                    }
+
+        const faizal = new GangMember("Faizal Khan", "Katta");
+
+        console.log(faizal); // { name: 'Faizal Khan', weapon: 'Katta' }
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+🧠 4.2 Creating Instances Using new
+
+        When we use new:
+
+            It creates a new object {}
+            Sets this = new object
+            Links this to the constructor’s prototype
+            Returns the object
+
+        🎬 Analogy: new ka matlab — “Naya gangster tayyar ho gaya, boss!” 🕶️
+
+        💻 Code: 
+
+        const definite = new GangMember("Definite Khan", "Razor");
+
+        console.log(definite.name); // Definite Khan 
+        console.log(definite.weapon); // Razor
+
+        ⚠️ Without new: const wrong = GangMember("Tangent", "Pencil"); 
+        console.log(wrong); // undefined
+        // this will refer to global scope (or undefined in strict mode)
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+🧠 4.3 Differences Between Constructor and Object Literal
+
+        Object literal = single object only
+        Constructor = reusable template for many objects
+
+        🎬 Analogy:
+
+        Object literal: Ek hi gangster ka profile bana diya — static.
+
+        Constructor: Full franchise ready hai! Naye-naye gangsters bana le kabhi bhi 🎥
+
+        💻 Object literal: 
+            const sardar = { name: "Sardar Khan", weapon: "Gun" };
+
+        💻 Constructor: 
+            function GangMember(name, weapon) {
+                 this.name = name; this.weapon = weapon; 
+                 }
+
+        const faizal = new GangMember("Faizal Khan", "Katta");
+
+        Comparison Table:
+
+        Aspect	                    Object Literal	            Constructor Function
+        Syntax	                    {} brackets	                    function + new
+        Reusability	                ❌ for single object	           ✅ for many similar objects
+        Memory efficiency	        Medium	                        Can be optimized using prototypes
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+🧠 4.4 The Role of this in Constructors
+
+        In constructor functions, this refers to the newly created object.
+
+        🎬 Analogy: Tu naye recruit ko bolta hai: “Tera naam ab se Faizal, aur ye raha tera katta.” — That’s what this is doing 🔫
+
+        💻 Code: 
+            function GangMember(name, area) { 
+                this.name = name; 
+                this.area = area;
+                this.introduce = function () { 
+                    console.log(Main hoon ${this.name}, area mera ${this.area}); 
+                    }; 
+                }
+
+                const fazlu = new GangMember("Fazlu", "Wasseypur"); 
+                fazlu.introduce(); // Main hoon Fazlu, area mera Wasseypur
+
+        Here:
+        this.name = "Fazlu"
+        this.area = "Wasseypur" this refers to the newly created fazlu object.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+🔥 Recap Wasseypur Style:
+
+        4.1: Template banao (Factory setup 🏭)
+        4.2: new ka use karo (Gang recruit karo 💂‍♂️)
+        4.3: Object literal ek hi banda – constructor is gang ready
+        4.4: this matlab naye bande ka reference
+----------------------------------------------------------------------------------------------------------------------------------------------------------------

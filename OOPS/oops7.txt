@@ -1,0 +1,144 @@
+🧠 7.1 Prototypal Inheritance using Constructors
+
+        Ye purana tareeka hai JavaScript mein inheritance karne ka — using function constructors and Object.create()
+
+        🎬 Analogy:
+        Sardar Khan ne gundagardi ki knowledge diwar pe likhi, Faizal ne usi diwar se seekha (inherit kiya).
+
+        💻 Code:
+
+        function Don(name) { 
+            this.name = name;
+             }
+
+            Don.prototype.fire = function () {
+                 console.log(${this.name} fires katta 🔫);
+                  };
+
+        function Faizal(name, area) {
+             Don.call(this, name); // constructor inheritance
+              this.area = area; 
+              }
+
+        Faizal.prototype = Object.create(Don.prototype);
+        Faizal.prototype.constructor = Faizal;
+
+        const bhai = new Faizal("Faizal Khan", "Dhanbad");
+         bhai.fire(); // Faizal Khan fires katta 🔫
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+🧠 7.2 Class-based Inheritance (extends and super)
+
+        Modern JS way — cleaner syntax using class, extends and super().
+
+        🎬 Analogy:
+        Faizal ne apne father Sardar se direct gaddi le li (extends) aur guidance li (super).
+
+        💻 Code:
+
+        class Sardar { 
+            constructor(name) {
+             this.name = name;
+              }
+
+            fire() {
+                console.log(${this.name} uses katta 🔫);
+                }
+            }
+
+        class Faizal extends Sardar {
+             constructor(name, area) {
+                 super(name); // calls parent constructor
+                  this.area = area; 
+                  } 
+                }
+
+        const son = new Faizal("Faizal Khan", "Dhanbad"); 
+        son.fire(); // Faizal Khan uses katta 🔫
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+🧠 7.3 Overriding Methods
+
+        Child class can override parent class methods with its own version.
+
+        🎬 Analogy:
+        Sardar Khan used kattas, Faizal used modern silencers. Style badla, kaam wahi 😎
+
+        💻 Code:
+
+        class Sardar {
+             attack() {
+                 console.log("Attacking with katta 🔫");
+                  } 
+                }
+
+        class Faizal extends Sardar {
+             attack() { 
+                console.log("Attacking with automatic gun 🔥"); 
+                } 
+            }
+
+        const boy = new Faizal();
+         boy.attack(); // Attacking with automatic gun 🔥
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+🧠 7.4 Constructor Chaining
+
+        This means calling the parent constructor from child constructor using super(). This way all properties are set properly.
+
+        🎬 Analogy:
+        Faizal, jab kursi pe baitha, pehle Sardar ki legacy ko samjha (super), fir apni kursi setup ki.
+
+        💻 Code:
+
+        class Don {
+            constructor(name) { 
+                this.name = name; 
+                console.log("Parent constructor");
+                } 
+            }
+
+        class Faizal extends Don {
+            constructor(name, area) {
+                super(name); // Parent constructor call
+                this.area = area; 
+                console.log("Child constructor");
+                } 
+                }
+
+        const gangster = new Faizal("Faizal", "Dhanbad"); // Output: // Parent constructor // Child constructor
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+🧠 7.5 Accessing Parent Class Methods
+
+            Even if you override a method, you can still call the original using super.methodName()
+
+            🎬 Analogy:
+            Faizal apna version chalata hai, lekin kabhi kabhi Sardar ka formula bhi lagata hai.
+
+            💻 Code:
+
+            class Sardar { 
+                style() { 
+                    console.log("Old school dhandha 🧓🏻"); 
+                    } 
+                }
+
+            class Faizal extends Sardar { 
+                style() { 
+                    super.style(); // Calling parent method 
+                    console.log("…blended with modern swag 😎");
+                    } 
+                }
+
+            const f = new Faizal();
+            f.style();
+
+            // Output:
+            // Old school dhandha 🧓🏻 
+            // …blended with modern swag 😎
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+📌 Recap Table: Inheritance in JS (OG vs Modern)
+
+Feature	                            Prototypal Style	                                Class-based Style
+Syntax	                            Function + Object.create()	                        class + extends
+Constructor chaining	            ParentFunc.call(this)	                             super()
+Method overriding	                By redefining prototype method	                    Simply override in class
+Access parent methods	            ParentFunc.prototype.method.call(this)	            super.method()
+----------------------------------------------------------------------------------------------------------------------------------------------------------------

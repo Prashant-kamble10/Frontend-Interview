@@ -1,0 +1,156 @@
+Ab time aa gaya modern zamaane ke OOP – ES6 Classes ka, jahan Faizal ne legacy ko thoda clean aur classy bana diya 😎
+
+🧠 6. ES6 Classes – Modern OOP 🏢
+
+        Think of classes as the Netflix series version of older constructor functions – same story, better camera angle
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+🧠 6.1 Introduction to Classes
+
+        Classes in JS are syntactic sugar over constructor functions. Matlab kaam wahi hai, bas likhne ka style naya hai.
+
+        🎬 Analogy:
+        Sardar Khan ka time gaya… ab Faizal Khan apna style leke aya hai — same gunda, new swag.
+
+        💻 Code:
+
+        class Gangster { 
+            // Class body
+             }
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+🧠  6.2 Class Constructor
+
+        constructor is a special method that runs when you create a new instance using new.
+
+        🎬 Analogy:
+        Tu Faizal ko banata hai — constructor batata hai uski pehchaan (name, age, weapon).
+
+        💻 Code:
+
+        class Gangster {
+             constructor(name, area) { 
+                this.name = name;
+                 this.area = area; 
+                 } 
+            }
+
+        const faizal = new Gangster("Faizal", "Wasseypur"); 
+        console.log(faizal.name); // Faizal 
+        console.log(faizal.area); // Wasseypur
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+🧠 6.3 Class Methods
+
+        You can define methods inside the class which get shared via prototype automatically.
+
+        🎬 Analogy:
+        Sab gangsters ke paas common tools hote hain — jaise katta chalayenge, dialogue bolenge.
+
+        💻 Code:
+
+        class Gangster { 
+            constructor(name) { 
+                this.name = name;
+                 }
+
+            fire() { 
+                console.log(${this.name} fires his katta! 🔫); 
+                } 
+        }
+
+        const definite = new Gangster("Definite");
+        definite.fire(); // Definite fires his katta! 🔫
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+🧠 6.4 Instance Methods vs Static Methods
+
+        🧠 Instance methods → har object ke liye
+        🧠 Static methods → class ke liye, not object
+
+        🎬 Analogy:
+
+        Instance method = Faizal ki ability (fire, hide)
+        Static method = Police report type ka system info — not tied to one gangster
+
+        💻 Code:
+
+        class Gangster {
+             constructor(name) {
+                 this.name = name;
+                  }
+
+            speak() { 
+                console.log(${this.name} says: "Baap ka, bhai ka..."); 
+                }
+
+            static hideoutLocation() { 
+                return "Dhanbad";
+                 } 
+                }
+
+            const faizal = new Gangster("Faizal");
+
+            faizal.speak(); // ✅ Instance method
+
+            // Gangster.hideoutLocation(); ✅ Static method 
+            // faizal.hideoutLocation(); ❌ Error
+
+            console.log(Gangster.hideoutLocation()); // Dhanbad
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+🧠 6.5 Getters and Setters
+
+        They let you control how properties are accessed or updated.
+
+        🎬 Analogy:
+        Ghar ke andar kis se milna allowed hai, aur kis se nahi — Faizal guards access to his secrets via getters/setters 🕵️‍♂️
+
+        💻 Code:
+
+        class Gangster { 
+            constructor(name) {
+                 this._name = name; 
+                 }
+
+            get name() { 
+                return this._name.toUpperCase(); // return in uppercase 
+                }
+
+            set name(newName) {
+                 this._name = newName.trim(); // clean input 
+                 } 
+               }
+
+            const faizal = new Gangster(" Faizal "); 
+            console.log(faizal.name); // FAIZAL
+
+            faizal.name = " Perpendicular "; 
+            console.log(faizal.name); // PERPENDICULAR
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+🧠 6.6 Public vs Private Fields (ES2022)
+
+        JS now supports true private fields using #.
+        Public = accessible anywhere. 
+        Private = only inside the class.
+
+        🎬 Analogy:
+        Public = Faizal ka naam sabko pata
+        Private = Sirf Faizal hi jaane kaha katta chhupa ke rakha hai 🔫
+
+        💻 Code:
+
+        class Gangster {
+             #weapon; // private field
+
+            constructor(name) { 
+                this.name = name; // public field 
+                this.#weapon = "Hidden Katta";
+                 }
+
+            revealWeapon() { 
+                return this.#weapon;
+             } 
+          }
+
+        const fazlu = new Gangster("Fazlu");
+
+        console.log(fazlu.name); // Fazlu ✅ 
+        console.log(fazlu.revealWeapon()); // Hidden Katta ✅ 
+        console.log(fazlu.#weapon); // ❌ SyntaxError (private access denied)
+----------------------------------------------------------------------------------------------------------------------------------------------------------------

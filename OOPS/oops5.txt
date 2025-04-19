@@ -1,0 +1,180 @@
+jaisa har gangster ki ek legacy hoti hai, waise har JS object ke peeche hoti hai uski prototype ki legacy 🔗
+
+🧠 5. Prototypes and Prototype Chain
+
+        Prototype in JS is like a hidden chain of inheritance behind every object. 
+        Har object ke paas ek invisible “mentor” hota hai — that’s its prototype.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+🧠  5.1 What is a Prototype?
+
+        Every function in JS (used as a constructor) 
+        has a property called prototype — it's an object that will be used as the prototype for instances created using new.
+
+        🎬 Analogy:
+        Tu agar Faizal Khan bana raha hai, toh uska mentor hai Sardar Khan. 
+        Prototype is like legacy jo naye gangsters inherit karte hain.
+
+        💻 Code: 
+        function GangMember(name) {
+             this.name = name; 
+             } 
+             
+        GangMember.prototype.weapon = "Katta";
+
+        const faizal = new GangMember("Faizal"); 
+        console.log(faizal.weapon); // Katta 🔫
+
+        Even though weapon isn’t inside faizal, JS looked up the prototype chain to find it 👀
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+🧠 5.2 Inheriting Properties via Prototype
+
+        If a property isn’t found on the object itself, JS goes up the prototype chain to look for it.
+
+        🎬 Analogy:
+        Agar Definite ko apne dad ka knowledge chahiye, toh woh Sardar ke paas jayega. Prototype chain = Ghar ka rishta chain.
+
+        💻 Code: 
+            function Shooter(name) {
+                 this.name = name; 
+                 } 
+                 
+                Shooter.prototype.fire = function () {
+                     console.log(${this.name} fires the katta!); 
+                     };
+
+        const definite = new Shooter("Definite"); 
+        definite.fire(); // Definite fires the katta! 🔫
+
+        definite doesn’t have fire method directly. But JS finds it in Shooter.prototype. Wah bhai wah!
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+🧠 5.3 proto vs prototype
+
+        Don’t confuse these 2:
+
+        prototype → property of a constructor function
+        proto → internal reference of object to its prototype
+
+        function Gangster() {
+
+        }
+
+        Gangster.prototype → This is the blueprint for all new gangsters made with new Gangster()
+
+        obj.proto → This is the hidden reference inside each object that points to the prototype
+        (blueprint) it was made from.
+
+        🎬 Analogy (Wasseypur style):
+
+        prototype = training manual at the Gangster Academy 📖 (shared by all recruits)
+
+        proto = Faizal’s personal memory chip 💾 that points to the training manual
+
+        🎬 Analogy:
+
+        prototype = DNA of the parent factory (FaizalFactory ka manual)
+
+        proto = Faizal’s personal link to that manual 📘
+
+        💻 Code: function Don() {
+
+        }
+
+        Don.prototype.dialogue = "Baap ka, dada ka, bhai ka... badla lega re tera Faizal!";
+
+        const faizal = new Don(); 
+
+        console.log(faizal.proto === Don.prototype); // true ✅ 
+        console.log(faizal.dialogue); // Baap ka... badla lega re tera Faizal! 🔥
+
+        💻 Code Example:
+
+            function Gangster(name) { 
+                this.name = name;
+                 }
+
+            Gangster.prototype.weapon = "Katta";
+
+            const faizal = new Gangster("Faizal");
+
+        // 🧪 What is happening behind the scenes?
+
+                console.log(faizal.weapon); // Katta 
+                // JS can't find 'weapon' directly in faizal → so it checks faizal.proto // faizal.proto === Gangster.prototype ✅
+                console.log(faizal.proto === Gangster.prototype); // true ✅
+
+                console.log(Gangster.prototype.weapon); // Katta (blueprint) 
+                console.log(faizal.weapon); // Katta (via proto link)
+
+                // Override property on instance
+                faizal.weapon = "Gun";
+                console.log(faizal.weapon); // Gun (own property now)
+                console.log(Gangster.prototype.weapon); // Still Katta (unchanged blueprint)
+
+        🎯 Summary Table:
+
+            Term	         What is it?	                                                Who owns it?
+            prototype	    Blueprint object from which instances inherit properties	      Gangster (function)
+            proto	         Reference to the prototype it inherited from	                   faizal (object/instance)
+
+        Think like this:
+
+            Gangster.prototype = “Yeh sab new gangsters ko yeh manual milega”
+            faizal.proto = “Yeh mera mentor ka manual hai, jisse maine training li”
+
+            📦 Visual (Imagine this like arrows):
+
+                    Gangster (function)
+                      ↓
+                    Gangster.prototype
+                      ↑
+                    faizal.proto → points to → Gangster.prototype
+
+            
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+🧠 5.4 Overriding Prototype Properties
+
+        Object properties can override prototype ones if redefined on the instance.
+
+        🎬 Analogy:
+        Tu chaahe to apne mentor ki teachings ko badal bhi sakta hai — Faizal ne Sardar ke style se alag apni legacy likhi 🚬
+
+        💻 Code: 
+        function Gangster() {
+
+        }
+
+        Gangster.prototype.weapon = "Knife";
+
+        const faizal = new Gangster(); 
+        faizal.weapon = "Katta"; // Override 🧨
+
+        console.log(faizal.weapon); // Katta (own property)
+        console.log(Gangster.prototype.weapon); // Knife (original prototype)
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+🧠 5.5 Inspecting the Prototype Chain
+
+        We can inspect an object’s prototype using:
+
+        .proto
+        Object.getPrototypeOf()
+        Object.prototype.isPrototypeOf()
+
+        🎬 Analogy: Inspector J.P. chacha investigating gangsters’ lineage — Who trained whom? 😎
+
+        💻 Code: function Don() {} const fazlu = new Don();
+
+        console.log(fazlu.proto); // Shows     Don.prototype console.log(Object.getPrototypeOf(fazlu)); // Same 
+        console.log(Don.prototype.isPrototypeOf(fazlu)); // true ✅
+
+        Prototype Chain Visualization:
+
+        fazlu → Don.prototype → Object.prototype → null
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+🔥 Section 5 Recap – Gangs of Prototype-pur:
+
+        5.1: Prototype is object’s secret legacy
+        5.2: If property not found → search in prototype chain
+        5.3: prototype is constructor’s DNA, proto is object’s link
+        5.4: Child can override parent’s teachings (override props)
+        5.5: You can inspect & debug the whole gang lineage
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
