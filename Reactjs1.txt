@@ -1,59 +1,634 @@
-Q. library vs package vs framework ?
+🤔 library vs package vs framework ?
+
+🅰️ 1. Library 🍯
+    🔸 Analogy:
+    A library is like a jar of pre-made sauce. You’re the chef. You decide when and how to use that sauce in your recipe.
+
+    🔸 Technically:
+    A library is a collection of reusable functions or components that help you do specific tasks.
+    You are in control: you call the library functions when you need them.
+
+    2. Package 📦
+    🔸 Analogy:
+    A package is like a grocery bag that may contain sauce jars, spices, utensils — basically everything you need for a purpose.
+
+    🔸 Technically:
+    A package is a bundle that can contain libraries, configurations, metadata, and dependencies. 
+    It's managed using package managers like npm or yarn.
+
+    3. Framework 👨‍🍳
+    🔸 Analogy:
+    A framework is like hiring a professional chef who brings their own recipe, tools, and cooking sequence.
+    The chef tells you what to do and how to fit into the recipe.
+
+    🔸 Technically:
+    A framework provides a complete structure and flow for your app. It defines when and how your code runs,
+    and you follow its rules.
+    The framework is in control, and it calls your code at the right time.
+
+    Technically:
+
+        Angular is a complete framework.
+
+        It provides everything out of the box: routing, HTTP client, forms, state management, 
+        testing tools, dependency injection, etc.
+
+        It uses strict structure and conventions — it dictates how your app should be built.
+
+        Your code fits into Angular’s ecosystem. Angular controls the flow and invokes your components at the right time.
+
+        ✅ That’s why Angular is a framework — it’s in control, and you build within its system.
+
+    Technically:
+
+        React is a JavaScript library for building user interfaces, mainly the view layer (UI).
+
+        It doesn’t come with built-in routing, state management, HTTP services, or opinionated structure.
+
+        You choose your tools — like Redux for state, React Router for navigation, Axios for APIs, etc.
+
+        You control the app's architecture — you call React components, and it renders the UI based on your logic.
+
+        ✅ So React is a library, because you are in control, and it just helps you with the UI part.
+
+     One-liner Summary for the Interviewer:
+        "Angular tells you how to build the app — it’s the full kitchen. 
+        React helps you build the app your way — it just gives you a powerful ingredient."
+-------------------------------------------------------------------------------------------------------------------------------------
+🤔 what is wireframe ?
+
+🅰️  A wireframe is a visual blueprint or sketch of a web page or app screen — 
+    like an architectural plan before building a house.
+
+    It shows the layout of elements on a screen without worrying about actual design details like colors,
+    images, or fancy fonts.
+
+    A wireframe is a simplified visual layout of a webpage or app used to map out 
+    structure and functionality before actual design or development begins.
+
+    “Yes, Figma can be used to create wireframes. In fact, it’s often the tool of choice.
+    But wireframes are usually low-fidelity sketches focused on
+    structure. If the Figma design includes real UI elements and interactions, it’s more of a prototype or mockup.”
+-------------------------------------------------------------------------------------------------------------------------------------
+🤔 cdn vs cross origin ?
+
+🅰️  What is a CDN? (Content Delivery Network)
+        A CDN is a network of geographically distributed servers that deliver content 
+        (like JavaScript files, CSS, images, videos) to users faster by serving files from a server close to them.
+
+        📦 Think of it like multiple warehouses storing the same goods (files),
+        and when someone places an order, the nearest warehouse delivers it — faster and more efficiently.
+
+        🔸 Benefits:
+            Reduces server load
+            Speeds up loading time
+            Improves scalability and availability
+
+    What is Cross-Origin? (CORS – Cross-Origin Resource Sharing)
+            Cross-origin refers to a situation where a web app tries to access resources 
+            (like APIs, images, fonts, etc.) from a different domain (origin) than the one it was loaded from.
+
+            🔐 Because of security, browsers restrict cross-origin requests by default. 
+            CORS headers must be present on the server to allow it.
+
+            🔹 Example:
+            Your React app runs at: http://localhost:3000
+
+            It tries to fetch data from: https://api.example.com/data
+
+            That’s a cross-origin request. If https://api.example.com doesn’t allow requests from your origin 
+            (localhost:3000), you’ll get a CORS error.
+
+    🔁 You can connect them:
+            "When we load a library from a CDN, technically it’s a cross-origin request,
+            but browsers allow it if the CDN server sends the correct CORS headers (like Access-Control-Allow-Origin)."
+
+    🔴 Interview One-Liner:
+            “A CDN improves performance by serving static assets closer to the user. 
+            Cross-origin is about browser security — it controls whether one domain can access resources from another.
+            CDNs often require cross-origin headers to work properly with web apps.”
+
+    
+-------------------------------------------------------------------------------------------------------------------------------------
+🤔 write h1 tag in html, js, reactsjs
+
+🅰️ 🔴 In HTML
+        <h1>Hello World</h1>
+
+    🔴 In JS
+            const h1 = document.createElement('h1');
+            h1.textContent = 'Hello World';
+            document.body.appendChild(h1);
+
+    🔴 In ReactJS (using JSX)
+            function App() {
+                return <h1>Hello World</h1>;
+                }
+
+    🔴  React Behind-the-Scenes Version (without JSX)
+            function App() {
+                return React.createElement('h1', null, 'Hello World');
+                }
+-------------------------------------------------------------------------------------------------------------------------------------
+🤔 jsx ?
+
+🅰️ 🔴 What is JS (JavaScript)?
+            JavaScript (JS) is a programming language used to make web pages interactive.
+            It's the core language used in React and other web technologies.
+
+            You use JS to write logic: variables, functions, loops, conditionals, API calls, event handling, etc.
+
+    🔴 What is JSX (JavaScript XML)?
+            JSX is a syntax extension for JavaScript, used in React to write HTML-like code inside JavaScript.
+            JSX makes it easy to describe what the UI should look like in a readable way — like writing HTML in your JavaScript.
+            Under the hood, JSX gets compiled into React.createElement() calls using tools like Babel.
+
+    const element = React.createElement('h1', null, 'Hello, World');
+    const element = <h1>Hello, World</h1>;
+
+    ➡️ Both are functionally the same, but JSX is easier to write and read.
+
+    🔴  Interview One-Liner:
+            “JS is the core programming language we use to build logic. 
+            JSX is a React-specific syntax that lets us write HTML-like elements inside JS,
+            making UI code more readable and expressive. JSX eventually gets compiled into regular JavaScript.”
+-------------------------------------------------------------------------------------------------------------------------------------
+🤔 bundlers, npm, node modules ?
+
+🅰️ 🔴 1. What is a Bundler?
+            A bundler takes all your project files — JavaScript, CSS, images, etc. — and combines (bundles) 
+            them into fewer files so the browser can load your app faster.
+
+            🔹Why do we need it?
+                In a real app, you import many files and modules.
+                Browsers don’t support import/export directly from multiple files easily.
+                So a bundler (like Webpack, Vite, or Parcel) merges everything into one or few files that are browser-ready.
+
+    🔴 2. What is npm (Node Package Manager)?
+                npm is a tool that helps you install, manage, and update third-party packages/libraries 
+                (like React, Axios, Lodash) in your project.
+
+            🔹Why do we need it?
+                Instead of writing everything from scratch, you can reuse code written by others.
+                npm gives you access to thousands of open-source tools to speed up development.
+
+    🔴 3. What is node_modules?
+                node_modules is the folder where npm stores all the installed packages your project needs to run.
+
+                🔹Why is it important?
+                Whenever you install something via npm, it goes into node_modules.
+                React itself (and most of your app’s logic) runs using code from here.
+                   📁 This folder can become very large — it includes all dependencies and sub-dependencies.
+-------------------------------------------------------------------------------------------------------------------------------------
+🤔 package.json vs package-lock.json ?
+
+🅰️   🔴 What is package.json?
+                package.json is the main file that stores important information about your project, like:
+                Project name, version
+                All the dependencies (libraries) your project needs
+
+                Project scripts (like npm start, npm build)
+
+                📦 It defines:
+                        Which packages you are using
+                        Basic project configuration
+
+       🔴 What is package-lock.json?
+                package-lock.json is a detailed file that locks the exact versions of every package
+                 and their sub-packages used in your project.
+
+                🔒 It ensures:
+                        When someone else installs your project, they get exactly the same versions
+                         you had — no surprises or version mismatch.
+
+        File	                package.json	                                package-lock.json
+        Purpose	Declares        what packages your project uses	                Locks the exact versions of installed packages
+        Created by	        You create and update it manually	        Automatically generated when you install packages
+        Contains	        List of dependencies, versions, scripts	        Detailed tree of all dependencies and versions
+        Why needed	        To know what libraries your project uses	To make sure everyone uses exactly the same libraries
+
+
+        🧁 Easy Analogy:
+                Imagine you are sharing a shopping list:
+                package.json is like saying "Buy chocolate, rice, and oil" (general list).
+
+                package-lock.json is like "Buy Dairy Milk 250g chocolate, Basmati Rice 5kg, 
+                Fortune Sunflower Oil 1L" (exact brands and sizes).
+
+                so others can replicate exactly what you used.
+
+        Interview One-Liner:
+                "package.json defines what libraries the project needs, while package-lock.json locks the
+                exact versions of those libraries to avoid issues across different machines.
+-------------------------------------------------------------------------------------------------------------------------------------
+🤔 Transitive dependecies ?
+
+🅰️ 
+        A transitive dependency is a dependency of a dependency.
+        In simple words:
+        Your project installs a package.
+        That package internally depends on other packages.
+        Those internal packages are called transitive dependencies for your project.
+
+        🛠 Why is it important?
+                You may not directly install these internal packages, but your app still needs them to work.
+                If a transitive dependency breaks, your app can break even if you didn’t directly use it.
+
+        🧁 Simple Analogy:
+                Imagine you ordered a pizza (main dependency),
+                but the pizza shop needs dough, cheese, and tomatoes from other suppliers (transitive dependencies).
+
+                You didn't directly order cheese — but you still need it for your pizza! 🍕
+
+        🔥 Technical Example:
+                Express itself depends on other packages like body-parser, cookie-parser, etc.
+                Those internal packages are transitive dependencies for your project.
+                You installed only Express, but many small packages also got installed automatically.
+
+        Interview One-Liner:
+                "Transitive dependencies are the packages that your direct dependencies need to work. 
+                They are installed automatically, even though you didn’t explicitly add them in your package.json."
+-------------------------------------------------------------------------------------------------------------------------------------
+🤔 How many script types in html ?
+
+🅰️     "In HTML, the <script> tag can have types like text/javascript (default), module (modern JS),
+        application/json (data), text/babel (JSX), text/typescript, and others depending on what you want the browser to interpret."
+
+        🛠 Simple Explanation:
+                If you don't mention any type, it’s treated as JavaScript by default.
+                When you use type="module", the script can use import/export, and it loads differently (deferred automatically).
+
+                        <!-- Normal JavaScript -->
+                        <script src="app.js" type="text/javascript"></script>
+
+                        <!-- Module JavaScript -->
+                        <script src="app.js" type="module"></script>
+
+                        <!-- Embedded JSON -->
+                        <script type="application/json" id="data">
+                        { "name": "Prashant", "age": 25 }
+                        </script>
+
+                        <!-- JSX code with Babel -->
+                        <script type="text/babel">
+                        const element = <h1>Hello World</h1>;
+                        </script>
+-------------------------------------------------------------------------------------------------------------------------------------
+🤔 babel ?
+
+ 🅰️     "Babel not only converts modern JavaScript (ES6+) 
+        into older JavaScript but also converts JSX into regular JavaScript that browsers can understand."
+
+        🧁 Quick Analogy:
+        JSX is like writing a beautiful poem in your language,
+        Babel is the translator who rewrites it into plain English (JavaScript) so that everyone (browser) can understand. 📜✨
+
+        🛠 Why do we need Babel?
+                New JavaScript (like let, const, arrow functions, async/await) is not supported by all browsers (especially old ones).
+                Babel translates new features into older, compatible code automatically.
+                So your React apps can work across all browsers, even if you use modern JavaScript.
+-------------------------------------------------------------------------------------------------------------------------------------
+🤔 DOM vs  Virtual DOM vs Browser DOM ?
+
+🅰️ "The DOM is the browser’s tree structure of the page. Browser DOM is the real live DOM. Virtual DOM is a 
+     lightweight in-memory copy used by React to make changes faster and smarter by updating only what's necessary."
+
+   🔴 What is DOM (Document Object Model)?
+        DOM is a tree-like structure that the browser creates to represent the HTML of your page.
+        Each HTML element (like <div>, <h1>) becomes a node in the tree.
+        JavaScript can read, change, or delete these nodes to update the web page dynamically.
+
+        🌳 Imagine the DOM like a family tree of your website.
+   
+   🔴 What is Browser DOM?
+        Browser DOM simply means the actual DOM that is built and maintained by the browser (like Chrome, Firefox).
+        It is the real, live structure in the browser.
+        When you change anything in the Browser DOM, it immediately affects the webpage.
+        Updating Browser DOM is slow if you do it many times (because the browser needs to repaint and reflow the page).
+
+   🔴 What is Virtual DOM (in React)?
+        Virtual DOM is a lightweight copy of the real DOM that React keeps in memory.
+        Whenever you make a change in React (like update a button text), React first updates the Virtual DOM.
+        Then, React compares the old Virtual DOM with the new Virtual DOM (using a smart process called diffing).
+        Finally, React updates only the changed parts in the Browser DOM (instead of updating the whole page).
+
+        🚀 This makes React apps faster, smoother, and more efficient.
+-------------------------------------------------------------------------------------------------------------------------------------
+🤔 Reconciliation ?
+
+🅰️ "Reconciliation is React’s smart process of comparing the old and new Virtual DOMs, finding the differences, 
+     and updating only the necessary parts of the real DOM, making the app fast and efficient."
+
+     Reconciliation is the process by which React updates the Browser DOM when something in the app changes.
+     React compares the new Virtual DOM with the old Virtual DOM (this is called diffing Algorithm).
+     Then, React figures out exactly what changed.
+     Finally, React updates only the changed parts of the real Browser DOM (instead of re-rendering the whole page).
+
+     This makes updates fast, efficient, and smooth.
+
+     🛠 Why do we need Reconciliation?
+                Updating the full page every time would be slow.
+                Reconciliation helps React to smartly update only necessary parts.
+                This keeps React apps super fast even when they grow big.
+
+    🧁 Simple Analogy:
+                Imagine your teacher gave you an essay with 100 sentences.
+                If you find just 2 spelling mistakes, would you rewrite the whole essay?
+                No!
+                You only fix those 2 mistakes.
+
+                That is exactly what Reconciliation does —
+                It finds the difference and updates only the necessary changes.
+-------------------------------------------------------------------------------------------------------------------------------------
+🤔 React Element vs React functional component ?
+
+🅰️ "A React Element is a plain object describing what to render, 
+     while a React Functional Component is a JavaScript function that returns one or more elements, 
+      allowing reusable and dynamic UI creation."
+
+    🔴 What is a React Element?
+                A React Element is the smallest building block of a React app.
+                It is a simple object that describes what you want to see on the screen.
+                A React Element is not something that you interact with directly — it’s just a plain JavaScript object.
+                It tells React what to render and where.
+
+                🛠 Example:
+                     const element = <h1>Hello, World!</h1>;    // This creates a React Element that describes an <h1> tag.
+                     👉 Internally, React turns this into an object like:
+
+                     {
+                        type: 'h1',
+                        props: { children: 'Hello, World!' }
+                     }
+
+        🔴  What is a React Functional Component?
+                A React Functional Component is a JavaScript function that returns a React Element (or a tree of elements).
+                Functional Components are reusable pieces of UI.
+                They accept props and return elements.
+                Functional components help you break down the UI into smaller, manageable, and reusable parts.
+
+                🛠 Example:
+                        function Greeting() {
+                                return <h1>Hello, World!</h1>;
+                                }
+
+                This is a functional component that returns a React Element (<h1>Hello, World!</h1>).
+
+        React Element	                                React Functional Component
+        Simple object describing UI	                JavaScript function that returns a React Element
+        Represents one piece of UI	                Can return multiple elements (complex UI)
+        Cannot have logic or props	                Can have logic, props, state (with hooks)
+        Created automatically when you use JSX	        Created manually by writing functions
 
 -------------------------------------------------------------------------------------------------------------------------------------
-Q. what is wireframe ?
+🤔 JS statement vs JS Expression ?
 
+🅰️ "A JS statement performs an action but doesn't return a value, while a JS expression produces a value that can be used further."
+
+        🔴 What is a JS Statement?
+                A JS statement is an instruction that performs an action but does not return a value.
+                Statements are the building blocks of JavaScript programs. They tell the browser to do something.
+                They typically end with a semicolon (;), although it’s optional in many cases.
+
+                Examples of JS Statements:
+                let x = 10;
+                This is a statement because it declares a variable and assigns a value, but it doesn’t return a value.
+
+                console.log('Hello World!');
+                The function call tells the program to perform an action (log something to the console), 
+                but it doesn’t return anything.
+
+        🔴  What is a JS Expression?
+                A JS expression is any valid unit of code that produces a value.
+                Expressions are evaluated and always return a result (value).
+                Expressions can be part of a statement, but they can also stand alone.
+
+                Examples of JS Expressions:
+                let result = 10 + 5;
+                This is an expression because 10 + 5 is evaluated to produce a value (15), which is then assigned to the variable result.
+
+                const add = function(a, b) { return a + b; };
+                The function itself is an expression because it produces a value (the function reference) which can be assigned to add.
+
+                let status = age > 18 ? 'Adult' : 'Child';
+                This is an expression because it evaluates the condition (age > 18) and returns either 'Adult' or 'Child'.
+        
+                Statements	                                        Expressions
+                Perform an action (do something)	                Return a value (produce something)
+                Example: Variable declaration, loops, function calls	Example: Arithmetic, function return, conditionals
+                Don’t return a value	                                Always produce a value
 -------------------------------------------------------------------------------------------------------------------------------------
-Q. cdn vs cross origin ?
+🤔 component composition,  React fragement ?
 
+🅰️ "Component Composition means assembling small components to create big UIs, 
+      and React Fragment lets us group multiple elements without adding extra HTML tags."
+
+    🔴 Component Composition
+                Component Composition means combining small components together to build a bigger and more complex UI.
+                Instead of making one big component, we break UI into small, reusable pieces (small components).
+                Then we assemble (compose) them like LEGO blocks 🧱🧱 to form bigger parts.
+
+                🛠 Example:
+                function Header() {
+                        return <h1>Welcome!</h1>;
+                        }
+
+                function Footer() {
+                        return <footer>© 2025 Company</footer>;
+                }
+
+                function App() {
+                    return (
+                        <div>
+                        <Header />
+                        <p>This is the main content.</p>
+                        <Footer />
+                        </div>
+                     );
+                }
+
+                Header and Footer are small components, and we compose them inside App.
+
+                Why Component Composition ?
+                        Reusable code (Don't Repeat Yourself — DRY)
+                        Easy to manage and debug
+                        Clean and organized UI building
+                        Better separation of concerns
+        
+        🔴 React Fragment
+                React Fragment is a special wrapper in React that lets you group multiple
+                elements without adding extra HTML tags to the DOM.
+                Normally, in React, you must return only one parent element.
+                If you want to return multiple elements without creating unnecessary <div> or <span>, you use a Fragment.
+
+                🛠 Example:
+                        import React from 'react';
+
+                        function MyComponent() {
+                          return (
+                                <>
+                                <h1>Hello</h1>
+                                <p>Welcome to React</p>
+                                </>
+
+                                <Fragment>
+                                <h1>Hello</h1>
+                                <p>Welcome!</p>
+                                </Fragment>
+
+                                <React.Fragment>
+                                <h1>Hello</h1>
+                                <p>Welcome!</p>
+                                </React.Fragment>
+                            );
+                        }
+
+                Here, <h1> and <p> are grouped together using a Fragment (<>...</>).
+                No extra <div> will appear in the final HTML!
+
+                Why React Fragment?
+                        Cleaner HTML output (no unnecessary divs like <div><div><div>...</div></div></div>)
+                        Better performance (DOM remains light)
+                        Logical grouping of multiple children
+
+                React Fragment: Like packing multiple items together 📦 but without putting an unnecessary big box around them.
+
+                When to use React Fragment?
+                        Whenever you want to return multiple sibling elements from a component without adding extra HTML nodes to the DOM.
+                        Example situation:
+                        You want to group multiple tags like <h1>, <p>, <img>, etc.
+                        But you don't want an extra <div> to mess up your CSS or structure.
+
+                🔥 Quick Tip for Bonus Points
+                        If the interviewer asks "Why not just use <div>?", you can say:
+                        Using extra <div>s can break CSS layouts (like flex, grid).
+                        More <div>s = heavier DOM, which hurts performance.
+                        Fragments make the DOM cleaner and faster.
 -------------------------------------------------------------------------------------------------------------------------------------
-Q. write h1 tag in html, js, reactsjs
+🤔 config driven UI, shimmer UI ?
 
+🅰️ "Config-Driven UI allows you to build user interfaces based on external configuration files, 
+     making it more flexible and maintainable. 
+     Shimmer UI adds a smooth loading animation to improve user experience during content loading."
+
+    🔴 What is Config-Driven UI?
+        Config-Driven UI means building a user interface based on configuration files (like JSON or YAML), 
+        rather than hard-coding every component.
+
+        The UI structure, layout, and behavior are defined in a config file.
+        Developers can update the UI just by changing the config file, without changing the code.
+
+        🛠 Why Use It?
+                Flexible: You can easily change the layout or behavior of the app without touching the code.
+                Maintainable: Keeps the codebase cleaner by separating the UI logic and the data/config.
+                Reusable: You can reuse the same UI components for different configurations or contexts.
+
+        📦 Example:
+                Imagine an app where you can add/remove fields in a form. 
+                Instead of modifying the code every time, you can create a config file like:
+
+                {
+                   "fields": [
+                        { "label": "Name", "type": "text" },
+                        { "label": "Email", "type": "email" },
+                        { "label": "Age", "type": "number" }
+                      ]
+                }
+
+                The UI will automatically render these fields based on the config.
+
+       🔴 What is Shimmer UI?
+                Shimmer UI (or Shimmer Effect) is a loading placeholder that shows a smooth, 
+                animated effect while content is loading. It’s used to enhance the user experience during slow loading times.
+
+                Instead of showing a blank space or a loading spinner, 
+                you show a shimmering animation (like a "light" moving across the content area).
+
+                It gives the illusion that the content is almost ready, making the app feel more responsive and polished.
+
+                🛠 Why Use It?
+                        Improves User Experience: A smooth shimmer effect feels less intrusive than a static loading spinner.
+                        Reduces Perceived Waiting Time: The shimmering animation makes the user think that the page is loading faster.
+                        Better than Static Loading: Makes apps look more modern and fluid.
 -------------------------------------------------------------------------------------------------------------------------------------
-Q. jsx ?
+🤔 micro frontend, microservice ?
 
+🅰️ "Microservice means breaking backend into small independent services, and Micro Frontend means breaking 
+    frontend into small independent UI parts — both to make development faster, flexible, and scalable."
+
+    🔴 What is Microservice?
+                Microservice is a way to break a big backend system into smaller, independent services.
+                Each service does one job (like login service, payment service, search service).
+                Services can work independently but together they form the complete app.
+                They communicate using APIs (like REST or GraphQL).
+
+      Why?
+        Easier to develop, test, deploy, and scale each service separately.
+        No need to touch the whole app if you want to change just one part.
+
+    🔴 What is Micro Frontend?
+                Micro Frontend is a way to break a big frontend (UI) into smaller, independent pieces.
+                Each team can build and deploy their own frontend part (like header, product page, cart page).
+                Different parts of the app can be built with different technologies 
+                if needed (one team may use React, another Angular).
+
+        Why?
+          Makes frontend development faster for large apps.
+          Different teams can work independently without waiting for each other.
+
+     🔴 "Yes, in micro frontends, different parts of the app can use different frameworks like 
+        React, Vue, Angular, etc., because each micro frontend is built and deployed independently. 
+        They are like mini apps inside a bigger app."
+
+                For example:
+
+                Navbar → built with React
+                Product Page → built with Vue
+                Cart Page → built with Angular
+
+                They co-exist and are stitched together using techniques like:
+
+                Webpack Module Federation
+                Single-SPA
+                iframe (in old designs)
 -------------------------------------------------------------------------------------------------------------------------------------
-Q. bundlers, npm, node modules ?
+🤔 state, props ?
 
+🅰️     State management (all about data):
+
+        what is state ? => how we manages/uses data into a component.
+        what is props? => how we pass/inject data to a particular component.
+
+        State / Props: Internal state for a component / external data passed to a component.
+
+        Props drilling: Passing props through multiple layers of components.
+
+        Context: Provides a way to pass data through the component tree without passing props.
 -------------------------------------------------------------------------------------------------------------------------------------
-Q. package.json vs package-lock.json ?
+🤔 MVC ?
 
--------------------------------------------------------------------------------------------------------------------------------------
-Q. Transitive dependecies ?
+🅰️ "MVC is a design pattern that separates an app into Model (data), View (UI), and Controller (logic) to keep code clean, 
+     organized, and easy to manage."
 
--------------------------------------------------------------------------------------------------------------------------------------
-Q. How many script types in html ?
+     What is MVC?
+        MVC stands for Model - View - Controller.
+        It’s a design pattern used to organize code nicely in applications.
 
--------------------------------------------------------------------------------------------------------------------------------------
-Q. babel ?
+        It splits your app into 3 parts:
 
--------------------------------------------------------------------------------------------------------------------------------------
-Q. DOM vs  Virtual DOM vs Browser DOM ?
+        Model → Handles the data (example: database, logic)
+        View → Handles the UI (example: what the user sees)
+        Controller → Handles the communication between Model and View 
+                (example: when user clicks a button, controller processes it)
 
--------------------------------------------------------------------------------------------------------------------------------------
-Q. Reconciliation ?
 
--------------------------------------------------------------------------------------------------------------------------------------
-Q. React Element vs React functional component ?
+        Example in Web Development:
+                Model → Blog post data (title, content, author info)
+                View → HTML page showing the blog post
+                Controller → Handles clicking on "Save Post", fetching the blog list, etc.    
 
--------------------------------------------------------------------------------------------------------------------------------------
-Q. JS statement vs JS Expression ?
-
--------------------------------------------------------------------------------------------------------------------------------------
-Q. component composition,  React fragement ?
-
--------------------------------------------------------------------------------------------------------------------------------------
-Q. config driven UI, shimmer UI ?
-
--------------------------------------------------------------------------------------------------------------------------------------
-Q. micro frontend, microservice ?
-
--------------------------------------------------------------------------------------------------------------------------------------
-Q. state, props ?
-
--------------------------------------------------------------------------------------------------------------------------------------
-Q. MVC ?
-
+        "React is mainly the View layer. It doesn’t strictly follow the MVC pattern but combines View, Model (state/props), 
+        and Controller (event handling) inside reusable components."           
 -------------------------------------------------------------------------------------------------------------------------------------
 
 
