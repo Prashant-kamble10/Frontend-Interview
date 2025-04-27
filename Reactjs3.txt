@@ -31,8 +31,30 @@ Q. Redux, redux toolkit, Dispatch, slice, slicer, Action, Reducer, selector, sub
 Q. useMemo ,useCallback, useRef ?
 
 -------------------------------------------------------------------------------------------------------------------------------------
-Q. DangeourslySetHTML ?
+🤔 DangeourslySetHTML ?
 
+🅰️ WHAT is dangerouslySetInnerHTML?
+    dangerouslySetInnerHTML is a React prop that allows you to directly inject raw HTML into a component.
+    It is similar to innerHTML in vanilla JavaScript but comes with security risks.
+
+    Example: Using dangerouslySetInnerHTML
+
+    function MyComponent() {
+        const htmlContent = "<h2 style='color:red;'>This is rendered as raw HTML</h2>";
+
+        return <div dangerouslySetInnerHTML={{ __html: htmlContent }} />;
+    }
+
+    📌 This will render the HTML inside the <div> instead of treating it as a string.
+
+    WHY Do We Need dangerouslySetInnerHTML?
+    ✔ Rendering HTML from External Sources – Sometimes, data from APIs, CMS, or Markdown parsers contain HTML.
+    ✔ Displaying Pre-Formatted Content – Blogs, email templates, or rich-text editors require HTML rendering.
+    ✔ SSR (Server-Side Rendering) or Pre-rendered Content – Some applications require injecting raw HTML dynamically.
+
+    HOW Does It Work?
+    Instead of using {someHtmlString}, we use { __html: someHtmlString }.
+    The double underscore (__html) is a deliberate design choice by React to highlight potential security risks.
 -------------------------------------------------------------------------------------------------------------------------------------
 Q. React Folder structure ?
 

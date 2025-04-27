@@ -604,6 +604,8 @@
         Props drilling: Passing props through multiple layers of components.
 
         Context: Provides a way to pass data through the component tree without passing props.
+
+        Whenever state or props changes render happens in reactjs application.
 -------------------------------------------------------------------------------------------------------------------------------------
 🤔 MVC ?
 

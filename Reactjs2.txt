@@ -1,38 +1,1102 @@
-Q. named & default -> import, export ?
+🤔 named & default -> import, export ?
+
+🅰️ 🔴 Named Exports/Imports
+        What? Named exports allow you to export multiple values from a module (file) by using their names. 
+        When you import, you need to use the exact names as they were exported.
+
+        Why? It's useful when you want to export several functions, constants, or variables from a single file 
+        and you want to import only what you need in another file.
+
+        How? Exporting:
+          // File: myModule.js
+            export const greet = () => 'Hello';
+            export const farewell = () => 'Goodbye';
+
+            Importing:
+           // File: app.js
+            import { greet, farewell } from './myModule';
+
+            console.log(greet()); // "Hello"
+            console.log(farewell()); // "Goodbye" 
+
+    🔴 Default Exports/Imports
+            What? Default exports allow you to export a single value or function as the "default" export from a module. When you import, you can give it any name you want.
+
+            Why? It's useful when you want to export one main thing from a file, like a component or a class, and import it with any name.
+
+            How? Exporting:
+               // File: myComponent.js
+                const MyComponent = () => {
+                return <div>Hello, World!</div>;
+                };
+                export default MyComponent;
+
+                Importing:
+               // File: app.js
+                import MyComponent from './myComponent';
+
+                <MyComponent />  // This works because it was exported as default
+ 
+    🔴 Key Differences:
+        Named export/import requires matching names between the import and the export.
+
+        Default export/import does not require matching names; you can name it whatever you like while importing.
+-------------------------------------------------------------------------------------------------------------------------------------
+🤔 useState - React variable ?
+
+🅰️  🔴 useState: Manages state in functional components.
+
+        import React,{useState} from 'react'
+
+        const WhyUseState = () => {
+
+            let sample =1;   // with normal JS variable
+            const [state, setState] = useState(0)   // with state variable
+
+
+        return (
+            <div>
+            <h2>with Normal Variable</h2> 
+            <button onClick={()=>{console.log(sample++)}}></button>
+            {sample}
+
+
+
+            <h2>with State Variable</h2>
+            <button onClick={()=>{setState(state+1)}}></button>
+            {state}
+            {console.log("state", state)}
+            </div>
+          )
+        }
+
+        export default WhyUseState
+
+    🔴 useReducer: Manages complex state logic with a reducer function.
+
+            useState == useReducer 
+
+            useState and useReducer (similarities)
+
+            State Management: Both hooks are used for managing state in functional components.
+            Component Re-renders: Both hooks cause the component to re-render when the state they manage changes.
+            Preserves State Across Renders: Both useState and useReducer keep the state persistent across re-renders.
+            Functional Updates: Both hooks allow you to use functional updates, where the new state depends on the 
+                        previous state.
+
+            when to use useState and useReducer
+            Use useState for simple state management needs.
+            Use useReducer when you have more complex state logic that involves multiple state transitions 
+            or when the state update logic is non-trivial.
+
+                import React, { useState } from 'react';
+
+                function Counter() {
+                const [count, setCount] = useState(0);
+
+                return (
+                    <div>
+                    <p>Count: {count}</p>
+                    <button onClick={() => setCount(count + 1)}>Increment</button>
+                    <button onClick={() => setCount(count - 1)}>Decrement</button>
+                    </div>
+                );
+                }
+
+            Reducer Function:useReducer: You define a reducer function that takes the current state and an action,
+             and returns the new state. This is particularly useful for more complex state logic.
+
+            Action Dispatching:useReducer: Uses actions to describe state changes, 
+            which are dispatched and handled by the reducer function.
+
+            Initial state:  Initializes state with an initial state object.
+
+            import React, { useReducer } from 'react';
+
+                // Define the initial state
+                const initialState = { count: 0 };
+
+                function reducer(state, action) {
+                switch (action.type) {
+                    case 'increment':
+                        return { count: state.count + 1 };
+                    case 'decrement':
+                        return { count: state.count - 1 };
+                    default:
+                        throw new Error();
+                  }
+                }
+
+                function Counter() {
+                // Pass the initial state to useReducer
+                const [state, dispatch] = useReducer(reducer, initialState);
+
+                return (
+                    <div>
+                    <p>Count: {state.count}</p>
+                    <button onClick={() => dispatch({ type: 'increment' })}>Increment</button>
+                    <button onClick={() => dispatch({ type: 'decrement' })}>Decrement</button>
+                    </div>
+                  );
+                }
+
+                export default Counter;
 
 -------------------------------------------------------------------------------------------------------------------------------------
-Q. useState - React variable ?
+🤔 one way vs two way - data binding ?
+
+🅰️ 🔴 one-way data binding
+
+        What? In one-way data binding, data flows in a single direction, 
+        typically from the parent component to the child component. 
+        This means that the state of the component is controlled by the parent, 
+        and the child can only read the state but cannot directly change it.
+
+        Why? It's useful because it makes the flow of data easier to track and debug. 
+        It ensures that the application is predictable and that any state changes are centralized.
+
+        How? Example:
+
+            // Parent Component
+            const Parent = () => {
+            const [message, setMessage] = useState('Hello, World!');
+            
+            return <Child message={message} />;
+            };
+
+            // Child Component
+            const Child = ({ message }) => {
+            return <h1>{message}</h1>;
+            };
+
+        In this case, the message is passed from the Parent component to the Child component as a prop,
+         and the Child component cannot change it.
+
+    🔴 Two-Way Data Binding
+            What? In two-way data binding, data can flow in both directions: from the parent to the child 
+            (like one-way binding), and from the child back to the parent.
+             This means that the state is shared between the components, 
+             and the child can also update the state, affecting the parent.
+
+            Why? Two-way binding is useful when you need the child component to update the state and 
+            have that change reflected in the parent component, like in forms or input fields.
+
+            How? Example:
+
+                // Parent Component
+                const Parent = () => {
+                const [message, setMessage] = useState('Hello, World!');
+                
+                const handleMessageChange = (newMessage) => {
+                    setMessage(newMessage);
+                };
+
+                return <Child message={message} onChange={handleMessageChange} />;
+                };
+
+                // Child Component
+                const Child = ({ message, onChange }) => {
+                return <input value={message} onChange={(e) => onChange(e.target.value)} />;
+                };
+
+
+            In this case, the Child component can modify the message by calling the onChange 
+            function passed down from the Parent, updating the parent's state. The value of the input 
+            is linked to the parent's state.
+
+    🔴 Key Differences:
+        One-Way Binding: Data flows only in one direction (parent to child). 
+        The child cannot change the parent's state.
+
+        Two-Way Binding: Data flows in both directions (parent to child, and child to parent).
+         The child can update the parent's state.
+
+    🔴 React and One-Way Data Binding
+        React primarily uses one-way data binding. State in React is managed in the component and is passed down to 
+        child components as props. When an event occurs (like a user input), React updates the state 
+        and re-renders the components. In contrast, two-way data binding is more common in other 
+        frameworks like Angular, but you can simulate it in React using state lifting and callback functions.
+-------------------------------------------------------------------------------------------------------------------------------------
+🤔 state lifting up, prop drilling ?
+
+🅰️ 🔴 What is State Lifting in React?
+        State lifting is a pattern in React where you move (or "lift") the state from a child component 
+        to a parent component. This is usually done when two or more child components need to access 
+        or update the same state, but React doesn’t allow direct communication between sibling components.
+
+        Instead, you lift the state up to the parent component and pass it down to the child 
+        components as props. The parent component is then responsible for managing the state.
+
+      Why Do We Use It?
+        In React, each component should ideally manage its own state. However, 
+        when two child components need to share and update the same state, 
+        the best practice is to lift the state up to the nearest common ancestor (typically the parent).
+        This allows both child components to have access to the same state and update it.
+
+      How Does State Lifting Work?
+        1. Parent Component Manages the State The state that was previously in one of the child components
+           is moved up to the parent component. The parent component now owns the state.
+
+        2. Pass a Function as a Prop Since the parent owns the state, it needs a way for the child components
+           to update the state. The parent defines a function that can update its state,
+           and it passes that function down to the child components as a prop.
+
+        3. Child Component Calls the Function The child components can then call the function passed
+           as a prop to update the state in the parent component. This causes a re-render of both the parent
+          and the child components that depend on that state.
+
+      Example: State Lifting with a Function as a Prop
+        Let’s say we have two sibling components: one for an input field and another for displaying the
+        input value. The goal is to allow the input field to update the state, and the display component 
+        should show the updated value.
+
+        Step 1: Parent Component
+
+            import React, { useState } from 'react';
+            import InputComponent from './InputComponent';
+            import DisplayComponent from './DisplayComponent';
+
+            const ParentComponent = () => {
+            const [inputValue, setInputValue] = useState('');
+
+            // Function to update the state
+            const handleInputChange = (newInput) => {
+                setInputValue(newInput);
+            };
+
+            return (
+                <div>
+                {/* Passing the function and the state to child components */}
+                <InputComponent onInputChange={handleInputChange} />
+                <DisplayComponent value={inputValue} />
+                </div>
+            );
+            };
+
+            export default ParentComponent;
+
+        Step 2: Child Component 1 (Input Component)
+            The input component takes the function as a prop and calls it whenever the input value changes.
+
+            import React from 'react';
+
+            const InputComponent = ({ onInputChange }) => {
+            const handleChange = (event) => {
+                onInputChange(event.target.value); // Calling the parent's function to update the state
+            };
+
+            return <input type="text" onChange={handleChange} />;
+            };
+
+            export default InputComponent;
+
+        Step 3: Child Component 2 (Display Component)
+            The display component takes the value as a prop and shows it.
+
+            import React from 'react';
+
+            const DisplayComponent = ({ value }) => {
+            return <div>The input value is: {value}</div>;
+            };
+
+            export default DisplayComponent;
+
+      How It Works:
+        The ParentComponent owns the state (inputValue) and defines a function (handleInputChange) to update the state.
+
+        The InputComponent receives the handleInputChange function as a prop and calls it when the input field changes.
+
+        The DisplayComponent receives the inputValue state as a prop and displays it.
+
+        As a result, when you type something in the InputComponent, the state is updated in the parent component,
+         and that change is reflected in the DisplayComponent as well.
+
+    🔴 What is Prop Drilling?
+            Prop drilling is a pattern in React where you pass data (via props) from a parent component down 
+            to a deeply nested child component, often through multiple intermediate child components.
+            This means that the data is passed down through many layers of components, 
+            even if the intermediate components don't need to use the data themselves.
+
+        Why is Prop Drilling a Problem?
+            Scalability: As your application grows and components become more nested, you may find yourself 
+            passing props through many levels of components. This can make the code hard to maintain and understand.
+
+            Unnecessary re-renders: Intermediate components that don’t actually need the prop may still get re-rendered 
+            whenever the data changes, which can negatively impact performance.
+
+            Unclear component responsibilities: Components may end up receiving props they don't need, 
+            which makes the purpose of those components unclear.
+
+        Example of Prop Drilling:
+                // Grandparent Component
+                const Grandparent = () => {
+                const [message, setMessage] = useState('Hello from Grandparent!');
+                
+                return <Parent message={message} />;
+                };
+
+                // Parent Component
+                const Parent = ({ message }) => {
+                return <Child message={message} />;
+                };
+
+                // Child Component
+                const Child = ({ message }) => {
+                return <h1>{message}</h1>;
+                };
+
+        How Can We Avoid Prop Drilling?
+               1. Using Context API
+               2. state Management Libraries (like Redux)
+-------------------------------------------------------------------------------------------------------------------------------------
+🤔 controlled vs uncontrolled component ?
+
+🅰️ 🔴 What is a Controlled Component?
+        A controlled component is an input element (like a <input>, <textarea>, or <select>)
+         where the form data is controlled by the state of the React component. In other words, 
+         React has full control over the form elements.
+
+        In a controlled component, React manages the value of the input via state.
+
+       Why Use Controlled Components?
+        Single Source of Truth: React state is the "single source of truth." The value of the input is always tied to the 
+        component's state, making it easier to manage and validate form data.
+
+        Easy to Control: Since React manages the input's value, it's straightforward to perform things like validation, 
+        modification, and formatting before submission.
+
+        Predictability: React can track every change to the input field, making it easier to debug, test, 
+        and keep track of user input.
+
+      How to Create a Controlled Component?
+        In a controlled component, the value of the input field is linked to a state variable using useState, 
+        and any changes to the input value are handled through an onChange event handler.
+
+        Example:
+        import React, { useState } from 'react';
+
+        const ControlledComponent = () => {
+        const [inputValue, setInputValue] = useState('');
+
+        const handleInputChange = (event) => {
+            setInputValue(event.target.value);  // Update state with the input value
+        };
+
+        return (
+            <div>
+            <input
+                type="text"
+                value={inputValue}   // The value of the input is tied to state
+                onChange={handleInputChange}  // Update state when the input changes
+            />
+            <p>Input value: {inputValue}</p>
+            </div>
+        );
+        };
+
+        export default ControlledComponent;
+    
+    🔴 What is an Uncontrolled Component?
+            An uncontrolled component is an input element where React does not directly manage the 
+            value of the form field. Instead, the input element maintains its own internal state.
+
+            In an uncontrolled component, React does not control the value of the input. 
+            The DOM itself handles the value of the input element.
+
+        Why Use Uncontrolled Components?
+            Less Boilerplate: Uncontrolled components require less code because you 
+            don't need to manage state with useState for each input.
+
+            When You Don't Need to Manage Form Data: If you don't need to process or validate 
+            the input value while the user types (or in real-time), uncontrolled components can be a simpler solution.
+
+            Legacy Code: Sometimes, you may have existing forms or inputs (for example, in a third-party library)
+            that don't work well with controlled components, and in those cases,
+            uncontrolled components can be a better choice.
+
+        How to Create an Uncontrolled Component?
+            In an uncontrolled component, you use a ref to directly access the DOM element's value when you need it 
+            (e.g., when the form is submitted).
+
+            Example:
+            import React, { useRef } from 'react';
+
+            const UncontrolledComponent = () => {
+            const inputRef = useRef(null);
+
+            const handleSubmit = (event) => {
+                event.preventDefault();
+                alert(`Input value: ${inputRef.current.value}`);  // Access the value via the ref
+            };
+
+            return (
+                <form onSubmit={handleSubmit}>
+                <input type="text" ref={inputRef} />  {/* No value or onChange here */}
+                <button type="submit">Submit</button>
+                </form>
+            );
+            };
+
+            export default UncontrolledComponent;
+
+            In this example, the inputRef is used to get the value of the input field when the form is submitted.
+            React does not directly manage the value of the input field in this case.
+
+    🔴 Key Differences Between Controlled and Uncontrolled Components:
+
+        Feature	            Controlled Component	                            Uncontrolled Component
+        State Management	React manages the state (value of the input).	    The DOM manages the state. React doesn't track the value.
+        Data Flow	        One-way data flow (React state -> input value).	    Two-way data flow (input value -> DOM).
+        Form Validation     Easy to validate &process input value in real-time.	More difficult to validate until the form is submitted.
+        Code Complexity	    Requires more code (state + event handlers).	    Requires less code (just a ref to access input value).
+        Use Cases	        Useful for forms where data needs to be tracked,    Suitable for simple forms or when validation 
+                            validated, or processed in real-time.               is only needed on submit.
+
+    🔴 When to Use Each?
+        Use Controlled Components when:
+
+        You need to validate, format, or process the input in real-time.
+        You want to track the value of an input field with React state.
+        You need to trigger side effects based on changes to the input.
+
+        Use Uncontrolled Components when:
+
+        You don’t need to track the input value while the user types.
+        You prefer to access the input value only when submitting the form (e.g., when handling the form data in bulk).
+-------------------------------------------------------------------------------------------------------------------------------------
+🤔 useEffect, APIs call - fetch, axios ?
+
+🅰️ useEffect: useEffect allows you to perform side effects in functional components, 
+    like data fetching or subscriptions. It runs after render and can be controlled with dependency arrays.
+
+📌 functional component
+import React, { useEffect, useState } from "react";
+
+const Workshop = () => {
+  const [state, setState] = useState(0);
+  const [display, setDisplay] = useState("");
+
+
+  function handleInput(event){
+    setDisplay(event.target.value)
+  }
+
+  useEffect(() => {
+    console.log("useEffect called");
+  },[])
+
+  useEffect(() => {
+    console.log("useEffect called");
+  })
+ 
+  useEffect(() => {
+    console.log("useEffect called");
+  },[display])
+
+  return (
+    <div>
+      {console.log("component render")}
+
+      {state}
+
+      <button
+        onClick={() => {
+          setState(state + 1);
+        }}
+      >
+       
+        increase
+      </button>
+      <button
+        onClick={() => {
+          setState(state - 1);
+        }}
+      >
+    
+        decrease
+      </button>
+
+    
+    <div>
+         
+      <input type="text" onChange={handleInput} />
+      {display}
+    </div>
+    </div>
+  );
+};
+
+export default Workshop;
+
+📌  class component
+
+Lifecycle Method in class component.
+
+there are 2 phases, render phase and commit phase
+there are 3 methods, componentDidMount, componentDidUpdate, componentWillUnmount.
+
+import React, { Component } from 'react';
+import ChildComponent from './ChildComponent';
+import Child2Component from './Child2Component';
+
+export class ParentComponent extends Component {
+  constructor(props) {
+    super(props);
+    console.log("parent constructor");
+  }
+
+  componentDidMount() {
+    console.log("parent componentDidMount");
+  }
+
+  componentDidUpdate(){
+    console.log("parent componentDidUpdate")
+  }
+
+  componentWillUnmount(){
+    console.log("parent componentWillUnmount")
+  }
+
+  render() {
+    console.log("parent render");
+    return (
+      <div>
+      <ChildComponent />
+      <Child2Component />
+      </div>
+    );
+  }
+}
+
+export default ParentComponent;
+
+
+import React, { Component } from 'react';
+
+export class ChildComponent extends Component {
+  constructor(props) {
+    super(props);
+    console.log("child1 constructor");
+  }
+
+  componentDidMount() {
+    console.log("child1 componentDidMount");
+  }
+
+  componentDidUpdate(){
+    console.log("child1 componentDidUpdate")
+  }
+
+  componentWillUnmount(){
+    console.log("child1 componentWillUnmount")
+  }
+
+  render() {
+    console.log("child1 render");
+    return (
+      <div>
+     
+      </div>
+    );
+  }
+}
+
+export default ChildComponent;
+
+
+import React, { Component } from 'react';
+
+export class Child2Component extends Component {
+  constructor(props) {
+    super(props);
+    console.log("child2 constructor");
+  }
+
+  componentDidMount() {
+    console.log("child2 componentDidMount");
+  }
+
+  componentDidUpdate(){
+    console.log("child2 componentDidUpdate")
+  }
+
+  componentWillUnmount(){
+    console.log("child2 componentWillUnmount")
+  }
+
+
+  render() {
+    console.log("child2 render");
+    return (
+      <div>
+        
+      </div>
+    );
+  }
+}
+
+export default Child2Component;
+
+
+OUTPUT - 
+parent constructor,
+parent render,
+child1 constructor,
+child1 render,
+child2 constructor,
+child2 render,
+child1 componentDidMount,
+child2 componentDidMount,
+parent componentDidMount.
+
+🔴 APIs call - fetch, axios
+
+ Async Tasks:
+API Calls: Fetching data from external sources.
+
+📌 api calls with axios
+
+function Homepage() {
+  const [data, setData] = useState([]);
+
+  function fetchProducts() {
+    axios
+      .get("https://fakestoreapi.com/products")
+
+      .then((res) => {
+        setData(res.data);
+      })
+
+      .catch((err) => {
+        console.log("Error:", err);
+      });
+  }
+
+  
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  console.log("data", data);
+}
+
+📌 api calls with fetch()
+
+const useFetch = (url, options = {}) => {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const info = await fetch(url, { ...options });
+      if (!info.ok) throw new Error(info.statusText);
+
+      const response = await info.json();
+      setData(response);
+      setError(null);
+      setLoading(false);
+    } catch (e) {
+      console.log(e);
+      setError(`${e}. Some Error Occured `);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [url]);
+}
+
+useEffect in depth: Managing side effects, including async operations.
+Events: Handling asynchronous events.
+Promises: A pattern for handling asynchronous operations.
+setTimeout: Delaying the execution of code.
+-------------------------------------------------------------------------------------------------------------------------------------
+🤔 conditional rendering ?
+
+🅰️  Conditional Rendering is a way to dynamically display content in React based on the state or props of the component.
+    You can use JavaScript conditions like if, ternary operators, or logical && to control what is displayed.
+    It helps make the UI more dynamic and responsive to changes in data, 
+    such as showing loading spinners, error messages, or user-specific content.
+
+        1. Using if/else Statements
+
+            import React, { useState } from 'react';
+
+            const ConditionalRenderingExample = () => {
+            const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+            if (isLoggedIn) {
+                return <h1>Welcome, User!</h1>;
+            } else {
+                return <button onClick={() => setIsLoggedIn(true)}>Log in</button>;
+            }
+            };
+
+            export default ConditionalRenderingExample;
+
+        2. Using Ternary Operator (condition ? true : false)
+
+            import React, { useState } from 'react';
+
+            const ConditionalRenderingExample = () => {
+            const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+            return (
+                <div>
+                {isLoggedIn ? (
+                    <h1>Welcome, User!</h1>
+                ) : (
+                    <button onClick={() => setIsLoggedIn(true)}>Log in</button>
+                )}
+                </div>
+            );
+            };
+
+            export default ConditionalRenderingExample;
+
+        3. Using Logical && Operator
+            import React, { useState } from 'react';
+
+            const ConditionalRenderingExample = () => {
+            const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+            return (
+                <div>
+                <button onClick={() => setIsLoggedIn(true)}>Log in</button>
+                {isLoggedIn && <h1>Welcome, User!</h1>}  {/* Only shows when logged in */}
+                </div>
+            );
+            };
+
+            export default ConditionalRenderingExample;
+
+        4. Conditional Rendering with Functions
+            You can also extract conditional rendering logic into functions to keep your component clean.
+            We define a function renderMessage that returns different JSX based on the isLoggedIn state.
+            The function is then called inside the return statement.
+
+            import React, { useState } from 'react';
+
+            const ConditionalRenderingExample = () => {
+            const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+            const renderMessage = () => {
+                if (isLoggedIn) {
+                return <h1>Welcome, User!</h1>;
+                } else {
+                return <button onClick={() => setIsLoggedIn(true)}>Log in</button>;
+                }
+            };
+
+            return <div>{renderMessage()}</div>;
+            };
+
+            export default ConditionalRenderingExample;
+-------------------------------------------------------------------------------------------------------------------------------------
+🤔 routing, createBrowserRouter, RouteProvider, useRouteError, Link, Outlet, useParams, Dynamic Routing, child Routing ?
+
+🅰️  Routing allows for navigation in SPAs, and React Router helps handle this.
+    Dynamic and child routing enables flexible, modular routes that can adapt to user interaction and display nested content.
+    Error handling with useRouteError ensures a smoother user experience even in cases of navigation errors.
+
+    🔴 Routing is the mechanism that allows you to navigate between different pages or components in a React application.
+        With routing, you can render different views without reloading the entire application. 
+        React Router is the most commonly used library for routing in React.
+
+        createBrowserRouter:
+        It’s a function used to create a router in React that interacts with the browser’s history API to manage URL navigation.
+        It's part of the new React Router v6+ API, which provides a more declarative way of defining routes.
+
+        RouteProvider:  
+        The <RouteProvider> component is part of the React Router API that helps set up route configurations in your app. 
+        It is typically used inside the root component to define all the available routes for the app.
+
+        useRouteError:
+        A hook used to handle errors related to route navigation. For example, when navigating to a non-existent route, 
+        you can catch and display the error using this hook.
+
+        Link:
+        The <Link> component is used to navigate between different routes without reloading the page. 
+        It’s a wrapper around anchor (<a>) tags but works for client-side routing.
+
+        Outlet:
+        The <Outlet> component is used as a placeholder for rendering child routes.
+        In nested routes, it renders the matched child component based on the current route.
+
+        useParams:
+        A hook used to retrieve dynamic route parameters (e.g., parts of the URL) such as an ID or slug.
+        This is useful for dynamic routes where the URL may change based on user interaction or API data.
+
+        Dynamic Routing:
+        Dynamic routing is when the routes are generated dynamically, often based on data or conditions.
+        For example, routes based on user data or API responses.
+
+        Child Routing:
+        Child routing allows you to have nested routes. 
+        These child routes are rendered inside a parent component using the <Outlet>.
+
+📌 How to Implement These Concepts in Code?
+Let's put all these concepts together in an example.
+We'll create a basic app with dynamic and child routing, and handle errors using useRouteError.
+
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { createBrowserRouter, RouterProvider, Link, Outlet, useParams, useRouteError } from 'react-router-dom';
+
+// Error component that will handle route errors
+function ErrorBoundary() {
+  const error = useRouteError();
+  return (
+    <div>
+      <h2>Something went wrong!</h2>
+      <p>{error.message}</p>
+    </div>
+  );
+}
+
+// Home Component
+function Home() {
+  return (
+    <div>
+      <h2>Home Page</h2>
+      <nav>
+        <Link to="/user/1">Go to User 1</Link><br />
+        <Link to="/user/2">Go to User 2</Link>
+      </nav>
+      <Outlet /> {/* Placeholder for nested routes */}
+    </div>
+  );
+}
+
+// User Component with Dynamic Route using `useParams`
+function User() {
+  const { userId } = useParams();
+  return <h2>User Page for User {userId}</h2>;
+}
+
+// Nested Route for User Details
+function UserDetails() {
+  const { userId } = useParams();
+  return <p>Details of User {userId}</p>;
+}
+
+// 404 Page Component (When a route is not found)
+function NotFound() {
+  return <h2>404 - Page Not Found</h2>;
+}
+
+// Define all routes with createBrowserRouter
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+    errorElement: <ErrorBoundary />,
+    children: [
+      {
+        path: "user/:userId", // Dynamic route (userId will be dynamic)
+        element: <User />,
+        children: [
+          {
+            path: "details", // Nested route
+            element: <UserDetails />,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    path: "*", // Catch-all route for 404
+    element: <NotFound />,
+  },
+]);
+
+// App component wrapping RouterProvider
+function App() {
+  return <RouterProvider router={router} />;
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+
+🔴 Explanation of the Code:
+Error Boundary:
+The ErrorBoundary component uses the useRouteError() hook to catch any errors that occur in the route navigation 
+(e.g., when navigating to a non-existent route).
+
+Home Component:
+The Home component serves as the root component and contains links for navigating to dynamic user routes (/user/:userId).
+It also uses the <Outlet /> component, which is a placeholder for child routes.
+
+User Component:
+The User component uses the useParams() hook to extract the dynamic userId from the route and display it on the page. 
+For example, /user/1 will show "User Page for User 1".
+
+User Details Component:
+This is a child route under /user/:userId. It shows additional details about a user when the user navigates to /user/:userId/details.
+
+Dynamic Routing:
+The userId is a dynamic part of the URL, which means that this part of the route can change,
+ and React Router will render the correct component based on that dynamic value.
+
+Child Routing:
+The User component has a child route (details) that is rendered inside the User component when the user 
+navigates to /user/:userId/details. The <Outlet /> renders any nested routes.
+
+404 Route (NotFound):
+The route with the path: "*" catches all unknown routes and displays the "Page Not Found" message.
+
+
+🔴 How Routing Works in React?
+The Router manages the URL and determines which components to display based on the current URL.
+Dynamic Routes change their output based on the URL (e.g., /user/1 will show a different component than /user/2).
+Nested Routes enable a component to have its own child routes, rendered via <Outlet />.
+When an invalid route is accessed, React Router shows a 404 page using the path: "*".
+You can also handle errors gracefully in routes using the useRouteError() hook.
 
 -------------------------------------------------------------------------------------------------------------------------------------
-Q. one way vs two way - data binding ?
+🤔 class based vs functional based component ?
+
+🅰️ Comparison Table: Class-based vs Functional-based Components
+
+    Feature	                Class-based Components	                            Functional-based Components
+    Syntax	                Uses ES6 classes with constructor, render	        Uses JavaScript functions and return JSX
+    State	                Managed using this.state and this.setState	        Managed using useState hook
+    Lifecycle Methods	    Has lifecycle methods (componentDidMount, etc.)	    Managed using useEffect hook
+    this Keyword	        this is required to access state and methods	    No this keyword needed
+    Code Simplicity	        More verbose and complex	                        Simpler and more concise
+    Popularity	            Less common in modern React apps	                The preferred method in modern React development
+
+    Class-based components are powerful but more verbose and require managing lifecycle methods manually.
+
+    Functional-based components are the modern and simpler way of writing React components, 
+    especially with the introduction of hooks that allow functional components to handle state and lifecycle management.
+
+    Key Features of Class-based Components:
+
+        State Management: You can manage the state of the component using the this.state object.
+        Lifecycle Methods: Class components have lifecycle methods like componentDidMount, componentDidUpdate, 
+            componentWillUnmount, etc.,  that allow you to perform actions at specific stages of a component's life.
+        this Keyword: You need to use this to refer to instance variables and methods.
+
+    Key Features of Functional-based Components:
+
+        Hooks: You can use hooks like useState and useEffect to manage state and side effects in functional components.
+        Simplicity: They are easier to write and understand because they are simply functions that return JSX.
+        No this Keyword: You don’t need to use the this keyword, making the code more readable and simpler.
 
 -------------------------------------------------------------------------------------------------------------------------------------
-Q. state lifting up, prop drilling ?
+🤔 props & state in class based component ?
 
--------------------------------------------------------------------------------------------------------------------------------------
-Q. controlled vs uncontrolled component ?
+🅰️   Example Comparison of Both:
+      🔴  Class-based Component (Managing State and Lifecycle):   
 
--------------------------------------------------------------------------------------------------------------------------------------
-Q. useEffect, APIs call - fetch, axios ?
+import React, { Component } from 'react';
 
--------------------------------------------------------------------------------------------------------------------------------------
-Q. conditional rendering ?
+class CounterClass extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      count: 0
+    };
+  }
 
--------------------------------------------------------------------------------------------------------------------------------------
-Q. routing, createBrowserRouter, RouteProvider, useRouteError, Link, Outlet, useParams, Dynamic Routing, child Routing ?
+  componentDidMount() {
+    console.log("Component mounted!");
+  }
 
--------------------------------------------------------------------------------------------------------------------------------------
-Q. class based vs functional based component ?
+  increment = () => {
+    this.setState({ count: this.state.count + 1 });
+  };
 
--------------------------------------------------------------------------------------------------------------------------------------
-Q. props & state in class based component ?
+  render() {
+    return (
+      <div>
+        <h2>Class Component Counter: {this.state.count}</h2>
+        <button onClick={this.increment}>Increment</button>
+      </div>
+    );
+  }
+}
 
+export default CounterClass;
+
+        🔴 Functional-based Component (Using useState and useEffect):
+
+import React, { useState, useEffect } from 'react';
+
+function CounterFunction() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    console.log("Component mounted!");
+  }, []); // Empty dependency array means it runs once on mount
+
+  return (
+    <div>
+      <h2>Functional Component Counter: {count}</h2>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+    </div>
+  );
+}
+
+export default CounterFunction;
 -------------------------------------------------------------------------------------------------------------------------------------
-Q. mounting phase -> componentDidMount(), render(),
+🤔 mounting phase -> componentDidMount(), render(),
    updating phase -> shouldComponentUpdate(), componentWillUpdate(), componentDidUpdate(),
    unmounting phase -> componentWillUnmount(),
 
    compare above methods with useEffect() ?
 
+🅰️ Mounting Phase:
+        componentDidMount():
+        Happens once after the component is rendered for the first time. You usually fetch data or set up subscriptions here.
+
+        useEffect() with an empty dependency array [] works the same as componentDidMount(), 
+        because it runs only once when the component mounts.
+
+        render():
+
+        This method runs every time the component is rendered, whether it's the first time or due to state/props change.
+        With functional components, render() is essentially replaced by the component's return statement,
+        which is automatically triggered during render cycles. useEffect() is not directly related to render()
+        but can trigger re-renders when state or props are changed within it.
+
+    Updating Phase:
+        shouldComponentUpdate():
+
+        It checks whether the component needs to re-render based on changes in props or state. 
+        If it returns false, the component won't re-render.
+
+        This can be compared with useEffect(), where you can specify dependencies. 
+        If you only want the effect to run when specific props or state values change,
+        you pass those values in the dependency array of useEffect().
+
+        componentWillUpdate():
+
+        This lifecycle method was used to prepare for an update before re-rendering happens. However, 
+        it is deprecated and not recommended for use anymore.
+
+        You can achieve similar functionality using useEffect() with dependencies to perform actions before 
+        the component updates (e.g., on prop changes).
+
+        componentDidUpdate():   
+
+        This runs after the component updates (re-renders) due to changes in props or state. 
+        It's useful for operations like making API calls based on changes.
+
+        In useEffect(), you can replicate this behavior by passing dependencies in the array.
+        The effect will run after the component renders (similar to componentDidUpdate()), 
+        and you can compare old and new props/states within the effect.
+
+    Unmounting Phase:
+        componentWillUnmount():
+
+        This method is called before the component is removed from the DOM. It's used to clean up subscriptions, timers, etc.
+
+        In useEffect(), you can replicate this behavior by returning a cleanup function. 
+        This cleanup function will be called when the component unmounts.
 --------------------------------------------------------------------------------------------------------------------------------------
 
