@@ -7,7 +7,8 @@
 
     How Do Meta Tags Work?
     Meta tags are placed inside the <head> section of an HTML document. 
-    They do not appear on the webpage but provide crucial information to browsers, search engines, and social media platforms. 
+    They do not appear on the webpage but provide crucial information to browsers, search engines,
+     and social media platforms. 
     They use the <meta> element with attributes like name, content, and charset.
 
     What Are Meta Tags?

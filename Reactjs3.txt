@@ -1,35 +1,661 @@
-Q. custom hooks ?
+🤔 custom hooks ?
 
+🅰️ Custom Hooks:
+When to use?: Extracting and reusing component logic.
+Code: Functions prefixed with "use" returning stateful logic.
+Why?: Enhances code organization, reusability, and readability.
+
+example of customHooks
+
+📌 index.js
+
+import { useState, useEffect } from "react";
+
+const useFetch = (url, options = {}) => {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const info = await fetch(url, { ...options });
+      if (!info.ok) throw new Error(info.statusText);
+
+      const response = await info.json();
+      setData(response);
+      setError(null);
+      setLoading(false);
+    } catch (e) {
+      console.log(e);
+      setError(`${e}. Some Error Occured `);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [url]);
+
+  return{data, error, loading}
+};
+
+export default useFetch;
+
+📌 Test.js
+
+import useFetch from "./Index";
+
+const Test = () => {
+  const { data, error, loading } = useFetch(
+    "https://dummyjson.com/products",
+    {}
+  );
+  return (
+    <>
+      <h2>Test Component</h2>
+
+      {loading ? <h4>Loading! Please wait.</h4> : null}
+      {error ? <h4>{error} </h4> : null}
+
+      {/* {data?.products?.length  ?  data.products.map(()=> {}) : null } */}
+      {data && data.products && data.products.length
+        ? data.products.map((items) => {
+            return <h4 key={items.id}>{items?.title}</h4>;
+          })
+        : null}
+    </>
+  );
+};
+
+export default Test;
+
+📌 Test2.js
+
+import useFetch from "./Index";
+
+const Test2 = () => {
+  const { data, error, loading } = useFetch(
+    "https://jsonplaceholder.typicode.com/users",
+    {}
+  );
+
+  return (
+    <>
+      <h2>Test2 Component</h2>
+
+      {loading ? <h4>Loading! Please wait.</h4> : null}
+      {error ? <h4>{error} </h4> : null}
+
+      {/* {data?.length ? data.map(()=>{}) : null} */}
+
+      {data && data.length
+        ? data.map((item) => {
+            return <h4 key={item.id}>{item.email}</h4>;
+          })
+        : null}
+    </>
+  );
+};
+
+export default Test2;
 -------------------------------------------------------------------------------------------------------------------------------------
-Q. cleaning cache, chunking, modularity, bundling ?
+🤔 cleaning cache, chunking, modularity, bundling ?
 
+🅰️ Optimization Technique:
+
+Cleaning Cache:
+Clearing old stored files from browser or server memory to ensure users load the latest updated version of the application.
+
+Chunking:
+Splitting large application code into smaller pieces (chunks) to load only necessary parts, improving app loading speed and performance.
+
+Modularity:
+Breaking an application into small, independent, reusable components or files, making the code easier to develop, maintain, and scale.
+
+Bundling:
+Combining multiple JavaScript, CSS, and assets into a single or few files to reduce server requests and improve loading times.
 -------------------------------------------------------------------------------------------------------------------------------------
-Q. lazy loading ?
+🤔 lazy loading ?
 
+🅰️ Lazy Loading:
+Code splitting: Breaking down the application into smaller parts.
+Chunking: Loading only the necessary code chunks.
+Suspense: Pausing rendering until a component is ready.
+
+
+What is Lazy Loading in React?
+Lazy loading in React refers to the practice of delaying the loading of components until they are needed, 
+typically when they enter the viewport or when a certain condition is met. This helps in optimizing the initial load time of a 
+web application by splitting the code into smaller chunks and loading them on demand.
+
+Why Lazy Loading is Done in React ?
+
+    Lazy loading is implemented for several key reasons:
+
+    Performance Optimization: By loading only the components that are needed initially, 
+                    the initial load time of the application is reduced, leading to a faster, more responsive user experience.
+    Reduced Bandwidth Usage: Users only download the necessary parts of the application, 
+                    saving bandwidth, especially important for users with limited or slow internet connections.
+    Improved User Experience: Faster load times and more responsive interfaces lead to a better overall user experience.
+    Scalability: As applications grow larger, lazy loading helps manage the complexity and size of the application,
+                    making it easier to maintain and scale.
+
+How Lazy Loading is Done in React ?
+
+React provides a built-in way to implement lazy loading using React.lazy and Suspense.
+
+React.lazy: This function allows you to render a dynamic import as a regular component.
+
+import React, { lazy, Suspense } from 'react';
+
+const LazyComponent = lazy(() => import('./LazyComponent'));
+
+function App() {
+  return (
+    <div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <LazyComponent />
+      </Suspense>
+    </div>
+  );
+}
+
+export default App;
+
+Dynamic Import: lazy(() => import('./LazyComponent')) dynamically imports the LazyComponent only when it is needed.
+Suspense: Suspense is used to wrap the lazy-loaded component and provides a fallback UI (like a loading spinner)
+while the component is being loaded.
+
+React Router: If you are using React Router, you can lazy load route components.
+
+import React, { lazy, Suspense } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+const Home = lazy(() => import('./Home'));
+const About = lazy(() => import('./About'));
+
+function App() {
+  return (
+    <Router>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/about" component={About} />
+        </Switch>
+      </Suspense>
+    </Router>
+  );
+}
+
+export default App;
+
+When to Use Lazy Loading in React ?
+
+    You should consider using lazy loading in the following scenarios:
+
+    Large Applications: When your application has many routes or components, lazy loading helps manage the application's 
+                            size and improve performance.
+    Heavy Components: Components that are large in size or have heavy dependencies should be lazy-loaded 
+                            to avoid slowing down the initial load.
+    Non-Essential Components: Components that are not immediately visible or critical to the initial rendering of the 
+                            application can be lazy-loaded.
+    Improving User Experience: To ensure that the most critical parts of the application load first,
+                             providing a faster and smoother user experience.
+
+Example Scenario
+
+Consider a dashboard application with multiple heavy reports and analytics components. 
+Initially, you only need to display a summary. You can lazy load the detailed report components so that they only load 
+when the user navigates to them, keeping the initial load fast and efficient.
+
+By implementing lazy loading strategically, you can significantly improve the performance and user experience of your React applications.
 -------------------------------------------------------------------------------------------------------------------------------------
 Q. React test cases, JEST-TESTING ?
 
 -------------------------------------------------------------------------------------------------------------------------------------
-Q. tailwind css, bootstrap, daisy UI, material UI, bootstrap-react ?
+🤔 tailwind css, bootstrap, daisy UI, material UI, bootstrap-react ?
 
+🅰️  🛠 1. CSS Frameworks (Ready-to-use design systems)
+            Bootstrap (popular, responsive, grid system)
+
+            Tailwind CSS (utility-first framework)
+            Foundation
+            Bulma
+            Materialize
+            UIkit
+            Metro 4
+
+    🧩 2. Component Libraries (Pre-built UI components)
+            Material-UI (MUI) (for React, Google's Material Design)
+            Chakra UI (React)
+            Ant Design (React)
+            React-Bootstrap (Bootstrap components rebuilt for React)
+            DaisyUI (Tailwind CSS-based component library)
+            Headless UI (un-styled, accessible components for React/Vue)
+            Radix UI (un-styled, accessible primitives)
+            Shadcn UI (built using Tailwind and Radix)
+
+    🎨 3. CSS Preprocessors (Extend and enhance CSS)
+            Sass (Syntactically Awesome Stylesheets)
+            LESS
+            Stylus
+
+    🔥 4. CSS-in-JS Libraries (Write CSS inside JS)
+            styled-components (for React)
+            Emotion (React)
+            Stitches
+            JSS
+            Vanilla Extract
+
+    📦 5. Utility-first CSS Libraries (Tiny utility classes)
+            Tailwind CSS (also a CSS framework)
+            Windi CSS
+            UnoCSS
+            Bootstrap Utility Classes (from Bootstrap 5 onward)
+
+    🏗 6. Animation Libraries (for animating CSS/JS components)
+            Framer Motion (React)
+            Animate.css
+            GSAP (GreenSock Animation Platform)
+            React Spring
+
+    🔧 7. Post-processing Tools (Transform and enhance CSS after writing)
+            PostCSS
+            Autoprefixer
+
+    🧹 8. CSS Reset and Normalization (Fix browser inconsistencies)
+            normalize.css
+            modern-css-reset
+            sanitize.css
+            Eric Meyer’s Reset CSS
 -------------------------------------------------------------------------------------------------------------------------------------
-Q. Higher order component ?
+🤔 Higher order component ?
 
+🅰️  What?: Functions that take a component and return an enhanced version.
+    When?: Reuse component logic, share code, or manipulate component behavior.
+    Why?: Promotes code reusability and separation of concerns.
+    How?: Wrap a component with a function that adds or modifies its behavior.
+
+    HOC: A function that takes a component and returns a new component with additional props. 
+            It is a pattern for reusing component logic.
+
+Simple Example of a Higher Order Component (HOC):
+
+// HOC: A function that takes a component and returns a new component
+function withExtraInfo(WrappedComponent) {
+  return function EnhancedComponent(props) {
+    return (
+      <div>
+        <h3>This is extra info added by HOC!</h3>
+        <WrappedComponent {...props} />
+      </div>
+    );
+  };
+}
+
+// A basic component
+function HelloComponent(props) {
+  return <h1>Hello, {props.name}!</h1>;
+}
+
+// Wrap HelloComponent with the HOC
+const EnhancedHello = withExtraInfo(HelloComponent);
+
+// Usage inside App component
+function App() {
+  return (
+    <div>
+      <EnhancedHello name="John" />
+    </div>
+  );
+}
+
+export default App;
+
+Very simple explanation you can tell to the interviewer:
+        HOC is a function that takes a component (WrappedComponent) and returns a new component (EnhancedComponent).
+        In this example, withExtraInfo adds a small heading above the original component.
+        We pass all the original props using {...props} so that the original component still works as expected.
+        EnhancedHello is now the wrapped version of HelloComponent with extra information.
+
+Usage:
+HOC: Useful for cross-cutting concerns where you need to add specific functionality to multiple components 
+(e.g., logging, error handling, performance monitoring).
+
+Reusability:
+HOC: Enhances components by wrapping them, making it easy to apply common logic across different parts of the application. 
+However, it can lead to "wrapper hell" if overused.
+
+Performance:
+HOC: Can potentially avoid unnecessary re-renders by controlling how props are passed 
+down and when the wrapped component should update.
+
+Ease of Debugging:
+HOC: Can be harder to debug due to the additional layers of abstraction introduced by wrapping components.
+
+When to Use
+HOC:
+When you need to reuse component logic across multiple components.
+When you want to add additional behavior to components in a composable way (e.g., authorization checks, logging).
 -------------------------------------------------------------------------------------------------------------------------------------
 Q. Debugging tools, chrome dev tools ?
 
 -------------------------------------------------------------------------------------------------------------------------------------
-Q. how can child component can modify the state variable of parent components ?
+🤔 how can child component can modify the state variable of parent components ?
+
+🅰️ Already done.
+-------------------------------------------------------------------------------------------------------------------------------------
+🤔 useContext, createContext, context-provider, user-context-consumer ?
+
+🅰️ 1. How to explain Context API to an interviewer?
+      Context API is a way in React to share data (like global variables) across many components without 
+      having to pass props manually at every level (i.e., prop drilling).
+      It provides a way to create global state that can be accessed and updated from any component inside your app.
+
+        Best for themes, authentication, user settings, language (i18n), etc.
+
+        It mainly involves 3 parts:
+
+        Creating a context (React.createContext)
+        Providing a context (<Context.Provider>)
+        Consuming a context (useContext(Context))
+
+    2. Fixed Steps to Implement Context API (Always remember like a formula 👇)
+        ✅ Step 1: Create a Context
+              const MyContext = React.createContext();
+
+        ✅ Step 2: Create a Provider Component (where your data/state lives)
+              const MyProvider = ({ children }) => {
+              const [value, setValue] = useState(initialValue);
+
+              return (
+                <MyContext.Provider value={{ value, setValue }}>
+                  {children}
+                </MyContext.Provider>
+              );
+            };
+
+        ✅ Step 3: Wrap your App (or component tree) with the Provider
+              <MyProvider>
+                  <App />
+              </MyProvider>
+
+        ✅ Step 4: Use the Context inside any component
+              const { value, setValue } = useContext(MyContext);
+
+    3. Simple Practical Example of Context API
+        👉 Suppose you want to manage theme (light/dark) globally.
+
+        ThemeContext.js
+
+          import React, { createContext, useState, useContext } from "react";
+
+            // Step 1: Create Context
+            const ThemeContext = createContext();
+
+            // Step 2: Create Provider
+            export const ThemeProvider = ({ children }) => {
+              const [theme, setTheme] = useState("light");
+
+              const toggleTheme = () => {
+                setTheme((prev) => (prev === "light" ? "dark" : "light"));
+              };
+
+              return (
+                <ThemeContext.Provider value={{ theme, toggleTheme }}>
+                  {children}
+                </ThemeContext.Provider>
+              );
+            };
+
+            // Step 3: Custom hook (Optional but clean)
+            export const useTheme = () => useContext(ThemeContext);
+
+        App.js
+
+            import React from "react";
+            import { ThemeProvider, useTheme } from "./ThemeContext";
+
+            const ThemedComponent = () => {
+              const { theme, toggleTheme } = useTheme();
+
+              return (
+                <div style={{ background: theme === "light" ? "#fff" : "#333", color: theme === "light" ? "#000" : "#fff", 
+                height: "100vh" }}>
+                  <h1>Hello, {theme} mode!</h1>
+                  <button onClick={toggleTheme}>Toggle Theme</button>
+                </div>
+              );
+            };
+
+            export default function App() {
+              return (
+                <ThemeProvider>
+                  <ThemedComponent />
+                </ThemeProvider>
+              );
+            }
+          
+    4. Corner Cases around Context API (Common Interview Questions)
+
+Corner Case -  Context only re-renders components that consume it, not the whole tree.	
+Explanation - Only components calling useContext will update when context changes.
+
+Corner Case - Splitting contexts for optimization	
+Explanation - If you have multiple unrelated values, create multiple small contexts instead of one giant context.
+
+Corner Case - Performance issue with large context values	
+Explanation - If you pass huge objects in value, or change references unnecessarily, all consuming components will re-render.
+
+Corner Case - useContext must be inside Provider	
+Explanation - If you call useContext outside a <Provider>, you get undefined or an error.
+
+Corner Case - Server-Side Rendering (SSR)	
+Explanation - Context works in SSR like Next.js, but you need to initialize state properly.
+
+Corner Case - Custom Hook abstraction	
+Explanation - It's a best practice to wrap useContext inside a custom hook like useTheme() for clean usage.
+
+Corner Case - Default Values	
+Explanation - When you create context, you can optionally set a default value in createContext(defaultValue), 
+                which will be used only if no Provider is found above in tree.
+-------------------------------------------------------------------------------------------------------------------------------------
+🤔 Redux, redux toolkit, Dispatch, slice, slicer, Action, Reducer, selector, subscribe, zustand ?
+
+🅰️   1. How to explain Redux, Redux Toolkit, Dispatch, Slice, Slicer, Action, Reducer, Selector, Subscribe to interviewer?
+          Redux is a predictable state container for JavaScript apps, where the entire app state is stored centrally
+          in one store. Redux Toolkit, or RTK, is the official way to write Redux code, simplifying it with utilities 
+          like createSlice() for slices and configureStore().
+
+          An action is a plain object describing "what happened," and a reducer is a pure function that calculates the 
+          new state based on actions. Dispatching an action triggers the reducer logic, updating the store.
+          A slice combines related actions and reducers for a feature,  like a userSlice or cartSlice.
+         
+          Selectors are functions that extract specific data from the store. In React,
+            we commonly use useSelector and useDispatch, which automatically handle subscriptions.
+
+            Manual store.subscribe() is rare unless building something customized.
+
+      2. Fixed Steps for Implementing Redux / Redux Toolkit
+            ✅ Step 1: Install Redux Toolkit & React-Redux
+                      npm install @reduxjs/toolkit react-redux
+
+            ✅ Step 2: Create a Slice (features/userSlice.js)
+                      import { createSlice } from "@reduxjs/toolkit";
+                        const userSlice = createSlice({
+                          name: "user",
+                          initialState: { name: "", age: 0 },
+                          reducers: {
+                            setName: (state, action) => { state.name = action.payload; },
+                            setAge: (state, action) => { state.age = action.payload; }
+                          }
+                        });
+
+                        export const { setName, setAge } = userSlice.actions;
+                        export default userSlice.reducer;
+
+            ✅ Step 3: Create a Store (app/store.js)
+                      import { configureStore } from "@reduxjs/toolkit";
+                        import userReducer from "../features/userSlice";
+
+                        export const store = configureStore({
+                          reducer: {
+                            user: userReducer
+                          }
+                        });
+
+            ✅ Step 4: Wrap App with Provider (index.js)
+                      import { Provider } from "react-redux";
+                        import { store } from "./app/store";
+
+                        <Provider store={store}>
+                          <App />
+                        </Provider>
+            
+            ✅ Step 5: Use useSelector and useDispatch (App.js)
+                        import { useSelector, useDispatch } from "react-redux";
+                        import { setName, setAge } from "./features/userSlice";
+
+                        const App = () => {
+                          const user = useSelector((state) => state.user);
+                          const dispatch = useDispatch();
+
+                          return (
+                            <div>
+                              <h1>{user.name} - {user.age}</h1>
+                              <button onClick={() => dispatch(setName("Prashant"))}>Set Name</button>
+                              <button onClick={() => dispatch(setAge(25))}>Set Age</button>
+                            </div>
+                          );
+                        };
+
+      3. What data and data type are required?
+
+              Item	            Expected Type	                                Example
+              Action	          Object { type, payload? }	                    {type: "increment", payload: 5}
+              Reducer	          Pure function (state, action)	                (state, action) => {}
+              Dispatch	        Function sending Action	                      dispatch(increment())
+              useSelector	      Function to access store state	              (state) => state.counter.count
+              Slice	            Object with name, initialState, reducers	
+              Subscribe	        Function that listens to state changes manually
+
+      4. Corner Cases and Interview Tips around Redux Toolkit
+
+Corner Case - Immer.js is used internally
+Explanation - Redux Toolkit allows "mutating state" in reducers because under the hood it uses Immer.js to keep it immutable.
+
+Corner Case - No Direct State Mutation in Vanilla Redux
+Explanation - If you are using old Redux without Toolkit, NEVER directly mutate state inside reducers.
+
+Corner Case - Always slice your app properly
+Explanation - Create feature-based slices instead of one huge reducer.
+
+Corner Case - Minimal State
+Explanation - Store only serializable and minimal state in Redux (no DOM nodes, class instances).
+
+Corner Case - Thunks for async actions
+Explanation - Use createAsyncThunk for async operations like API calls.
+
+Corner Case - Subscribing manually is rare
+Explanation - In React Redux apps, useSelector does the subscription automatically — manual store.subscribe() is rare.
+
+Corner Case - DevTools integration
+Explanation - configureStore automatically adds Redux DevTools integration.
+
+Corner Case - Default Middleware
+Explanation - Redux Toolkit store has thunk, serializableCheck, and immutableCheck middlewares by default.
+
+Corner Case - Performance Issue
+Explanation - Too much state in Redux store can cause unnecessary re-renders. Optimize with memo/useMemo.
 
 -------------------------------------------------------------------------------------------------------------------------------------
-Q. useContext, createContext, context-provider, user-context-consumer ?
+🤔 useMemo ,useCallback, useRef ?
 
--------------------------------------------------------------------------------------------------------------------------------------
-Q. Redux, redux toolkit, Dispatch, slice, slicer, Action, Reducer, selector, subscribe, zustand ?
+🅰️ 
 
--------------------------------------------------------------------------------------------------------------------------------------
-Q. useMemo ,useCallback, useRef ?
+🔴 1. useMemo
+      What?
+      useMemo memoizes (remembers) the result of a calculation.
+      It recalculates only if the dependencies change.
 
+      const memoizedValue = useMemo(() => computeSomething(a, b), [a, b]);
+
+      When to use?
+      When you have expensive calculations (heavy computations) inside a component that you don't want to re-run unnecessarily on every render.
+
+      Why?
+      To optimize performance by saving calculation time.
+      Prevents recomputing something unless needed.
+
+      Example:
+
+      Without useMemo:
+      const value = heavyCalculation(a, b);  // runs on every render 😩
+
+      With useMemo:
+      const value = useMemo(() => heavyCalculation(a, b), [a, b]);  // runs only when a or b change 😎
+
+🔴 2. useCallback
+      What?
+
+      useCallback memoizes (remembers) the function itself.
+      It returns the same function between renders if dependencies haven’t changed.
+
+      When to use?
+      When you pass functions as props to child components and you want to avoid re-creating functions unnecessarily.
+
+      Why?
+      To prevent unnecessary re-renders of child components (especially those wrapped with React.memo).
+
+      Example:
+      Without useCallback:
+
+      const handleClick = () => {
+        console.log("Clicked");
+      };
+      // handleClick gets created again on every render 😩
+
+      With useCallback:
+
+      const handleClick = useCallback(() => {
+        console.log("Clicked");
+      }, []);
+      // handleClick remains the same unless dependencies change 😎
+
+🔴 3. useRef
+        What?
+        useRef creates a mutable object { current: value } that persists across renders.
+        It does NOT cause re-renders when updated.
+
+        When to use?
+        To store a DOM element reference (like focus an input).
+        To persist some value across renders without causing re-render.
+        To store previous values.
+
+        Why?
+        For accessing DOM nodes directly.
+        For keeping mutable values without re-rendering the component.
+
+        Example:
+
+            DOM reference example:
+            const inputRef = useRef();
+
+            function focusInput() {
+              inputRef.current.focus();
+            }
+
+            return <input ref={inputRef} />;
+
+        Value storage example:
+
+              const countRef = useRef(0);
+
+              function handleClick() {
+                countRef.current += 1;
+                console.log(countRef.current); // updates but does not re-render
+              }
 -------------------------------------------------------------------------------------------------------------------------------------
 🤔 DangeourslySetHTML ?
 
@@ -56,11 +682,117 @@ Q. useMemo ,useCallback, useRef ?
     Instead of using {someHtmlString}, we use { __html: someHtmlString }.
     The double underscore (__html) is a deliberate design choice by React to highlight potential security risks.
 -------------------------------------------------------------------------------------------------------------------------------------
-Q. React Folder structure ?
+🤔 React Folder structure ?
 
+🅰️ 1. src/
+    This is the main folder where all your application code resides. All JavaScript, CSS, 
+    and other resources related to the app are typically found here.
+
+            1.1 index.js (or index.tsx for TypeScript):
+            This is the entry point of the React app. It renders the root component (usually App.js or App.tsx)
+            into the root DOM element (often found in public/index.html).
+
+            Example flow:
+            ReactDOM renders the app component.
+            The app component is the starting point for rendering the rest of the app's UI.
+
+            1.2 App.js (or App.tsx):
+            This is the root component of your application.
+            It generally holds the main layout, routing logic (if you use React Router), and acts as a container for child components.
+            The flow starts here. It renders different components based on user interactions, routing, etc.
+
+            1.3 components/
+            This folder holds all the reusable UI components in your application.
+            Components can be functional or class-based. They accept props (inputs) and return JSX to render UI.
+
+            Example:
+            Button.js: A reusable button component.
+            Navbar.js: A navigation bar component.
+            Sidebar.js: A sidebar component.
+
+            1.4 pages/:
+            This folder holds the main views or pages of your app, like different routes.
+
+            For example, if you're building a blog app, you might have:
+            Home.js: Displays the homepage.
+            Post.js: Displays an individual blog post.
+            About.js: Displays information about the app or company.
+
+            1.5 services/ (or sometimes api/):
+            This folder contains functions to interact with external services or APIs (like a backend server).
+            It’s usually a collection of functions that fetch data from an API, manage authentication, 
+            or handle complex logic for interaction with backend services.
+
+            Example:
+            api.js: Contains functions like getPosts(), getUser(), etc.
+
+            1.6 utils/:
+            Contains helper functions or utilities that are used across the app.
+            These can be reusable functions like:
+
+            Formatting dates.
+            Calculating sums or other business logic.
+
+            1.7 styles/ (or css/ or scss/):
+            This folder holds your styling files.
+            You can either use regular CSS, SCSS for nested styles, or styled-components if you prefer CSS-in-JS.
+
+            Example:
+            App.css: Styles for the App.js component.
+            Button.css: Styles for the Button.js component.
+
+            1.8 context/ (if using Context API):
+            If you're using Context API for state management, this folder will contain all the contexts and their providers.
+
+            Example:
+            UserContext.js: Provides user-related data (like authentication status) to the app.
+
+            1.9 hooks/:
+            Custom hooks are stored here, if you have any.
+            Custom hooks allow you to reuse logic across components.
+
+            Example:
+            useFetch.js: A custom hook to fetch data from an API.
+
+            1.10 assets/:
+            This folder holds static files like images, icons, fonts, etc.
+
+            Example:
+            logo.png: The logo image for the app.
+
+    2. public/:
+            This folder contains the static files that are available publicly. These files don’t go through Webpack bundling.
+            Files like index.html (the base HTML file), images, and favicon are stored here.
+            index.html is the main HTML file that contains the root <div id="root"></div>, where your React app will be mounted.
 -------------------------------------------------------------------------------------------------------------------------------------
-Q. <React.strictmode /> ?
+🤔 <React.strictmode /> ?
 
+🅰️ <React.StrictMode /> is a development tool that helps you catch bugs and follow best practices by identifying 
+    unsafe or deprecated features in your React code. It doesn’t affect the user-facing part of your app but helps you ensure
+    better code quality during development.
+
+        import React from 'react';
+        import ReactDOM from 'react-dom';
+        import App from './App';
+
+        // Wrap the App component in <React.StrictMode>
+        ReactDOM.render(
+        <React.StrictMode>
+            <App />
+        </React.StrictMode>,
+        document.getElementById('root')
+        );
+
+    What Happens Inside <React.StrictMode />:
+        Warns about Deprecated Methods: It will warn you if you use lifecycle methods that are considered unsafe 
+                    (like componentWillMount, componentWillReceiveProps, etc.).
+        Double Invokes Certain Lifecycle Methods: For example, in development, it might call componentDidMount and useEffect
+                twice to ensure components handle mounting and unmounting correctly. This doesn't happen in production.
+        Checks for Refs: It checks for potential issues with refs and ensures they are used properly.
+
+    Why Use It?
+        It helps developers spot problems early and make their code more reliable.
+        It also helps with improving your app’s performance and keeping it future-proof by preparing it for newer React features.
 -------------------------------------------------------------------------------------------------------------------------------------
 
 

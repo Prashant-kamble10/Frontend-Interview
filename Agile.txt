@@ -54,3 +54,12 @@ also explain it in why, how, what terminology to me ?
 what would be the edge cases/corner cases " Difference between HTML & XHTML " ?
 
 https://chatgpt.com/share/67f2a7af-2830-8002-8b49-99c98d0f7464
+
+
+I have following requirements,
+
+1. I need to explain to a reactjs interviewer, what is context API ?
+2. I want you to give me a fixed steps which I can refer always for implementing context API ?
+3. please provide simple practical example of context API.
+4. please make me aware what data and what data type is required by utility function of context api.
+5. also provide corner cases around context API mainly asked in Reactjs interview.   
