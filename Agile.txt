@@ -30,8 +30,11 @@
     ✅ Say "It depends on project needs" and discuss the trade-offs.
 
 ----------------------------------------------------------------------------------------------------------------------------------------
-Q. Agile ceremony -> scrum meeting, sprint planing, sprint Retrospective calls, sprint review, daily standup call, Refinment meetings.
+🤔 Agile ceremony -> scrum meeting, sprint planing, sprint Retrospective calls, sprint review, daily standup call, Refinment meetings.
 
+🅰️ https://www.youtube.com/watch?v=5Ty-WC4gLto&list=PLD2BMPY5WcfAYTEYXW0NGxodOi1PLC1XN
+
+        follow above yt link to know the terms mentioned in question.
 ----------------------------------------------------------------------------------------------------------------------------------------
 Q. what are roles in agile -> scrum master, product owner, development team, testing team.
 
