@@ -5,6 +5,8 @@
     3️⃣ print them in * inside inner loop
     4️⃣ observe symmetry {optional}
 
+pattern2.txt is imp file to learn pattern solving logic.
+
 --------------------------------------------------------------------------------------------------------------------------------------------
 1️⃣ Pattern       
         for(let i = 0; i < 4; i++){

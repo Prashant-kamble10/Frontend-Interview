@@ -1,0 +1,274 @@
+0. Basic Maths concept (theory notted down in NoteBook)
+
+let n = 7789 
+let lastDigit = n % 10    => 9
+let remainning  = Math.floor(n / 10)   => 778
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+1. count Digits
+
+  Input:N = 7789                       
+  Output: 4
+
+
+  function countDigit(n){
+    let count = 0
+    while(n > 0){
+       n = Math.floor(n/10)
+       count++
+    }
+    console.log(count)
+}
+
+countDigit(778912)
+
+------------------------------------------------------------------------------------------------------------------------------------
+2. Reverse a number
+
+Input:N = 12345    
+Output:54321         
+Explanation: The reverse of 12345 is 54321.
+
+Input:N = 10400   
+Output: 401         
+Explanation: The reverse of 10400 is 401.
+
+function reverseNum(n){
+    
+    let output = 0
+    
+    while(n > 0){
+        let lastDigit = n % 10
+        n = Math.floor(n / 10)
+        output = (output * 10 ) + lastDigit
+    }
+    console.log(output)
+}
+
+reverseNum(12345)
+reverseNum(10400)
+
+------------------------------------------------------------------------------------------------------------------------------------
+3. check palindrome
+
+function checkPalindrome(num){
+    let duplicateOfNum = num 
+    let output = 0
+    while(num > 0){
+        let lastDigit = num % 10
+        num = Math.floor(num / 10)
+        output = (output * 10) + lastDigit
+    }
+    if(duplicateOfNum == output){
+        console.log("Number is palindrome")
+    }else{
+        console.log("Number is not palindrome")
+    }
+}
+
+checkPalindrome(121)
+checkPalindrome(12145)
+------------------------------------------------------------------------------------------------------------------------------------
+4. GCF or HCF - Greatest common factor or Highest common factor
+
+
+// Brute force approach
+
+function HCF(n1, n2){
+    
+    let GCD = 1
+    let minNum =  Math.min(n1, n2)
+    
+   for(let i = 1; i <= minNum; i++){
+       if(n1 % i === 0 && n2 % i === 0){
+           GCD = i;
+       }
+   }
+   console.log(GCD)
+}
+
+HCF(15, 20)
+
+// Optimal Approach - Euclidean Algorithm
+
+The Euclidean Algorithm is a method for finding the greatest common divisor of two numbers. 
+It operates on the principle that the GCD of two numbers remains the same even if the smaller number is subtracted from the larger number.
+
+To find the GCD of n1 and n2 where n1 > n2:
+
+Repeatedly subtract the smaller number from the larger number until one of them becomes 0.
+Once one of them becomes 0, the other number is the GCD of the original numbers.
+Eg, n1 = 20, n2 = 15:
+
+gcd(20, 15) = gcd(20-15, 15) = gcd(5, 15)
+gcd(5, 15) = gcd(15-5, 5) = gcd(10, 5)
+gcd(10, 5) = gcd(10-5, 5) = gcd(5, 5)
+gcd(5, 5) = gcd(5-5, 5) = gcd(0, 5)
+Hence, return 5 as the gcd.
+
+Eg, n1 = 20, n2 = 15:
+gcd(greater % smaller, smaller), till one becomes 0.
+
+gcd(20, 15) = gcd(20 % 15, 15) = gcd(5, 15)
+gcd(5, 15) = gcd(15 % 5, 5) = gcd(0, 5)
+
+Hence, return 5 as the gcd.
+
+function HCF(n1, n2){
+    
+    let GCD = 1
+    while(n1 > 0 && n2 > 0){
+        if(n1 > n2){
+            n1 = n1 % n2
+        }else{
+            n2 = n2 % n1
+        }
+    }
+      if(n1 === 0){
+            GCD = n2
+        }else{
+            GCD = n1
+        }
+    console.log(GCD)
+}
+
+HCF(15, 20)
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+5. Armstrong Numbers (theory notted down in NoteBook)
+
+function ArmStrongNumber(num){
+    let duplicate = num
+    let NoOfDigit = 0
+    let sum = 0
+    
+    let temp = num
+    while(temp > 0){
+        temp = Math.floor(temp / 10)
+        NoOfDigit ++
+    }
+   
+   temp = num
+   while(temp > 0){
+       let eachDigit = temp % 10
+       sum =  sum + (eachDigit ** NoOfDigit)
+      temp = Math.floor(temp / 10)
+   }
+   
+  if (sum === duplicate) {
+        console.log(`${duplicate} is an Armstrong number.`);
+    } else {
+        console.log(`${duplicate} is not an Armstrong number.`);
+    }
+}
+
+ArmStrongNumber(1634)
+ArmStrongNumber(371)
+ArmStrongNumber(341)
+------------------------------------------------------------------------------------------------------------------------------------
+6. Print all Divisors
+
+function printDivisors(num){
+    
+    for(let i = 1; i <= num; i++){
+        if(num % i === 0){
+            console.log(i)
+        }
+    }
+}
+
+printDivisors(36)
+
+
+🔴 Mathametical Observation
+
+36 factors : 1 * 36
+             2 * 18
+             3 * 12
+             4 * 9
+             6 * 6             (till here its ok, after sqrt of 36, order gets changed)
+             9 * 4
+             12 * 3
+             18 * 2
+             36 * 1
+
+function printDivisors(num){
+    
+    let arr = []
+    let sqrtN = Math.sqrt(num)
+   
+ // for(let i = 1; i * i <= num;; i++){}
+
+    for(let i = 1; i <= sqrtN; i++){
+       if(num % i === 0){
+           arr.push(i)
+           if(i !==(num/i)){
+           arr.push(Math.floor(num/i))
+       }
+       }
+       
+    }
+     let res = arr.sort((a,b)=> a -b)
+     console.log(res)
+}
+
+printDivisors(36)
+
+------------------------------------------------------------------------------------------------------------------------------------
+7. check for prime - Numbers which has 2 factors, 1 & itself.
+
+// Brute force approach means for a given problem initial algo comes in your mind ie Brute force approach
+// Here loop iterates N times the number
+
+function checkPrimeNumbers(num){
+    let count = 0
+    for(let i = 1; i <= num; i++){
+        if(num % i == 0){
+            count = count + 1
+        }
+    }
+       if(count == 2){
+            console.log("prime Number")
+        }else{
+            console.log("Not a Prime Number")
+        }
+}
+
+checkPrimeNumbers(11)
+checkPrimeNumbers(17)
+
+
+// optimal solution = Time Complexity: O(sqrt(N))where N is the input number.
+                      The loop iterates up to the square root of n performing constant time operations at each step.
+
+//  Here loop iterates half of its number
+
+function checkPrimeNumbers(num){
+    
+    let count = 0
+    let sqrtNum = Math.sqrt(num)
+    
+    for(let i = 1; i*i <= num; i++){
+        if(num % i === 0){
+            count++
+            
+            if(i !== num/i ){
+                count++
+            }
+        }
+    }
+    if(count == 2){
+        console.log("Prime Number")
+    }else{
+        console.log("Not a Prime Number")
+    }
+    
+}
+
+checkPrimeNumbers(11)
+checkPrimeNumbers(17)
+checkPrimeNumbers(6)
+------------------------------------------------------------------------------------------------------------------------------------

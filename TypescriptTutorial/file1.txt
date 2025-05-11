@@ -1,0 +1,23 @@
+1. Why to learn Typescript.
+
+TypeScript is a superset of JavaScript,
+→ This means all JavaScript code is valid TypeScript code.
+
+JavaScript is a subset of TypeScript,
+→ Yes, this follows from the above.
+
+TypeScript throws errors at compile time, not at runtime.
+The TypeScript compiler (tsc) checks your code before running it.
+At runtime, the code is already converted (transpiled) to plain JavaScript, which does not include type information.
+
+TypeScript brings type safety,
+→ It helps catch type-related bugs during development (at compile time), not runtime.
+
+Odd behaviour of JavaScript
+
+2 + "2" => 22
+null + 2 => 2
+undefined + 2 => NaN
+
+In the above different types successfully completing there operations, which shouldn't happen.
+Exactly this odd behaviour is stopped by the TS.

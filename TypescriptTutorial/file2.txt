@@ -1,0 +1,45 @@
+2. Typescript is not what you think
+
+🔍 What TypeScript is NOT:
+TypeScript is not a completely new programming language.
+It is not a standalone language — rather, it's a superset of JavaScript.
+It does not replace JavaScript; it builds on top of it.
+
+🔍 What TypeScript is:
+It provides static type checking at compile-time.
+It helps catch potential errors before code is run.
+It is a superset of JavaScript, meaning all valid JS is also valid TS.
+
+🧠 Key Concept – Static Checking:
+Static checking = analyzing your code during development (not runtime).
+Detects issues like:
+    Accessing non-existent object properties.
+    Type mismatches (e.g., adding a string to a number).
+Similar to how languages like Java, Go provide compile-time checks.
+
+⚠️ Misconceptions Cleared:
+❌ TypeScript doesn’t stop you from exporting faulty code — it warns, not enforces.
+❌ TypeScript doesn’t reduce code — it often requires more verbose code.
+
+Example:
+
+code 1,
+let obj = {name: "prashant", age : 18}
+let res = obj.user
+console.log(res)
+
+code 1 won't be getting converted to JS, It will straight away throw error.
+
+code 2,
+let num1 = 3;
+let num2 = "3"
+let res = num1 + num2
+console.log(res)    // 22
+
+code 2, You can still export and run that code in JavaScript — TS doesn’t stop you.
+Adding "3" + 3 in TS may still transpile, unless stricter checks are manually enforced.
+
+🛠️ Final Takeaways:
+Think of TypeScript as a wrapper over JavaScript to help you write better, safer, and scalable code.
+It introduces new concepts like interfaces, unions, etc., but all compile down to JS.
+TS is optional but highly recommended for medium to large codebases.
