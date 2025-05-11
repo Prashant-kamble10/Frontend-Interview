@@ -8,3 +8,41 @@ console.log(str.charAt(0))    // p
 
 ⚠️ In JavaScript, strings are immutable, meaning you cannot directly modify a character in a string. However, you can create a new string with the desired replacement. 
 -----------------------------------------------------------------------------------------------------------------------------------------------
+
+Example :
+
+🔍 Example 1: Attempting to modify a character (won't work)
+
+let str = "hello";
+str[0] = "H";   // Try to change 'h' to 'H'
+
+console.log(str); // Output: "hello" — unchanged!
+✅ This proves that individual characters cannot be changed, unlike arrays.
+
+
+🔍 Example 2: Reassigning a string creates a new one
+
+let str1 = "hello";
+let str2 = str1;
+
+str2 = "world";  // Create a new string
+
+console.log(str1); // Output: "hello"
+console.log(str2); // Output: "world"
+✅ Even though str2 was assigned from str1, changing str2 didn’t affect str1. That’s pass-by-value behavior + immutability.
+
+
+
+🔍 Example 3: Using string methods (returns a new string)
+
+let original = "hello";
+let upper = original.toUpperCase();
+
+console.log(original); // "hello"
+console.log(upper);    // "HELLO"
+✅ String methods like .toUpperCase() do not mutate the original string — they return a new one.
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+

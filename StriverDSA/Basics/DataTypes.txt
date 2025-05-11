@@ -1,3 +1,47 @@
+✅ Primitive Data Types (Immutable)
+String
+Number
+Boolean
+Undefined
+Null
+Symbol
+typeof 
+
+✅ Primitive Data Types
+Immutable ✔️
+Once created, their value cannot be changed directly.
+If you reassign, it creates a new value, not a change in the original.
+
+Pass-by-value ✔️
+When you assign or pass a primitive, a copy of the value is used.
+Changing the copy does not affect the original.
+
+let a = 10;
+let b = a;  // copy of value
+b = 20;
+console.log(a); // 10 — original unchanged
+----------------------------------------------------------------------------------------------------------------
+
+✅ Non-Primitive (Reference) Types
+Object
+Array - Special kind of object
+Function - First-class objects in JS
+
+✅ Non-Primitive (Reference) Data Types
+Mutable ✔️
+You can change properties or elements after creation.
+Pass-by-reference ✔️
+When you assign or pass an object/array/function, you're assigning a reference to the original value.
+Changing the reference does affect the original.
+
+let arr1 = [1, 2, 3];
+let arr2 = arr1;  // same reference
+console.log("arr1", arr1)   // arr1 [ 1, 2, 3 ]
+console.log("arr2", arr2)  // arr2 [ 1, 2, 3 ]
+arr2.push(4);
+console.log("arr1", arr1); // arr1 [1, 2, 3, 4] — original changed
+console.log("arr2", arr2)  // arr2 [ 1, 2, 3, 4 ]
+----------------------------------------------------------------------------------------------------------------
 🤔 DataTypes pass by value & pass by reference ?
 🅰️  In JavaScript, primitive types (like numbers, strings, and booleans) are passed by value,
      while objects (including arrays and functions) are passed by reference.
