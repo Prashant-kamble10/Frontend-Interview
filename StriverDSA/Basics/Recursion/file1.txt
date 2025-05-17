@@ -1,0 +1,110 @@
+1.  Understand Recursion by printing something N times
+
+❌function basicRecursion(){
+    let count = 0
+    if(count === 3){
+        return 
+    }else{
+        console.log(count)
+        count++
+        basicRecursion()
+    }
+}
+basicRecursion()
+
+✅ let count = 0
+
+function basicRecursion(){
+    if(count === 3){
+        return 
+    }else{
+        console.log(count)
+        count++
+        basicRecursion()
+    }
+}
+basicRecursion()
+
+---------------------------------------------------------------------------------------------------------------------------------------
+2. Print Name N times using Recursion
+
+let basedCount = 3
+
+function printNameRecursion(i, base){
+    if(i > base){
+        return
+    }else{
+        console.log("yeda")
+        printNameRecursion(i+1, basedCount)
+    }
+}
+
+printNameRecursion(1, basedCount)
+
+---------------------------------------------------------------------------------------------------------------------------------------
+3. Print 1 to N using Recursion
+
+📌(forwardTracking 1 to N)
+
+let base = 4
+
+function printNumbers(i, n){
+
+    if(i > n){
+        return
+    }else{
+        console.log(i)
+        printNumbers(i+1, n)
+    }
+}
+
+printNumbers(1, base)
+
+📌(backward Tracking 1 to N)
+
+let base = 1
+
+function func(i, n) {
+  if (i < n){
+    return
+  }else{
+   func(i - 1, n);    
+  console.log(i);
+  }
+}
+
+func(4, base );
+---------------------------------------------------------------------------------------------------------------------------------------
+4. Print N to 1 using Recursion
+
+📌(forwardTracking N to 1)
+
+let base = 1
+
+function printNumbers(i, n){
+
+    if(i < n){
+        return
+    }else{
+        console.log(i)
+        printNumbers(i-1, n)
+    }
+}
+
+printNumbers(4, base)
+
+📌(backwardTracking N to 1)
+
+let base = 4
+
+function backTracking(i, n){
+    if(i > n){
+        return
+    }else{
+        backTracking(i+1, n)
+        console.log(i)
+    }
+}
+
+backTracking(1, base)
+---------------------------------------------------------------------------------------------------------------------------------------

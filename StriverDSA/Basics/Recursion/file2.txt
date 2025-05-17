@@ -1,0 +1,188 @@
+5. Sum of first N numbers
+
+This question can be solved throught following way,
+for loop,
+sum of N natural number,
+recursion paramitirized way
+functional recursion
+
+📌recursion parameterised way
+
+let number = 5
+
+function sumOfNumbers(i, sum){
+    
+    if(i < 1){
+        console.log(sum)
+        return
+    }
+    sumOfNumbers(i-1, sum+i)
+}
+
+sumOfNumbers(number, 0)
+
+📌functional recursion
+
+let number = 5
+
+function sumOfNumbers(i){
+    if(i === 0){
+        return 0
+    }else{
+        return i+sumOfNumbers(i-1)
+    }
+    
+}
+
+console.log(sumOfNumbers(number))
+---------------------------------------------------------------------------------------------------------------------------------------
+6. Factorial of N numbers
+
+This question can be solved throught following way,
+recursion paramitirized way
+functional recursion
+
+📌recursion paramitirized way (Home work)
+let number = 5
+
+function factorial(i, base){
+    
+    if(i === 0){
+        or
+    if(i === 1)
+        return base
+    }else{
+        return factorial(i-1, i*base)
+    }
+}
+
+console.log(factorial(number, 1))
+
+📌functional recursion
+let number = 5
+
+function factorial(i){
+    
+    if(i === 0){
+        return 1
+    }else{
+        return i * factorial(i-1)
+    }
+}
+
+console.log(factorial(number))
+
+---------------------------------------------------------------------------------------------------------------------------------------
+7. Reverse an array
+
+📌reverses an array using the two-pointer swapping method:
+
+function reverseArray(arr) {
+  let left = 0;
+  let right = arr.length - 1;
+
+  while (left < right) {
+    // Swap elements at left and right
+    [arr[left], arr[right]] = [arr[right], arr[left]];
+
+    // 1st iteration: [5, 2, 3, 4, 1]
+    // 2nd iteration: [5, 4, 3, 2, 1]
+    
+    // Move pointers towards the center
+    left++;
+    right--;
+  }
+
+  return arr;
+}
+
+// Example usage:
+let myArray = [1, 2, 3, 4, 5];
+console.log("Original Array:", myArray);
+console.log("Reversed Array:", reverseArray(myArray));
+
+
+📌let arr = [1,2,3,4,5]
+
+let temp = arr[0]; 
+arr[0] = arr[4];   
+console.log(arr[0])   // 5
+arr[4] = temp;  
+console.log(arr[4])   // 1
+
+console.log(arr)  // [ 5, 2, 3, 4, 1 ]
+
+📌reverses an array using recursion method:
+let arr = [1,2,3,4,5,6]
+let n = arr.length - 1
+
+function reverseArray(left, right){
+    
+    if(left >= right){
+        return arr
+    }else{
+        [arr[left], arr[right]] = [arr[right], arr[left]]
+       return reverseArray(left+1, right-1)
+    }
+}
+
+console.log(reverseArray(0, n))
+
+---------------------------------------------------------------------------------------------------------------------------------------
+8. Check if a string is palindrome or not
+
+ let word = "prashant"
+let res = word.split("")
+    
+
+function checkPalindrome(i, arr){
+   
+    if(i >= Math.floor(arr.length/2)){
+        return true
+    }
+    if(arr[i] !== arr[arr.length-i-1]){
+        return false
+    }
+    return checkPalindrome(i+1, arr)
+}
+
+console.log(checkPalindrome(0, res ))
+
+
+---------------------------------------------------------------------------------------------------------------------------------------
+9. Fibonacci Number
+
+📌 Multiple recursion calls
+
+🧠 Example:
+def fib(n):
+    if n <= 1:
+        return n
+    return fib(n - 1) + fib(n - 2)
+
+
+                     fib(4)
+                   /       \
+              fib(3)       fib(2)
+             /     \       /     \
+        fib(2)   fib(1)  fib(1)  fib(0)
+        /     \
+   fib(1)   fib(0)
+
+
+let fibonnaciNumber = 4
+
+function fibonnaci(n){
+    
+    if(n <= 1){
+        return n
+    }else{
+        let lastNumber = fibonnaci(n-1)
+        let secondLastNumber = fibonnaci(n-2)
+        
+        return lastNumber + secondLastNumber
+    }  
+}
+
+console.log(fibonnaci(fibonnaciNumber))
+---------------------------------------------------------------------------------------------------------------------------------------
