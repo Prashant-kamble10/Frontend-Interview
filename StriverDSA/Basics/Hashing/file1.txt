@@ -1,0 +1,33 @@
+Brute force way to count a number of occurence in array
+
+array = [5,6,7,2,4,1,4,6,4,7]
+query = 7
+
+function countOccurence(arr, Q){
+    let count = 0
+    for(let i = 0; i < arr.length ; i++){
+        if(arr[i] === Q){
+            count++
+        }
+    }
+    return count
+}
+
+console.log(countOccurence(array, query))
+------------------------------------------------------------------------------------------------------------------------------------
+optimised way to count a number of occurence in array
+
+let query = 7
+
+function countOccurence(Q){
+    let arr = [5,6,7,2,4,1,4,6,4,7]
+    let hasharr = new Array(8).fill(0)
+    
+    for(let i = 0; i < arr.length  ; i++){
+        hasharr[arr[i]]++
+    }
+    return hasharr[Q]
+}
+
+console.log(countOccurence(query))
+------------------------------------------------------------------------------------------------------------------------------------

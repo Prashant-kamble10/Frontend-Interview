@@ -1,0 +1,81 @@
+Basics 
+
+Pattern
+
+Pattern-1: Rectangular Star Pattern
+Pattern-2: Right-Angled Triangle Pattern
+Pattern - 3: Right-Angled Number Pyramid
+pattern - 4: Right-Angled Number Pyramid - II
+Pattern-5: Inverted Right Pyramid
+Pattern - 6: Inverted Numbered Right Pyramid
+Pattern - 7: Star Pyramid
+Pattern - 8: Inverted Star Pyramid
+Pattern - 9: Diamond Star Pattern
+Pattern - 10: Half Diamond Star Pattern
+Pattern - 11: Binary Number Triangle Pattern
+Pattern - 12: Number Crown Pattern
+Pattern - 13: Increasing Number Triangle Pattern
+Pattern-14: Increasing Letter Triangle Pattern
+Pattern-15: Reverse Letter Triangle Pattern
+Pattern - 16: Alpha-Ramp Pattern
+Pattern - 17: Alpha-Hill Pattern
+Pattern-18: Alpha-Triangle Pattern
+Pattern-19: Symmetric-Void Pattern
+Pattern - 20: Symmetric-Butterfly Pattern
+Pattern - 21: Hollow Rectangle Pattern
+Pattern - 22: The Number Pattern
+
+Basics Maths
+
+Count all Digits of a Number
+Count number of odd digits in a number
+Reverse a number
+Palindrome Number
+Return the Largest Digit in a Number
+Divisors of a Number
+Factorial of a given number
+Check if the Number is Armstrong
+Check for Perfect Number
+Check for Prime Number
+Count of Prime Numbers till N
+GCD of Two Numbers
+LCM of two numbers
+
+Basics Array
+
+Sum of Array Elements
+Count of odd numbers in array
+Reverse an array (do it creating new array)
+Reverse an array (do it in same array)
+Check if the Array is Sorted I
+
+Basics Hashing 
+
+Highest Occurring Element in an Array
+Second Highest Occurring Element
+Sum of Highest and Lowest Frequency
+
+Basics Strings
+
+Reverse a String II
+Palindrome Check
+Largest Odd Number in a String
+Longest Common Prefix
+Isomorphic String
+Rotate String
+Valid Anagram
+Sort Characters by Frequency
+
+Basics Recursion
+
+Recursion with and without parameters
+Sum of First N Numbers
+Factorial of a Given Number
+Sum of Array Elements
+Reverse a String I
+Check if String is Palindrome or Not
+Check if a Number is Prime or Not
+Reverse an array
+Check if the Array is Sorted II
+Sum of Digits in a Given Number
+Fibonacci Number
