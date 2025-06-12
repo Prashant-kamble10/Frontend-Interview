@@ -1,6 +1,6 @@
 Basics 
 
-Pattern
+1. Pattern
 
 Pattern-1: Rectangular Star Pattern
 Pattern-2: Right-Angled Triangle Pattern
@@ -25,7 +25,7 @@ Pattern - 20: Symmetric-Butterfly Pattern
 Pattern - 21: Hollow Rectangle Pattern
 Pattern - 22: The Number Pattern
 
-Basics Maths
+2. Basics Maths
 
 Count all Digits of a Number
 Count number of odd digits in a number
@@ -41,7 +41,7 @@ Count of Prime Numbers till N
 GCD of Two Numbers
 LCM of two numbers
 
-Basics Array
+3. Basics Array
 
 Sum of Array Elements
 Count of odd numbers in array
@@ -49,13 +49,13 @@ Reverse an array (do it creating new array)
 Reverse an array (do it in same array)
 Check if the Array is Sorted I
 
-Basics Hashing 
+4. Basics Hashing 
 
 Highest Occurring Element in an Array
 Second Highest Occurring Element
 Sum of Highest and Lowest Frequency
 
-Basics Strings
+5. Basics Strings
 
 Reverse a String II
 Palindrome Check
@@ -66,7 +66,7 @@ Rotate String
 Valid Anagram
 Sort Characters by Frequency
 
-Basics Recursion
+6. Basics Recursion
 
 Recursion with and without parameters
 Sum of First N Numbers
@@ -79,3 +79,71 @@ Reverse an array
 Check if the Array is Sorted II
 Sum of Digits in a Given Number
 Fibonacci Number
+
+7. sorting
+
+selection sort
+bubble sort
+insertion sorting
+merge sorting
+quick sorting
+
+8. Advanced Arrays
+
+fundamentals:
+linear search
+largest Element
+second largest Element
+Maximum Consecutive Ones
+Left Rotate Array by One
+Left Rotate Array by K Places
+
+logic building:
+Move Zeros to End
+Remove duplicates from sorted array
+Find missing number
+Union of two sorted arrays
+Intersection of two sorted arrays
+
+array medium:
+Leaders in an Array
+Rearrange array elements by sign
+Print the matrix in spiral manner
+Pascal's Triangle I
+Pascal's Triangle II
+Pascal's Triangle III
+Rotate matrix by 90 degrees
+Two Sum
+3 Sum
+4 sum
+Sort an array of 0's 1's and 2's
+Kadane's Algorithm
+Next Permutation
+
+array hard:
+Majority Element-I
+Majority Element-II
+Find the repeating and missing number
+Count Inversions
+Reverse Pairs
+Maximum Product Subarray in an Array
+Merge two sorted arrays without extra space
+
+9. Advanced Hashing
+Longest Consecutive Sequence in an Array
+Longest subarray with sum K
+Count subarrays with given sum
+Count subarrays with given xor K
+
+
+
+
+
+
+
+
+
+
+
+
+
