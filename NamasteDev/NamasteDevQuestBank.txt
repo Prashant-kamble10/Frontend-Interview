@@ -1,0 +1,10 @@
+video - warm up - loops 02 (arrays + loops)
+1. write a function that searches for an element in an array and returns the index, If the element is not present then just return -1.
+2. write a functon that returns the number of negative numbers in an array.
+3. write a function that return the largest number in an array.
+4. write a function that return the smallest number in an array.
+
+video - warm up - second largest
+1. find the second largest number in an array.
+
+video - warm up - loop in loop
