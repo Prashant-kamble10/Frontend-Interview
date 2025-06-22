@@ -1,0 +1,49 @@
+🤔 Find the Second Largest Number in an Array.
+
+🅰️ let arr = [0, 3, 5, 2, 7, 9]
+
+function secondLargest(a) {
+    let first = -Infinity;
+    let second = -Infinity
+    for (let i = 0; i < a.length; i++) {
+        if (a[i] > first) {
+            second = first;
+            first = a[i]
+        } else if (a[i] > second && a[i] != first) {
+            second = a[i]
+        }
+    }
+    return second;
+
+}
+
+console.log(secondLargest(arr))
+-----------------------------------------------------------------------------------------------------------------------------------------
+🤔 Find the Third Largest Number in an Array.
+
+🅰️  let arr = [0, 3, 5, 2, 7, 9]
+
+let arr = [0, 3, 5, 2, 7, 9]
+
+function secondLargest(a) {
+    let first = -Infinity;
+    let second = -Infinity;
+    let third = -Infinity;
+    for (let i = 0; i < a.length; i++) {
+        if (a[i] > first) {
+            third = second;
+            second = first;
+            first = a[i]
+        } else if (a[i] > second && a[i] != first) {
+            third = second
+            second = a[i]
+        } else if (a[i] > third && a[i] != second  && a[i] != third) {
+            third = a[i]
+        }
+    }
+    return third;
+
+}
+
+console.log(secondLargest(arr))
+-----------------------------------------------------------------------------------------------------------------------------------------
