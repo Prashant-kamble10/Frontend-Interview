@@ -1,0 +1,80 @@
+9th - Bad behaviour of objects in typescript
+
+🔴 TypeScript improves JavaScript's safety with types, but it doesn’t eliminate all of JavaScript’s quirks—especially around object typing.
+
+Specifically:
+
+Object typing in TypeScript can enforce strict input and return structures in functions.
+
+But, extra properties passed to functions directly are flagged as errors, while the same object passed via a variable is silently accepted.
+This inconsistency is a known odd behavior in TypeScript.
+
+// Function expecting only specific keys in object
+function createUser(user: { name: string; isPaid: boolean }) {
+  console.log("Creating user:", user);
+}
+
+// ❌ Directly passing extra property throws error
+createUser({
+  name: "Hitesh",
+  isPaid: false,
+  email: "hitesh@example.com", // ❌ TS Error: Object literal may only specify known properties
+});
+
+✅ But here’s the odd behavior 👇
+
+// ✅ Defining the same object separately works (extra prop is allowed)
+const newUser = {
+  name: "Hitesh",
+  isPaid: false,
+  email: "hitesh@example.com" // Extra property
+};
+
+createUser(newUser); // ✅ No error from TypeScript
+
+⚠️ Why This Happens:
+TypeScript does strict property checks on inline object literals, but is more lenient with variables, because of its structural typing system.
+
+This can lead to unexpected bugs if developers assume extra properties will be rejected in all cases.
+----------------------------------------------------------------------------------------------------------------------------------
+
+10th - Type Aliases in Typescript
+
+Type Aliases allow you to create custom type names for complex structures like objects, 
+so you can reuse them across functions or modules—improving readability, maintainability, 
+and scalability of your TypeScript code.
+
+Type Aliases help avoid repeating complex type structures (like objects with many properties).
+
+They're especially helpful when multiple functions share the same data structure.
+
+You define a type using the type keyword, followed by a name and structure.
+
+// ✅ 1. Define a type alias
+type User = {
+  name: string;
+  email: string;
+  isActive: boolean;
+};
+
+// ✅ 2. Use it in a function parameter
+function createUser(user: User): User {
+  // Logic to modify or use user...
+  return user; // ✅ Return type is also 'User'
+}
+
+// ❌ 3. This will fail if structure is incomplete
+// createUser({ name: "Alice" }); // ❌ Error: Missing 'email' and 'isActive'
+
+// ✅ 4. Correct usage
+const newUser = {
+  name: "Alice",
+  email: "alice@example.com",
+  isActive: true
+};
+
+createUser(newUser); // ✅ No error
+
+----------------------------------------------------------------------------------------------------------------------------------
+what key message does this transcript gives ? 
+also provide code snippet example

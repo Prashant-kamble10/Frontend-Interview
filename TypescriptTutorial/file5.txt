@@ -1,0 +1,129 @@
+11th - READONLY and optional in typescript
+
+🔑 Key Concepts Covered:
+1. readonly Keyword:
+Prevents modification of object properties after initialization (e.g. _id in MongoDB-style objects).
+
+2. ? (Optional Properties):
+Allows defining optional properties on object types (e.g. creditCardDetails?: number),
+ meaning the property may or may not be present.
+
+3. & (Type Intersections):
+Combines multiple types into one to reuse existing types and extend them 
+(e.g. building CardDetails from CardNumber, CardDate, and a custom cvv field).
+
+
+// ✅ 1. Readonly and Optional Properties
+type User = {
+  readonly _id: string;
+  name: string;
+  email: string;
+  isActive: boolean;
+  creditCardDetails?: number; // optional property
+};
+
+// Creating a user object
+const myUser: User = {
+  _id: "1234",
+  name: "Hitesh",
+  email: "hitesh@example.com",
+  isActive: true
+};
+
+// Allowed
+myUser.email = "newemail@example.com";
+
+// ❌ Not allowed - will throw TypeScript error
+// myUser._id = "5678"; // Error: Cannot assign to '_id' because it is a read-only property.
+
+
+// ✅ 2. Type Intersections (Combining multiple types)
+
+type CardNumber = {
+  cardNumber: string;
+};
+
+type CardDate = {
+  cardDate: string;
+};
+
+type CardDetails = CardNumber & CardDate & {
+  cvv: number;
+};
+
+// Creating a CardDetails object
+const userCard: CardDetails = {
+  cardNumber: "1234-5678-9012-3456",
+  cardDate: "12/29",
+  cvv: 123
+};
+
+
+🧠 Takeaways:
+readonly is compile-time protection only — it prevents accidental mutation in TypeScript, but does not exist in compiled JavaScript.
+
+? makes a property optional, letting you avoid passing it if not applicable.
+
+& (intersection) is helpful when you're building larger object types by reusing and combining existing ones, promoting DRY (Don't Repeat Yourself) principles.
+
+----------------------------------------------------------------------------------------------------------------------------------
+12th - Union types in TS
+
+🧠 Takeaways:
+Avoid any — use Union Types instead for safer code.
+Use typeof or type narrowing techniques inside functions when working with union types.
+Understand the difference between A[] | B[] (either all A or all B) vs. (A | B)[] (mixed types allowed).
+Use literal unions for fixed values like "GET" | "POST" or seat types — they act like enums with less overhead.
+
+// ✅ Union with primitives
+let score: number | string;
+
+score = 42;       // ✅ OK
+score = "42";     // ✅ OK
+// score = true;  // ❌ Error: boolean not allowed
+
+// ✅ Type Narrowing with functions
+function printId(id: number | string) {
+  if (typeof id === "string") {
+    console.log(id.toLowerCase());
+  } else {
+    console.log(id + 2); // It's a number
+  }
+}
+
+printId("HELLO"); // hello
+printId(10);      // 12
+
+// ✅ Union with custom types
+type User = {
+  name: string;
+  id: number;
+};
+
+type Admin = {
+  username: string;
+  id: number;
+};
+
+let person: User | Admin;
+
+person = { name: "Alice", id: 1 };
+person = { username: "admin123", id: 2 };
+
+// ✅ Union in arrays
+let mixedArray: (number | string | boolean)[] = [1, "two", true];
+
+// ❌ Common mistake
+// let wrongArray: number[] | string[] = [1, "two"];
+// This expects either *all* numbers or *all* strings — not a mix
+
+// ✅ Literal type unions
+type SeatPosition = "aisle" | "middle" | "window";
+
+let seat: SeatPosition;
+
+seat = "aisle";   // ✅ OK
+seat = "middle";  // ✅ OK
+// seat = "crew"; // ❌ Error: not part of the union
+
+----------------------------------------------------------------------------------------------------------------------------------

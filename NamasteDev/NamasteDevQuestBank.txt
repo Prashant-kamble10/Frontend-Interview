@@ -11,7 +11,7 @@ video - warm up - second largest
 video - warm up - loop in loop
 
 video - warm up - star pattern
-****
+****      
 ****
 ****
 ****
@@ -52,7 +52,15 @@ video - warm up - star pattern
 1010s
 
 video - warm up - count digit 
-
 video - warm up - palindrome
-
 video - warm up - reverse integer
+
+video - array0 - Remove Duplicates from Sorted Array
+video - array0 - Remove Element
+video - array0 - Reverse string
+video - array0 - Best Time to Buy and Sell Stock I
+video - array0 - Merge Sorted Array
+video - array0 - Move zeroes
+video - array0 - Max Consecutive Ones
+video - array0 - Missing Number
+video - array0 - Single Number 

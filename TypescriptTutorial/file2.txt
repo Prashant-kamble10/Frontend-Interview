@@ -43,3 +43,39 @@ Adding "3" + 3 in TS may still transpile, unless stricter checks are manually en
 Think of TypeScript as a wrapper over JavaScript to help you write better, safer, and scalable code.
 It introduces new concepts like interfaces, unions, etc., but all compile down to JS.
 TS is optional but highly recommended for medium to large codebases.
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+5th - Number, boolean, type inference
+
+Use TypeScript smartly by understanding when to use explicit type annotations and when to rely on TypeScript's type inference.
+
+Type Inference:
+
+TypeScript can automatically infer the type if a value is assigned during declaration.
+Example: let userId = 334466 automatically infers the type as number, so : number is not required.
+Overusing annotations (: type) when the value is already obvious is considered bad practice.
+
+Best Practice Advice:
+
+Don’t overuse type annotations when the value makes the type obvious.
+Let TypeScript handle inference where it can.
+Use explicit types only when necessary (e.g., complex structures or for clarity in function arguments/return types).
+----------------------------------------------------------------------------------------------------------------------------------
+
+6th - Don't use ANY in typescript
+
+Why any is problematic:
+
+If you don't explicitly define a type, TypeScript may infer any, which means it won't enforce type safety.
+
+Example: A variable declared without a clear return type (e.g., from a function like getHero()) will default to any,
+allowing any kind of value (string, boolean, number, etc.) to be assigned 
+to it later — leading to inconsistent and error-prone code.
+
+Summary Message:
+
+Avoid using any in TypeScript. It removes the benefits of type safety, 
+leads to unpredictable code, and is discouraged in both best practices and official documentation. 
+Use explicit types and enable noImplicitAny for safer, maintainable code.
+----------------------------------------------------------------------------------------------------------------------------------

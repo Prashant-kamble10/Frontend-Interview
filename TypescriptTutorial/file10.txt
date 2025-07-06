@@ -1,0 +1,133 @@
+21th - Generics in Array and Arrow functions in TS
+
+🧠 Key Takeaways
+Use generics to build type-safe and reusable array-based functions.
+
+T[] and Array<T> are functionally the same.
+
+Arrow functions can also use generics, but their syntax is slightly different.
+
+Returning a T from a T[] input means the output will be an element from the array of type T.
+
+Use , after generics in JSX-heavy environments (like React) to avoid conflicts with JSX syntax.
+
+🧩 Generic Function (Normal Syntax)
+function getSearchProducts<T>(products: T[]): T {
+  const index = 3;
+  return products[index]; // Return an element from the generic array
+}
+
+// Usage
+const result1 = getSearchProducts<number>([10, 20, 30, 40, 50]);
+console.log(result1); // 40
+
+const result2 = getSearchProducts<string>(["apple", "banana", "cherry", "date"]);
+console.log(result2); // date
+
+🧩 Generic Function (Arrow Function Syntax)
+const getMoreSearchProducts = <T,>(products: T[]): T => {
+  const index = 2;
+  return products[index];
+};
+
+// Usage
+const names = ["Aman", "Prashant", "Ravi", "John"];
+const pickedName = getMoreSearchProducts<string>(names);
+console.log(pickedName); // Ravi
+
+🔸 Notice the <T,> – the comma is optional in TypeScript, but it prevents JSX confusion in .tsx files 
+(especially in React projects).
+
+🧠 Tip on Arrays with Generics
+// Both are valid and equivalent
+function identity<T>(val: Array<T>): T {
+  return val[0];
+}
+
+function identityAlt<T>(val: T[]): T {
+  return val[0];
+}
+
+--------------------------------------------------------------------------------------------------------------------------------
+22nd - Generics classes in TS  
+
+
+🧠 Key Concepts Covered
+Generic Constraints using extends:
+You can restrict generic types to only extend from specific interfaces or types.
+Helps maintain type safety without losing the flexibility of generics.
+
+Generic Functions with Multiple Parameters (<T, U>):
+You can accept and return multiple different types.
+You can restrict one type (e.g. U extends SomeType) to ensure it's valid.
+
+Generic Classes:
+You can create reusable class structures that handle multiple data types.
+Useful for shared logic across different object types (like courses, quizzes, etc.).
+
+Use Case Example:
+A Sellable<T> class that can work with different products (quizzes, courses), with methods like addToCart.
+
+Real-World Scenarios:
+Useful for e-commerce-like use cases, building platforms with many types of items.
+
+1. Generic Function with extends Constraint
+
+interface Database {
+  connection: string;
+  username: string;
+  password: string;
+}
+
+// Generic function accepting only Database-like types
+function connectToDatabase<T extends Database>(config: T): void {
+  console.log(`Connecting to ${config.connection} with user ${config.username}`);
+}
+
+// Usage
+connectToDatabase({
+  connection: "mongodb://localhost",
+  username: "admin",
+  password: "1234"
+});
+
+2. Generic Function with Multiple Type Parameters
+
+function combineValues<T, U>(val1: T, val2: U): { val1: T; val2: U } {
+  return { val1, val2 };
+}
+
+// Example usage
+const result = combineValues<number, string>(5, "hello");
+console.log(result); // { val1: 5, val2: "hello" }
+
+3. Generic Class Example: Sellable Items
+
+interface Quiz {
+  name: string;
+  type: string;
+}
+
+interface Course {
+  name: string;
+  author: string;
+  subject: string;
+}
+
+// Generic class for sellable items
+class Sellable<T> {
+  public cart: T[] = [];
+
+  addToCart(product: T) {
+    this.cart.push(product);
+  }
+}
+
+// Usage with Quiz
+const quizCart = new Sellable<Quiz>();
+quizCart.addToCart({ name: "JS Basics", type: "MCQ" });
+
+// Usage with Course
+const courseCart = new Sellable<Course>();
+courseCart.addToCart({ name: "React Bootcamp", author: "Hitesh", subject: "Frontend" });
+--------------------------------------------------------------------------------------------------------------------------------

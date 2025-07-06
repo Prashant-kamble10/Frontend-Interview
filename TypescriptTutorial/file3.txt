@@ -1,0 +1,83 @@
+7th - Do you really know functions in typescript
+
+Why You Need Type Annotations in Functions:
+Explicitly annotating value: number ensures that TypeScript restricts invalid usage (e.g., .toUpperCase() on a number).
+
+Type Inference Works Differently for Variables vs Functions:
+
+TypeScript is great at inferring types for variables.
+But for function parameters, explicit annotations are essential for clarity and type safety.
+
+Practical Examples:
+
+Functions like getUpper, signUpUser, and loginUser are used to demonstrate:
+How to annotate parameters (: string, : boolean)
+How to handle multiple parameters
+How to assign default values to parameters (e.g., isPaid: boolean = false)
+How arrow functions are typed similarly
+
+Summary Message:
+Always explicitly define function parameter types in TypeScript. 
+This ensures type safety, prevents silent bugs, and helps your team write more robust 
+and maintainable code. Return type annotations are also important
+
+----------------------------------------------------------------------------------------------------------------------------------
+8th - A better way to write function in typescript
+
+// below code snippet is not causing any error on screen while typing, but kayde se ye galat hai.
+
+function addTwo(num: number){
+    return "hello"
+}
+
+let res = addTwo(5) 
+
+//Functions should not only have parameter types but also explicit return types. below code snippet is causing an error on screen while typing.
+
+function addTwo(num: number):number{
+    return "hello"
+}
+
+let res = addTwo(5)
+
+// Arrow functions can also have typed parameters and return values using the same syntax.
+
+let addTwo = (num:number):number =>{
+    return "hello"
+}
+
+let res = addTwo(5)
+
+⚠️ Difference Between void and never
+
+void: Function completes without returning anything.
+never: Function never completes normally (e.g., throws an error or infinite loop).
+
+// write a function which doesn't return anything in TS - void
+
+function dosentreturnAnything(msg:string):void{
+    console.log(msg)
+    return 1  -> this line will cause error for returning as function req is void.
+}
+
+dosentreturnAnything("err")
+
+// why ?  : never
+
+function handleError(msg:string): never{
+    throw new Error(msg)
+}
+
+handleError("err")
+
+
+🔴 But explicitly typing the return type of .map() ensures better readability and restricts misuse.
+
+const heroes = ["Iron Man", "Thor", "Spiderman"];
+
+const formattedHeroes: string[] = heroes.map((hero): string => {
+  return `Hero is ${hero}`;
+});
+
+console.log(formattedHeroes);
+----------------------------------------------------------------------------------------------------------------------------------

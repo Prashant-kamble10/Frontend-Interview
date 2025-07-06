@@ -1,0 +1,120 @@
+19th - Abstract class in TS
+
+Act like blueprints for other classes.
+Cannot be instantiated directly.
+
+Can contain both:
+Abstract methods (must be implemented by subclasses)
+Concrete methods (have default implementations)
+
+Support inheritance using extends.
+Are more powerful than interfaces because they can include method implementations and maintain state via constructors.
+
+Supports inheritance: 
+In Interface inheritance through implements,
+In Abstract inheritance through	extends.
+
+⚠️ IMPORTANT:
+You cannot create an object directly from an abstract class.
+Abstract classes must be extended, and only the child class can be instantiated.
+
+// Abstract class
+abstract class TakePhoto {
+  constructor(
+    public cameraMode: string,
+    public filter: string
+  ) {}
+
+  abstract getSepia(): void;
+
+  getRealTime(): number {
+    return 8; // default implementation
+  }
+}
+
+// Cannot create object directly from abstract class
+// ❌ const obj = new TakePhoto("test", "test"); // Error
+
+// Subclass
+class Instagram extends TakePhoto {
+  constructor(
+    cameraMode: string,
+    filter: string,
+    public burst: number
+  ) {
+    super(cameraMode, filter);
+  }
+
+  getSepia(): void {
+    console.log("Sepia effect applied");
+  }
+}
+
+// ✅ Valid object creation from subclass
+const insta = new Instagram("Portrait", "Warm", 3);
+insta.getSepia();             // Output: Sepia effect applied
+console.log(insta.getRealTime()); // Output: 8
+
+
+💡 When to Use Abstract Classes?
+When you want shared functionality among derived classes.
+When you want to enforce specific method implementation in subclasses.
+When you need default behaviors, but still want flexibility.
+------------------------------------------------------------------------------------------------------------------------
+20th - Generics in TS
+
+🧠 Key Takeaways
+Generics make components reusable — you can pass any type and still retain type safety.
+
+Avoid using any — because it loses type information. (In any, input can be number and output can be a string)
+Generics are better since they preserve input-output types.(In any,If input is number then output is a number)
+
+Syntax uses angular brackets <> to define a placeholder type (like <T>).
+
+Generics are already used under the hood in arrays, promises, and utility functions.
+
+You can pass custom interfaces/types to generic functions (like a Bottle object).
+
+You cannot access or manipulate T like a class — it’s just a placeholder type.
+
+Generics are used extensively in React, Angular, and modern TypeScript libraries.
+
+
+// Generic version of identity function
+function identity<T>(val: T): T {
+  return val;
+}
+
+// Usage with primitive types
+const num = identity<number>(10);     // Type: number
+const str = identity<string>("Hello"); // Type: string
+const bool = identity<boolean>(true);  // Type: boolean
+
+// Usage with custom type
+interface Bottle {
+  brand: string;
+  type: number;
+}
+
+const bottleObj = identity<Bottle>({
+  brand: "Nike",
+  type: 1,
+});
+
+
+function identityAny(val: any): any {
+  return val;
+}
+
+const result = identityAny("hello"); // No type checking — you could access non-existent methods
+result.toFixed(); // ❌ Runtime error if result wasn't a number
+
+
+function identityGeneric<T>(val: T): T {
+  return val;
+}
+
+const result = identityGeneric<number>(5); 
+result.toFixed(); // ✅ TypeScript knows it's a number
+
+------------------------------------------------------------------------------------------------------------------------

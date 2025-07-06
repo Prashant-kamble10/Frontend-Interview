@@ -1,0 +1,219 @@
+23rd - Type Narrowing in typescript
+
+🧠 Core Concepts Covered
+Type Narrowing (a.k.a. Type Guards):
+Helps TypeScript "narrow" down the actual type of a union type at runtime.
+Uses checks like typeof, Array.isArray(), or truthy/falsy checks.
+
+Falsy Values (like "", 0, null, undefined, false) need special attention.
+Just checking if (value) may skip valid falsy values like an empty string.
+
+typeof [] === "object":
+Arrays are also treated as objects in JavaScript, which can lead to confusion.
+
+Caution over Blind Trust:
+Just checking if a variable exists isn’t always enough.
+Example: An empty string "" is not null, but might still not be useful.
+
+Type Guards is just a fancy name for runtime checks.
+
+1. Basic Type Narrowing with typeof
+
+function detectTypes(val: string | number) {
+  if (typeof val === "string") {
+    return val.toLowerCase(); // Safe: val is a string here
+  }
+
+  if (typeof val === "number") {
+    return val + 3; // Safe: val is a number here
+  }
+}
+
+2. Null Check Pattern
+
+function provideId(id: string | null) {
+  if (!id) {
+    console.log("Please provide ID");
+    return;
+  }
+
+  // Safe to use string methods now
+  return id.toLowerCase();
+}
+
+3. Edge Case: Array, String, or Null
+
+function printAll(strings: string | string[] | null) {
+  if (strings) {
+    if (typeof strings === "object") {
+      for (const s of strings) {
+        console.log(s);
+      }
+    } else if (typeof strings === "string") {
+      console.log(strings);
+    }
+  }
+}
+🟠 Problem: This won’t handle "" (empty string), because it’s falsy!
+
+✅ Improved version:
+
+function printAllSafe(strings: string | string[] | null) {
+  if (strings !== null) {
+    if (Array.isArray(strings)) {
+      for (const s of strings) {
+        console.log(s);
+      }
+    } else {
+      console.log(strings);
+    }
+  }
+}
+
+
+💡 Practical Tip:
+Use specific type narrowing checks like:
+
+typeof
+
+Array.isArray()
+
+instanceof
+
+value === null
+
+value !== undefined
+
+Optional chaining: value?.toLowerCase()
+
+🔥 One-Liner Summary:
+TypeScript narrowing isn't about solving problems — it's about writing safer, 
+cautious code by understanding what your variables truly are at runtime.
+------------------------------------------------------------------------------------------------------------------------------
+24th - Instanceof and Type Predicates
+
+🔑 1. instanceof for Type Narrowing
+Used to check whether a value is an instance of a particular class (created using new keyword).
+
+✅ Best when narrowing down custom classes like Date, Array, or your own class objects.
+
+🔑 2. Type Predicates (pet is Fish)
+Used to custom define a type guard function that does more than just return a boolean.
+It tells TypeScript: “Hey, if this function returns true, I guarantee the object is of this type.”
+
+✅ Best when dealing with union types and when typeof or instanceof isn’t sufficient.
+
+Example 1: instanceof for Class Type Narrowing
+
+function logValue(x: Date | string) {
+  if (x instanceof Date) {
+    console.log("Date value: " + x.toUTCString()); // narrowed to Date
+  } else {
+    console.log("String value: " + x.toLowerCase()); // narrowed to string
+  }
+}
+
+logValue(new Date());
+logValue("HELLO");
+
+Example 2: Type Predicate Function
+
+type Fish = { swim: () => void };
+type Bird = { fly: () => void };
+
+function isFish(pet: Fish | Bird): pet is Fish {
+  return (pet as Fish).swim !== undefined;
+}
+
+function getFood(pet: Fish | Bird) {
+  if (isFish(pet)) {
+    return "Fish food"; // TypeScript knows `pet` is Fish here!
+  } else {
+    return "Bird food"; // And here it's Bird
+  }
+}
+
+Without the pet is Fish type predicate, TypeScript would not narrow the type confidently — it would still treat pet as Fish | Bird.
+
+🧠 Key Insight:
+typeof works for primitive types,
+instanceof works for class instances,
+type predicates work when you want to define your own type guards for union types.
+
+🔥 One-Liner Summary:
+Type predicates and instanceof allow TypeScript to intelligently narrow down union types, 
+especially when default type checks (typeof) aren't enough — making your code safer, smarter, and more maintainable.
+------------------------------------------------------------------------------------------------------------------------------
+25th - Discriminated Union and Exhaustiveness Checking with never
+
+🔑 1. Discriminated Unions
+Discriminated unions are a pattern where each type in a union has a common property (discriminator) 
+with distinct literal values, allowing TypeScript to easily differentiate between them.
+
+Example: Interfaces like Circle, Square, and Rectangle all have a common property like kind with unique 
+literal values ("circle", "square", "rectangle"), which helps TypeScript narrow the type automatically inside conditions.
+
+🔑 2. Exhaustive Checking with never Type
+Using switch statements for all union types and forcing a default case with never type ensures your code is future-proof:
+
+If you add a new type to the union but forget to handle it in the switch, 
+TypeScript will throw an error — a powerful safety net.
+
+🧠 Key Idea:
+✅ Use discriminated unions for safe and readable type narrowing.
+✅ Use the **never type** in default cases to enforce exhaustive checks — catching missing type branches during development.
+
+// 🟢 Define discriminated union types
+interface Circle {
+  kind: "circle";
+  radius: number;
+}
+
+interface Square {
+  kind: "square";
+  side: number;
+}
+
+interface Rectangle {
+  kind: "rectangle";
+  length: number;
+  width: number;
+}
+
+type Shape = Circle | Square | Rectangle;
+
+// ✅ Function 1: Using if-else with discriminated union
+function getTrueShape(shape: Shape): number {
+  if (shape.kind === "circle") {
+    return Math.PI * shape.radius ** 2;
+  } else if (shape.kind === "square") {
+    return shape.side ** 2;
+  } else {
+    return shape.length * shape.width;
+  }
+}
+
+🔥 Exhaustive Checking with never (Safe Future-Proof Switch):
+
+function getArea(shape: Shape): number {
+  switch (shape.kind) {
+    case "circle":
+      return Math.PI * shape.radius ** 2;
+
+    case "square":
+      return shape.side ** 2;
+
+    case "rectangle":
+      return shape.length * shape.width;
+
+    default:
+      // ❌ Fails if a new shape is added to Shape union and not handled
+      const _exhaustiveCheck: never = shape;
+      return _exhaustiveCheck;
+  }
+}
+
+📝 Summary in One Line:
+Discriminated unions make narrowing explicit and readable, 
+and never type in exhaustive checks makes your code robust and future-safe — perfect for real-world business logic.
+------------------------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,123 @@
+17th - Getters & setters in TS
+
+💡 Summary of Key Concepts:
+
+get keyword	
+Used to create a getter method that can access (often private) properties.
+
+set keyword	
+Used to create a setter method to assign values with validation logic.
+
+Getter must return	
+A getter must return a value — you have to explicitly return something.
+
+Setter return type rule	
+A setter cannot have a return type annotation — not even void.
+
+Use cases	
+Often used to expose private fields with logic checks, or to compute derived values.
+
+Private methods	
+You can also make methods private, making them only accessible inside the class.
+
+class User {
+  // public property
+  public email: string;
+
+  // private property
+  private _courseCount: number = 1;
+
+  constructor(email: string) {
+    this.email = email;
+  }
+
+  // Getter - used to access a computed or private property
+  get appleEmail(): string {
+    return `apple-${this.email}`;
+  }
+
+  // Getter for private _courseCount
+  get courseCount(): number {
+    return this._courseCount;
+  }
+
+  // Setter for _courseCount (with validation)
+  set courseCount(courseNum: number) {
+    if (courseNum <= 1) {
+      throw new Error("Course count should be more than 1");
+    }
+    this._courseCount = courseNum;
+  }
+
+  // Private method
+  private deleteToken(): void {
+    console.log("Token deleted");
+  }
+}
+
+const user = new User("hello@example.com");
+
+// Accessing computed email
+console.log(user.appleEmail); // "apple-hello@example.com"
+
+// Getting course count
+console.log(user.courseCount); // 1
+
+// Setting course count (valid)
+user.courseCount = 3;
+
+// Setting course count (invalid)
+// user.courseCount = 1; // ❌ Throws error
+
+// Trying to access private method
+// user.deleteToken(); // ❌ Error: Property 'deleteToken' is private
+
+
+🚨 Interview Tip:
+❓Why can't we add a return type like void in a setter in TypeScript?
+👉 Because TypeScript expects no return type annotation for setters — it's by design, and adding one leads to a compiler error.
+
+-------------------------------------------------------------------------------------------------------------------------------------
+18th - protected in TS
+
+The video explains the protected access modifier in TypeScript, completing the trio of access modifiers:
+
+public (default – accessible everywhere),
+private (accessible only within the same class),
+protected (accessible within the class and its subclasses).
+
+It also demonstrates how protected is useful in inheritance, especially when building child classes 
+that need to manipulate parent class properties that shouldn't be accessed from outside the class hierarchy.
+
+class User {
+  protected _courseCount: number = 1;  // protected property
+
+  constructor(public email: string, public name: string) {}
+
+  get courseCount(): number {
+    return this._courseCount;
+  }
+}
+
+class SubUser extends User {
+  isFamily: boolean = true;
+
+  changeCourseCount(): void {
+    this._courseCount = 4;  // ✅ Allowed because _courseCount is protected
+  }
+}
+
+const hitesh = new SubUser("h@hc.com", "Hitesh");
+
+// Trying to access protected member outside the class
+// console.log(hitesh._courseCount); ❌ Error: Property '_courseCount' is protected
+
+console.log(hitesh.courseCount); // ✅ Getter method can expose it if needed
+hitesh.changeCourseCount();       // ✅ Can call the method to change it
+console.log(hitesh.courseCount); // Output: 4
+
+
+🔥 Why protected Matters
+Encourages encapsulation — lets child classes inherit power without exposing internal data to external code.
+Very useful in large codebases and library development where you want to expose just enough to derived classes.
+-------------------------------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,98 @@
+13th - Tuples in TS
+
+🔑 Key Takeaways:
+1. Tuples in TypeScript are like fixed-length arrays with specific types at specific positions (e.g., [string, number, boolean]).
+
+2. Use Cases: Useful in situations like RGB color values, user records, or database entries where order and type are important.
+
+3. Limitations:
+Despite strict typing, tuples are still mutable (e.g., push() or pop() can break the structure).
+This is a known design decision in TypeScript and has been discussed on Stack Overflow.
+
+4. Tuples ≠ Immutable: Even with fixed types, values can be changed unless explicitly made readonly.
+
+
+✅ 1. Basic Tuple Definition and Usage
+
+// Define a tuple: [name, age, isActive]
+let user: [string, number, boolean] = ["Alice", 30, true];
+
+user[0] = "Bob";    // ✅ Allowed
+user[1] = 25;       // ✅ Allowed
+// user[2] = "yes"; // ❌ Error: boolean expected
+
+✅ 2. Tuples for Fixed Structure Data (e.g., RGB)
+
+type RGB = [number, number, number];
+
+const color: RGB = [255, 100, 75];
+// const brokenColor: RGB = [255, 100, 75, 0.5]; // ❌ Too many elements
+
+✅ 3. Tuples via Type Alias
+
+type UserRecord = [number, string];
+
+const newUser: UserRecord = [101, "user@example.com"];
+
+⚠️ 4. Mutation Pitfall (Array Behavior)
+
+const userTuple: [number, string] = [1, "admin"];
+
+// This breaks the tuple structure, but TypeScript allows it
+userTuple.push(true); // ⚠️ No compile-time error, but breaks intended shape
+
+console.log(userTuple); // [1, "admin", true] — unexpected!
+
+✅ 5. Read-Only Tuple (Safe)
+
+const safeUser: readonly [number, string] = [101, "safe@example.com"];
+
+// safeUser.push("oops"); // ❌ Error: Property 'push' does not exist on type 'readonly [number, string]'
+
+
+🧠 Best Practices:
+✅ Use tuples for strict and ordered data, especially in function returns or APIs.
+⚠️ Be cautious of mutation methods like .push(), .unshift(), etc.
+✅ Use readonly if you want immutability.
+🧪 Always validate tuple use-cases — if order or types are flexible, prefer objects.
+--------------------------------------------------------------------------------------------------------------------------------
+14th - Interface in TS
+
+1. Define the shape of an object, including properties and methods.
+2. Help enforce consistency and contracts in your code, especially in large projects.
+3. Serve like protocols or blueprints, enforcing what should exist, but not how it works internally.
+
+// ✅ Define an interface for a user
+interface User {
+  email: string;
+  userId: number;
+  googleId?: string;              // Optional property
+  readonly dbId: number;          // Read-only property
+
+  startTrial(): string;           // Method returning a string
+  getCoupon(couponName: string): number; // Method with param & return type
+}
+
+// ✅ Create an object using the interface
+const hitesh: User = {
+  email: "h@h.com",
+  userId: 2211,
+  dbId: 2,
+  
+  startTrial: () => {
+    return "Trial started";
+  },
+
+  getCoupon: (name: string) => {
+    return 10; // Return discount amount
+  }
+};
+
+// ✅ Usage examples
+console.log(hitesh.startTrial());         // "Trial started"
+console.log(hitesh.getCoupon("H10"));     // 10
+
+// ❌ Cannot modify read-only property
+// hitesh.dbId = 3; // Error
+
+--------------------------------------------------------------------------------------------------------------------------------
