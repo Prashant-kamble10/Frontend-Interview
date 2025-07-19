@@ -55,7 +55,7 @@ video - warm up - count digit
 video - warm up - palindrome
 video - warm up - reverse integer
 
-video - array0 - Remove Duplicates from Sorted Array
+video - array0 - Remove Duplicates from Sorted Array, and return no of unique elements present in the same array.
 video - array0 - Remove Element
 video - array0 - Reverse string
 video - array0 - Best Time to Buy and Sell Stock I
