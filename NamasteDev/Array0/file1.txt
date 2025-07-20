@@ -1,4 +1,7 @@
-🤔 array0 - Remove Duplicates from Sorted Array, and return no of unique elements present in the same array.
+🤔 array0 - Remove Duplicates 
+Problem Statement:
+Given an integer array nums sorted in non-decreasing order, remove the duplicates in-place such that each unique element 
+appears only once. The relative order of the elements should be kept the same. Then return the number of unique elements in nums.
 
 🅰️        let nums = [0,0,1,1,1,2,2,3,3,4]
 
@@ -23,7 +26,10 @@ Think of two people running toward each other (or one chasing another) on a trac
 They meet when a condition is satisfied.
 They change speed/direction depending on what they see (like the array values).
 --------------------------------------------------------------------------------------------------------------------------------------
-🤔 array0 - Remove Element from same array and return no of elements present in same array after removing the element.
+🤔 array0 - Remove Element.
+Problem Statement:
+Given an integer array nums and an integer val, remove all occurrences of val in-place. The order of the elements may be changed. 
+Then return the number of elements in nums which are not equal to val.
 
 🅰️      let nums = [8,5,2,7,5,4,1,1,7,9,5]
         let val = 5
@@ -41,3 +47,83 @@ They change speed/direction depending on what they see (like the array values).
         console.log(sample(nums, val))  // 8
         console.log(nums)   // [ 8, 2, 7, 4, 1, 1, 7, 9, 7, 9, 5]
 --------------------------------------------------------------------------------------------------------------------------------------
+🤔 array0 - reverse string
+Problem Statement:
+Write a function that reverses a string. The input string is given as an array of characters s. 
+You must do this by modifying the input array in-place with O(1)extra memory.
+
+🅰️ // my approach
+
+let arr = [ "c", "l", "u", "b"]
+
+function sample(a){
+    let reverseArr = []
+    for(let i = 0; i < a.length ; i++){
+        reverseArr[i] = a[a.length - 1 - i]
+    }
+   return reverseArr    // [ 'b', 'u', 'l', 'c' ]
+}
+
+console.log(sample(arr))
+
+// Akshay saini approach
+
+let arr = [ "c", "l", "u", "b"]
+
+function sample(a){
+    let len = a.length
+    let halfLen = Math.floor(len/2)
+    for(let i = 0; i < halfLen ; i++){
+        let temp = a[i]
+        a[i] = a[len-1-i]
+        a[len-1-i] = temp
+    }
+  return a
+}
+
+console.log(sample(arr))
+
+// Another approach
+
+let arr = [ "c", "l", "u", "b"]
+
+function sample(a){
+    let left = 0;
+    let right = a.length-1;
+    
+    while(left < right){
+        [a[left], a[right]] = [a[right], a[left]]
+        left++;
+        right--;
+    }
+  return a
+}
+
+console.log(sample(arr))
+--------------------------------------------------------------------------------------------------------------------------------------
+🤔 Best Time to Buy and Sell Stock I
+Problem Statement:
+You are given an array prices where prices[i] is the price of a given stock on the ith day.
+You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.
+Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
+
+🅰️ 
+ let arr = [7,5,3,6,1,4,8]
+ 
+ function sample(a){
+     let min = a[0];
+     let maxProfit = 0
+     
+     for(let i=0; i < a.length; i++){
+         if(a[i] < min){
+             min = a[i]
+         }
+         if(a[i] - min > maxProfit){
+             maxProfit = a[i]-min
+         }
+     }
+     return maxProfit    // 7
+ }
+ 
+ console.log(sample(arr))
+ --------------------------------------------------------------------------------------------------------------------------------------
