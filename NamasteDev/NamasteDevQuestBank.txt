@@ -1,16 +1,16 @@
-video - warm up - loops 02 (arrays + loops)
+warm up - loops 02 (arrays + loops)
 1. write a function that searches for an element in an array and returns the index, If the element is not present then just return -1.
 2. write a functon that returns the number of negative numbers in an array.
 3. write a function that return the largest number in an array.
 4. write a function that return the smallest number in an array.
 
-video - warm up - second largest
+warm up - second largest
 1. find the second largest number in an array.
 2. find the third largest number in an array.
 
-video - warm up - loop in loop
+warm up - loop in loop
 
-video - warm up - star pattern
+warm up - star pattern
 ****      
 ****
 ****
@@ -51,16 +51,23 @@ video - warm up - star pattern
 010
 1010s
 
-video - warm up - count digit 
-video - warm up - palindrome
-video - warm up - reverse integer
+warm up - count digit 
+warm up - palindrome
+warm up - reverse integer
 
-video - array0 - Remove Duplicates from Sorted Array, and return no of unique elements present in the same array.
-video - array0 - Remove Element
-video - array0 - Reverse string
-video - array0 - Best Time to Buy and Sell Stock I
-video - array0 - Merge Sorted Array
-video - array0 - Move zeroes
-video - array0 - Max Consecutive Ones
-video - array0 - Missing Number
-video - array0 - Single Number 
+array0 - Remove Duplicates from Sorted Array, and return no of unique elements present in the same array.
+array0 - Remove Element
+array0 - Reverse string
+array0 - Best Time to Buy and Sell Stock I
+array0 - Merge Sorted Array
+array0 - Move zeroes
+array0 - Max Consecutive Ones
+array0 - Missing Number
+array0 - Single Number 
+
+recursion0- sum of first n numbers
+recursion0- sum of all numbers in an array
+recursion0- sum of all odd numbers in an array
+recursion0- factorial of n
+recursion0- power of two ?
+recursion0- fibonnaci numbers
