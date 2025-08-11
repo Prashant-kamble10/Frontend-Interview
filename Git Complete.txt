@@ -1,0 +1,96 @@
+cross verify below  text is really a summary of git
+
+Commands	                        Definition
+git init	                      When you execute the "git init" command, it sets up an empty Git repository in the current directory.
+git clone	                     The command “git clone” is to to create a copy of a remote Git repository onto your local machine.
+git add	                            The command “git add” stages changes to be committed in a Git repository.
+git commit -m “first commit”	   Successfully committed the changes with the message “first commit” using the Git command.
+git branch -M main	            The command “git branch -M main” renames the current branch to “main” in a Git repository.
+git remote add origin <Git link>	  To establish a link between the local repository and a remote repository, "git remote add origin <Git link>" is utilized.
+git push -u origin main	                The command “git push -u origin main” is used to push the local repository’s main branch to the remote repository.
+git pull	                          Executing the command “git pull” merges the latest changes from a remote repository into the current branch.
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+create a new repository on the command line:
+
+Commands:
+git init
+git clone <Git link>
+git add 
+git commit -m "first commit"
+git branch -M main
+git remote add origin <Git link>
+git push -u origin main
+git pull
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+Push an existing repository from the command line
+
+git remote add origin < Git link > 
+
+git branch -M main
+
+git push -u origin main
+
+git remote add origin <Git link>: The command “git remote add origin <Git link>” is used to connect a remote repository to the local repository.
+
+git branch -M main: The command “git branch -M main” renames the current branch to “main” in a Git repository.
+
+git push -u origin main: The command “git push -u origin main” is used to push the local repository’s main branch to the remote repository.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+…or create a new repository on the command line
+echo "# CSS_Practice" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/Prashant-kamble10/CSS_Practice.git
+git push -u origin main
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+…or push an existing repository from the command line
+git remote add origin https://github.com/Prashant-kamble10/CSS_Practice.git
+git branch -M main
+git push -u origin main
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+Here is a simplified Git workflow:
+
+Step 1: Clone: Start by cloning a repository to your local machine using the `git clone` command.
+
+Step 2: Branch: Create a new branch using `git branch` command to work on a specific feature or bug fix.
+
+Step 3: Checkout: Use the `git checkout` command to transition to the recently formed branch.
+
+Step 4: Work: Make changes to the files in your project using your preferred editor or IDE.
+
+Step 5: Stage: Use `git add` to stage the changes you made and prepare them for commit.
+
+Step 6: Commit: Create a commit with a meaningful message using `git commit` to save your changes locally.
+
+Step 7: Pull: To ensure you have the most recent changes, it's advisable to perform a `git pull` and retrieve the latest updates from the remote repository before pushing your own changes.
+
+Step 8: Merge/Rebase: If there are no conflicts, you can either merge your branch into the main branch using `git merge`.
+
+Step 9: Push: Use the command `git push` to send your committed changes to the remote repository.
+
+Step 10: Review and Iterate: After making your changes, please submit a pull request for others to review. Incorporate feedback received and continue iterating on the changes.
+
+Step 11: Merge: Once your changes are approved, merge the pull request into the main branch.
+
+Step 12: Repeat: Repeat the process by creating new branches for different features or bug fixes.
+
+This workflow provides a high-level overview, and the actual workflow may vary depending on the specific needs of your project and team.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Merge conflict
+If both the developers made the changes in the same file, then merge conflict may occur.
+
+This image represents the merge conflict in the code in vscode.
+
+Accept Current Change: It accepts the recent change that is the change made by us and rejects the older changes.
+
+Accept Incoming Change: It accepts only changes made from other end and rejects the changes made by us.
+
+Accept Both Changes: It accepts both the changes made.
+
+Compare Changes: As name suggests, it compares both the changes made by both the developers.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
