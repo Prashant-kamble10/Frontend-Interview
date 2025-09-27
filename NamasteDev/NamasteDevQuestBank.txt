@@ -71,3 +71,10 @@ recursion0- sum of all odd numbers in an array
 recursion0- factorial of n
 recursion0- power of two ?
 recursion0- fibonnaci numbers
+
+searching & sorting - linear search
+searching & sorting - binary search
+searching & sorting - bubble sort
+searching & sorting - selection sort
+searching & sorting - Insertion sort 
+searching & sorting - merge sort

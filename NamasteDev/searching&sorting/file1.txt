@@ -1,0 +1,166 @@
+🤔 searching & sorting - linear search
+
+🅰️     let arr = [4,9,1,0,2] 
+        let target = 0
+
+        function sample(arr, target){
+            for(let i = 0; i < arr.length; i++){
+                if(arr[i] == target){
+                    return i
+                }
+            }
+            return -1
+        }
+
+        console.log(sample(arr, target))
+--------------------------------------------------------------------------------------------------------------------------------
+🤔 searching & sorting - binary search
+
+🅰️    let arr = [-1, 0, 3, 5,9,12] 
+        let target = 9
+
+        function sample(arr, target){
+            let right = arr.length -1;
+            let left = 0;
+            
+            while(right >  left){
+                let middle = Math.floor((right + left)/2)
+                if(arr[middle] == target){
+                    return middle
+                }else if(target < arr[middle]){
+                    right = middle - 1 
+                }else{
+                    left = middle + 1
+                }
+            }
+            return -1;
+        }
+
+        console.log(sample(arr, target))
+--------------------------------------------------------------------------------------------------------------------------------
+🤔 searching & sorting - bubble sort
+
+🅰️     let arr = [5,2,4,1] 
+
+        function sample(arr){
+        let n = arr.length;
+        
+        for(let i = 0; i < n-1; i++){
+            for(let j = 0; j < (n-1-i); j++){
+                if(arr[j] > arr[j+1]){
+                    temp = arr[j];
+                        arr[j] = arr[j+1]
+                        arr[j+1] = temp
+                }
+            }
+        }
+        return arr
+        }
+
+        console.log(sample(arr))   // [ 1, 2, 4, 5 ]
+
+
+        // Improvised version 
+
+        let arr = [5,2,4,1] 
+
+            function sample(arr){
+            let n = arr.length;
+            for(let i = 0; i < n-1; i++){
+                let isSwapped =  false;
+                for(let j = 0; j < (n-1-i); j++){
+                    if(arr[j] > arr[j+1]){
+                        temp = arr[j];
+                            arr[j] = arr[j+1]
+                            arr[j+1] = temp
+                            isSwapped = true
+                    }
+                }
+                if(!isSwapped) break
+            }
+            return arr
+            }
+
+            console.log(sample(arr))    // [ 1, 2, 4, 5 ]
+--------------------------------------------------------------------------------------------------------------------------------
+🤔 searching & sorting - selection sort
+
+🅰️  let arr = [7,1,5,4,3,2] 
+
+            function sample(arr){
+            let n = arr.length;
+            for(let i = 0; i < n-1; i++){
+                let min = i;
+                for(let j = i+1; j < n; j++){
+                    if(arr[j] < arr[min]){
+                        min = j
+                    }
+                }
+                if(min != i){
+                    let temp = arr[i]
+                    arr[i] = arr[min]
+                    arr[min] = temp
+                }
+            }
+            return arr
+            }
+
+            console.log(sample(arr))     // [ 1, 2, 3, 4, 5, 7 ]
+--------------------------------------------------------------------------------------------------------------------------------
+🤔 searching & sorting - Insertion sort 
+
+🅰️  let arr = [7,4,3,5,1,2]
+
+            function sample(arr){
+            let n = arr.length;
+            for( let i = 1; i < n; i++){
+                let curr = arr[i]
+                let prev =i-1
+                
+                while(arr[prev] > curr && prev >= 0) {
+                    arr[prev + 1] = arr[prev] 
+                    prev--;
+                    
+                }
+                arr[prev + 1] = curr
+                
+            }
+            return arr
+            }
+
+            console.log(sample(arr))     // [ 1, 2, 3, 4, 5, 7 ]
+--------------------------------------------------------------------------------------------------------------------------------
+🤔 searching & sorting - merge sort
+
+🅰️  let arr = [5,2,4,1]
+
+function merge(left, right){
+    let i =0; 
+    let j = 0;
+    let res = []
+    
+    while(i < left.length && j < right.length){
+        if(left[i] < right[j]){
+            res.push(left[i])
+            i++;
+        }else{
+            res.push(right[j])
+            j++;
+        }
+        
+    }
+    return [...res, ...left.slice(i), ...right.slice(j)]
+}
+
+function mergeSort(arr){
+    if(arr.length <= 1) return arr;
+    
+    let mid = Math.floor(arr.length / 2)
+    let left = mergeSort(arr.slice(0, mid))
+    let right = mergeSort(arr.slice(mid))
+    
+    return merge(left, right)
+}
+
+console.log(mergeSort(arr))    // [ 1, 2, 4, 5 ]
+--------------------------------------------------------------------------------------------------------------------------------
