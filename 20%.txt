@@ -1,0 +1,68 @@
+JS 20 %
+
+setTimeout, setInterval,
+call back function, Higher order function, IIFE, Currying function ?
+map, reduce, filter ?
+
+callback hell ?
+Promises, promises stage/state ?
+how to create custom Promises, implement proper error handling, and manage asynchronous operations effectively ?
+promise API ?
+async await ?
+Difference between promise & async await ?
+
+Destructuring Assignment, Spread and Rest Operator
+Deep copy vs shallow copy ?
+call, bind & apply ?
+
+Frequently Asked Polyfills in JS Interviews
+
+Array.prototype.map()	        Tests array iteration, callback usage
+Array.prototype.filter()	    Shows understanding of array mutation
+Array.prototype.reduce()	    Checks if you grasp accumulators/iteration
+Array.prototype.forEach()	    Basic iteration comprehension
+Function.prototype.bind()	    Closure + context (this) test
+Promise	                        Asynchronous flow and constructor logic
+Object.create()	                Tests prototypal inheritance knowledge
+Array.prototype.flat()	        Recursion + array handling
+Array.isArray()	                Type checking & Object.prototype.toString usage
+call, apply	                    Tests how functions bind their context manually
+debounce / throttle
+
+throw statement, try {} catch(){ }, finally{ }
+
+local storage vs session storage ?
+Debouncing ?
+Throttling ?
+Recursion ?
+event-related concepts or mechanisms -> bubbling,  capturing/trickling, delegation, propogation ?
+
+DSA
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+reactJS 20 %
+
+state, props ?
+React Element vs React functional component ?
+useState 
+one way vs two way - data binding ?
+state lifting up, prop drilling ?
+controlled vs uncontrolled component ?
+useEffect, APIs call - fetch, axios ? class based vs functional based component ?
+props & state in class based component ?
+
+mounting phase -> componentDidMount(), render(),
+updating phase -> shouldComponentUpdate(), componentWillUpdate(), componentDidUpdate(),
+unmounting phase -> componentWillUnmount(),
+
+compare above methods with useEffect() ?
+
+custom hooks ?
+
+HOC ?
+useContext, createContext, context-provider, user-context-consumer ?
+Redux, redux toolkit, Dispatch, slice, slicer, Action, Reducer, selector, subscribe, zustand ?
+useMemo ,useCallback, useRef ?
+
+RectJS machine coding round
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
