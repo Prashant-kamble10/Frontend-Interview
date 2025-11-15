@@ -1,0 +1,74 @@
+🤔 setTimout
+
+1. What does setTimeout(fn, 0) actually mean? Does it execute fn immediately?
+
+2. Can setTimeout guarantee exact timing of execution (e.g., exactly after 1000 ms)? Why or why not?
+
+3. What happens if you pass a string instead of a function to setTimeout?
+
+4. What does setTimeout return? How can you use it to cancel a scheduled function?  
+=> It returns timerID (browser env), Returns a Timeout object (nodJS env)
+    cancel a scheduled function through clearTimeout()
+
+5. console.log(1);
+setTimeout(() => console.log(2), 0);
+console.log(3); 
+What’s the output, and why?
+
+
+6. for (var i = 0; i < 3; i++) {
+  setTimeout(() => console.log(i), 100);
+}
+What will this log, and how would you fix it to print 0, 1, 2?
+
+
+7. let count = 0;
+const timer = setTimeout(() => {
+  count++;
+  console.log('Timer executed');
+}, 1000);
+clearTimeout(timer);
+console.log(count);
+What’s printed? Why?
+
+
+8. setTimeout(() => console.log('Timeout 1'), 0);
+Promise.resolve().then(() => console.log('Promise'));
+console.log('Sync');
+Explain the exact order of logs.
+
+
+9. setTimeout(() => console.log('A'), 100);
+setTimeout(() => console.log('B'), 50);
+Will 'B' always log before 'A'?
+
+
+10.How does JavaScript handle nested setTimeout calls for simulating intervals (e.g., recursive setTimeout vs. setInterval)?
+What’s the advantage of recursive setTimeout?
+
+
+11. let start = Date.now();
+setTimeout(() => {
+  console.log('Delay:', Date.now() - start);
+}, 0);
+while (Date.now() - start < 2000) {}
+What output do you expect? Why is the delay not 0?
+
+
+12. setTimeout(() => console.log('Timeout'), 0);
+process.nextTick(() => console.log('Next Tick'));
+Promise.resolve().then(() => console.log('Promise'));
+What’s the output order? Why does Node behave this way?
+
+
+13. How would you create your own version of setTimeout using setInterval?
+
+
+14.let id = setTimeout(() => console.log('Run'), 1000);
+id = setTimeout(() => console.log('Override'), 500);
+clearTimeout(id);
+Will anything print?
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+🤔 setTInterval
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
