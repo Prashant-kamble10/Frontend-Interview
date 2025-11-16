@@ -1567,21 +1567,111 @@
     function it was passed to has completed its task.
 
       function greetUser(name, callback) {
-                console.log("Hi " + name);
-                callback();
-            }
+            console.log("Hi " + name);
+            callback();
+        }
 
-            function sayBye() {
-                console.log("Bye!");
-            }
+        function sayBye() {
+            console.log("Bye!");
+        }
 
-            greetUser("Alice", sayBye);
+        greetUser("Alice", sayBye);
 
-            // ✅ Output:
-            // Hi Alice
-            // Bye!
+        // ✅ Output:
+        // Hi Alice
+        // Bye!
 
      👉 sayBye is a callback function passed into greetUser.
+
+
+       eg: 1  // Dough is Ready,
+                // topings has been added,
+                // pizza is baked,
+                // pizza is out for delivery
+
+                function DoughStatus(topingStatus){
+                    setTimeout(()=>{
+                        console.log("1. Dough is ready")
+                        topingStatus(bakedStatus)
+                    }, 1000)
+                
+                }
+
+                function topingStatus(bakedStatus){
+                    setTimeout(()=>{
+                        console.log("2. Toppings added")
+                        bakedStatus(deliveryStatus)
+                    }, 2000)
+                    
+                }
+
+                function bakedStatus(deliveryStatus){
+                    setTimeout(()=>{
+                        console.log("3. Pizza is baked")
+                        deliveryStatus()
+                    }, 3000)
+                    
+                }
+
+                function deliveryStatus(){
+                    setTimeout(()=>{
+                        console.log("4. Pizza out for delivery")
+                    }, 4000)
+                }
+
+                DoughStatus(topingStatus)
+
+        eg 2:  // Dough is Ready,
+                // topings has been added,
+                // pizza is baked,
+                // pizza is out for delivery
+
+                function DoughStatus(callback){
+                    setTimeout(()=>{
+                        console.log("1. Dough is ready")
+                        callback()
+                    }, 1000)
+                
+                }
+
+                function topingStatus(callback){
+                    setTimeout(()=>{
+                        console.log("2. Toppings added")
+                        callback()
+                    }, 2000)
+                    
+                }
+
+                function bakedStatus(callback){
+                    setTimeout(()=>{
+                        console.log("3. Pizza is baked")
+                        callback()
+                    }, 3000)
+                    
+                }
+
+                function deliveryStatus(){
+                    setTimeout(()=>{
+                        console.log("4. Pizza out for delivery")
+                    }, 4000)
+                }
+
+                // DoughStatus(function(){
+                //     topingStatus(function(){
+                //         bakedStatus(function(){
+                //          deliveryStatus()   
+                //         })
+                //     })
+                // })
+
+                DoughStatus(()=>{
+                    topingStatus(()=>{
+                        bakedStatus(()=>{
+                            deliveryStatus()
+                        })
+                    })
+                })
+
 ----------------------------------------------------------------------------------------------------------------------------
 🤔 Higher order function ?
 

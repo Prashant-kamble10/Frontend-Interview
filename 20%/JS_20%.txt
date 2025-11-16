@@ -68,7 +68,110 @@ What’s the output order? Why does Node behave this way?
 id = setTimeout(() => console.log('Override'), 500);
 clearTimeout(id);
 Will anything print?
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------
 🤔 setTInterval
 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1. What does setInterval do, and how is it different from setTimeout?
+
+2. Does setInterval(fn, 1000) guarantee that fn executes every exactly 1000ms? Why or why not? 
+=>   console.log("start")
+
+    setInterval(()=>{
+    console.log("setInterval")
+    }, 1000)
+
+    let blockFor = Date.now() + 3000
+    while(Date.now() < blockFor){}
+
+    console.log("end")
+
+
+     console.log("start")
+
+    setInterval(()=>{
+
+      let blockFor = Date.now() + 3000
+    while(Date.now() < blockFor){}
+
+    console.log("setInterval")
+    }, 1000)
+      console.log("end")
+    
+
+3. What does setInterval return, and how do you stop it?
+
+4. What happens if the callback inside setInterval takes longer than the interval delay? (through blocking single thread & Callback Takes Longer Than Interval)
+=> Timer drift
+Time drift happens when the actual interval between executions of the callback function is longer than the specified interval time. This usually occurs when the main thread is blocked or the callback function takes longer to execute than expected. In such cases, the next invocation of the callback is delayed, and it can lead to the overall "drifting" of the scheduled times.
+
+
+5. let i = 0;
+const id = setInterval(() => {
+  console.log(i++);
+  if (i === 3) clearInterval(id);
+}, 100);
+What will be logged?
+
+
+6. setInterval(() => console.log('A'), 0);
+console.log('B');
+What prints first? Why?
+
+
+7. let x = 1;
+setInterval(() => {
+  x++;
+  console.log(x);
+}, 100);
+
+setTimeout(() => {
+  console.log("Timeout:", x);
+}, 350);
+What is printed by the timeout?
+
+
+8. Why can setInterval sometimes “pile up” callbacks?
+
+9. let start = Date.now();
+
+setInterval(() => {
+  console.log("Interval fired at:", Date.now() - start);
+}, 100);
+
+while (Date.now() - start < 350) {}  // 350ms blocking
+What do you expect the console output to look like?
+
+
+10. Why is recursive setTimeout often considered better than setInterval?
+
+11. let count = 0;
+const id = setInterval(() => {
+  console.log(count);
+  count++;
+  if (count === 1) clearInterval(id);
+}, 100);
+How many logs do we see?
+
+
+12. setInterval(async () => {
+  await new Promise(res => setTimeout(res, 200));
+  console.log("Done");
+}, 100);
+Will this print every 100ms? What happens?
+
+
+13. Does clearing an interval inside its own callback stop future executions immediately or after the current callback finishes?
+=> Clearing an interval inside its own callback does not stop the current callback because it’s already running on the call stack.
+It only prevents the interval from scheduling future executions.
+
+
+14. Why might this interval never run in a Node.js server?
+
+while (true) {
+  // accidental infinite loop
+}
+
+setInterval(() => console.log("Ping"), 1000);
+
+15. How would you implement your own version of setInterval using recursive setTimeout?
+---------------------------------------------------------------------------------------------------------------------------------------
