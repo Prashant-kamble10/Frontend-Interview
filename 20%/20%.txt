@@ -1,9 +1,8 @@
 JS 20 %
 
 setTimeout, setInterval,
-call back function, Higher order function, IIFE, Currying function ?
-map, reduce, filter ?
 
+call back function, 
 callback hell ?
 Promises, promises stage/state ?
 how to create custom Promises, implement proper error handling, and manage asynchronous operations effectively ?
@@ -11,9 +10,24 @@ promise API ?
 async await ?
 Difference between promise & async await ?
 
+first class function, Higher order function, IIFE, Currying function ?
+map, reduce, filter ?
+
 Destructuring Assignment, Spread and Rest Operator
 Deep copy vs shallow copy ?
 call, bind & apply ?
+
+throw statement, try {} catch(){ }, finally{ }
+
+local storage vs session storage ?
+
+Debouncing ?
+Throttling ?
+Recursion ?
+
+event-related concepts or mechanisms -> bubbling,  capturing/trickling, delegation, propogation ?
+
+DSA
 
 Frequently Asked Polyfills in JS Interviews
 
@@ -28,16 +42,6 @@ Array.prototype.flat()	        Recursion + array handling
 Array.isArray()	                Type checking & Object.prototype.toString usage
 call, apply	                    Tests how functions bind their context manually
 debounce / throttle
-
-throw statement, try {} catch(){ }, finally{ }
-
-local storage vs session storage ?
-Debouncing ?
-Throttling ?
-Recursion ?
-event-related concepts or mechanisms -> bubbling,  capturing/trickling, delegation, propogation ?
-
-DSA
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 reactJS 20 %

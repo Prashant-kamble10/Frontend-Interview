@@ -175,3 +175,435 @@ setInterval(() => console.log("Ping"), 1000);
 
 15. How would you implement your own version of setInterval using recursive setTimeout?
 ---------------------------------------------------------------------------------------------------------------------------------------
+🤔 callbacks
+
+1. What is a callback function in JavaScript, and why do we use it?
+
+2. What is the difference between: doSomething(callback); and  doSomething(callback());
+
+3. Why are callbacks important in asynchronous programming?
+
+4. function greet(name, callback) {
+      console.log("Hello", name);
+      callback();
+    }
+
+    function sayBye() {
+      console.log("Bye!");
+    }
+
+    greet("John", sayBye);   
+
+    What will be printed?
+
+
+5. function a(cb) {
+      console.log("A");
+      cb();
+    }
+
+    function b(cb) {
+      console.log("B");
+      cb();
+    }
+
+    function c() {
+      console.log("C");
+    }
+
+    a(b(c));
+
+    Will this work? What will happen?
+
+
+6. function x(cb) {
+      console.log("X");
+      cb("test");
+    }
+
+    function y(value) {
+      console.log("Y got:", value);
+    }
+
+    x(y);
+
+    What is printed?
+
+
+7. What is “callback hell”? Why is it a problem?
+
+8. Why does this code crash?
+
+        function first(cb) {
+        cb();
+      }
+
+      first( second() );
+
+      function second() {
+        console.log("Second");
+      }
+     Explain what the fix is.
+
+
+9. What happens if a callback is not passed?
+
+    function fetchData(cb) {
+        console.log("Fetching...");
+        cb();
+      }
+
+      fetchData();  // no callback provided
+
+
+10. function step1(cb) {
+        setTimeout(() => {
+          console.log("Step 1");
+          cb();
+        }, 1000);
+      }
+
+      function step2(cb) {
+        setTimeout(() => {
+          console.log("Step 2");
+          cb();
+        }, 500);
+      }
+
+      function step3() {
+        console.log("Step 3");
+      }
+
+      step1(() => step2(step3));
+
+      Explain the exact order and timing of logs.
+
+    
+11. Why is this wrong?
+
+     getUser(function(result) {
+          console.log(result.name);
+        });
+
+        function getUser(cb) {
+          setTimeout(() => {
+            cb({ name: "John" });
+          }, 1000);
+        }
+
+        const cb = (x) => console.log("Got:", x);
+        getUser(cb());
+
+        Explain the bug and fix it.
+
+
+12. What is the difference between: 
+      a. callback that expects a value : cb(result);
+      b. callback that passes function instead of value : cb(() => result);
+
+      When do you use each?
+
+13. Write a function repeatNTimes that accepts:
+      a callback,
+      a number N,
+      and runs the callback N times.
+
+      repeatNTimes(() => console.log("Hi"), 3);
+
+14. Turn this into callback-based asynchronous flow:
+
+      Wash vegetables → Cut vegetables → Cook food → Serve food
+
+      Each step should happen after a timeout with a callback.
+
+15. Why do modern JS developers prefer Promises and async/await over callbacks?
+---------------------------------------------------------------------------------------------------------------------------------------
+🤔 Promise
+
+1. What is a Promise in JavaScript, and why do we use it?
+
+2. What are the three states of a Promise?
+
+3. What is the difference between: return Promise.resolve(5); and return 5; inside an async function?
+
+4. What is logged and in what order?
+
+    const p = new Promise((resolve, reject) => {
+        console.log("A");
+        resolve("B");
+      });
+
+      p.then(val => console.log(val));
+      console.log("C");
+
+
+5. What does it print?
+
+    Promise.resolve(1)
+      .then(x => x + 1)
+      .then(x => {
+        throw new Error("Oops");
+      })
+      .catch(err => 5)
+      .then(x => console.log(x));
+
+
+6. What prints first?
+
+      new Promise((resolve) => {
+        setTimeout(() => resolve("Done"), 2000);
+      }).then(console.log);
+
+      console.log("Hello");
+
+7. Why does .then() return a new Promise?
+
+8. What is wrong with this code?
+
+    function getData() {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve("data");
+          }, 1000);
+        });
+      }
+
+      const result = getData();
+      console.log(result); // What prints? Why?
+
+
+9. What numbers print?
+
+      Promise.resolve(10)
+        .then(x => {
+          console.log(x);
+          return x * 2;
+        })
+        .then(x => {
+          console.log(x);
+          return Promise.resolve(x * 2);
+        })
+        .then(console.log);
+
+
+10. What prints?
+
+      Promise.reject("Error")
+        .catch((msg) => {
+          console.log("Caught:", msg);
+          return "Recovered";
+        })
+        .then((msg) => {
+          console.log("Then:", msg);
+        });
+
+11. What happens if you forget to return in a .then() chain?
+
+12. Why does this code NOT catch the error?
+
+        try {
+          Promise.reject("Fail");
+        } catch (err) {
+          console.log("Caught:", err);
+        }
+
+  
+13.  What prints? Why is it not 1?
+
+        async function test() {
+            return 1;
+          }
+
+          console.log(test());
+
+14.  What is Promise.all, and what happens if one promise rejects?
+
+15. Write a function wait(ms) that returns a Promise which resolves after ms milliseconds.
+
+      wait(1000).then(() => console.log("1 second passed"));
+
+
+16. Convert this callback-based function into a Promise:
+
+      function fetchUser(callback) {
+        setTimeout(() => {
+          callback({ name: "John" });
+        }, 1000);
+      }
+
+    
+17. What is the difference between:
+
+        Promise.all
+        Promise.allSettled
+        Promise.race
+        Promise.any
+
+        Explain real use cases.
+--------------------------------------------------------------------------------------------------------------------------------
+🤔 async/await 
+
+1. What is async/await, and why was it introduced in JavaScript?
+
+2. What does the async keyword do to a function?
+
+3. What happens if you await a non-Promise value?
+
+4. Why must await only be used inside an async function?
+
+5. What gets printed, and why?
+
+    async function test() {
+      return "Hello";
+    }
+
+    console.log(test());
+
+
+6. What is the exact output order?
+
+      async function f() {
+        console.log(1);
+        await Promise.resolve();
+        console.log(2);
+      }
+
+      console.log(3);
+      f();
+      console.log(4);
+
+
+7. What logs first?
+
+    async function getData() {
+      await new Promise(res => setTimeout(res, 1000));
+      return 10;
+    }
+
+    getData().then(console.log);
+    console.log("Done");
+
+8. How do you handle errors in async/await?
+    Show both try/catch and .catch() approaches.
+
+9.  Will “After” print? Why?
+
+      async function test() {
+          throw new Error("Oops");
+        }
+
+        test();
+        console.log("After");
+
+      
+10. Why doesn't this catch the error?
+
+      try {
+        async function run() {
+          throw new Error("Fail");
+        }
+        run();
+      } catch (e) {
+        console.log("Caught!");
+      }
+
+  
+11. What logs and in what order?
+
+      async function a() {
+        console.log("A1");
+        await b();
+        console.log("A2");
+      }
+
+      async function b() {
+        console.log("B1");
+        return "B done";
+      }
+
+      a();
+
+12.  What is the difference between:
+
+      ✔️ awaiting multiple Promises sequentially
+      ✔️ awaiting them in parallel with Promise.all
+
+13. What prints and after how long?
+
+      async function slow() {
+        await new Promise(res => setTimeout(res, 2000));
+        return "slow";
+      }
+
+      async function fast() {
+        await new Promise(res => setTimeout(res, 500));
+        return "fast";
+      }
+
+      async function run() {
+        const s = slow();
+        const f = fast();
+        console.log(await f, await s);
+      }
+
+      run();
+
+
+14. Why is .forEach not async-await friendly?
+
+      [1,2,3].forEach(async (num) => {
+        await wait(1000);
+        console.log(num);
+      });
+
+
+15. Rewrite this code using async/await:
+
+      fetchData()
+        .then(processData)
+        .then(saveData)
+        .catch(handleError);
+
+16. Why is await inside a loop often a performance issue?
+      What is the better alternative? 
+
+17.  What will be the output?
+
+    async function test() {
+        console.log("Start");
+
+        const promise = new Promise((res) => {
+          console.log("Inside Promise");
+          res("Done");
+        });
+
+        console.log(await promise);
+        console.log("End");
+      }
+
+      test();
+
+
+18. Why should you almost always return inside a try block when using async/await?
+
+19. What happens if you forget await before a Promise?
+
+20. Create a sleep(ms) function using async/await:
+
+      await sleep(2000);
+      console.log("2 seconds passed");
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
