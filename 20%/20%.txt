@@ -46,6 +46,7 @@ debounce / throttle
 
 reactJS 20 %
 
+Reconciliation
 state, props ?
 React Element vs React functional component ?
 useState 

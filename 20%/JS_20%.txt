@@ -592,15 +592,414 @@ setInterval(() => console.log("Ping"), 1000);
 
       await sleep(2000);
       console.log("2 seconds passed");
+--------------------------------------------------------------------------------------------------------------------------------
+🤔 Currying function
+
+1. What is currying in JavaScript? Explain in simple words with an example.
+
+2. What is the main difference between currying and partial application?
+
+3. Why is currying useful in functional programming?
+
+4. What will this code print?
+
+      function add(a) {
+        return function (b) {
+          return a + b;
+        };
+      }
+
+      console.log(add(5)(3));
 
 
-
-
+5. Write a simple curry function that converts: 
     
+    function add(a, b, c) { return a + b + c; }
+
+    into 
+
+    curry(add)(1)(2)(3) // 6
 
 
+6. What is the output?
+    
+    function multiply(a) {
+        return function(b) {
+          return function(c) {
+            console.log(a * b * c);
+          };
+        };
+      }
+
+      multiply(2)(3)(4);
 
 
+7.  Explain how currying helps in reusing functions.
+
+      function log(type) {
+          return function(message) {
+            console.log(`[${type}] : ${message}`);
+          };
+        }
+
+
+8. Convert this normal function into a curried version:
+
+      function discount(price, percentage) {
+          return price * (percentage / 100);
+        }
+
+    Expected output:
+
+      const tenPercent = curriedDiscount(10);
+      console.log(tenPercent(500)); // 50
+
+
+9. What is the output?
+
+      function sum(a) {
+        return function(b) {
+          if (b !== undefined) return sum(a + b);
+          return a;
+        };
+      }
+
+      console.log(sum(1)(2)(3)());
+
+
+10. Why does currying help with functions that accept many arguments?
+
+11. Why does this code fail?
+
+      function add(a, b) {
+          return a + b;
+        }
+
+        const curriedAdd = add(5);
+        console.log(curriedAdd(10));
+
+        Explain what the fix is.
+
+
+12. Create a generic curry function that works for any number of arguments:
+
+        function sum(a, b, c, d) { return a + b + c + d; }
+
+        const curried = curry(sum);
+        console.log(curried(1)(2)(3)(4)); // 10
+
+
+13. What will the following code produce?
+
+        function evaluate(a) {
+          return function(b) {
+            return function(c) {
+              return function(d) {
+                console.log(a + b + c + d);
+              };
+            };
+          };
+        }
+
+        evaluate(1)(2)(3)(4);
+
+
+14. How does currying help with event handling?
+
+    const handleEvent = (type) => (msg) => console.log(type, msg);
+
+    document.addEventListener("click", () => handleEvent("CLICK")("Button pressed"));
+
+15. Rewrite this function to support both styles:
+
+    sum(1,2,3);   // 6  
+    sum(1)(2)(3); // 6
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+🤔 Debouncing
+
+1. What is debouncing in JavaScript, and why do we use it? Explain using a real-world example (like typing in a search bar).
+
+2. What is the difference between debouncing and throttling? Give one use case for each.
+
+3. Write a basic debounce function that takes a callback and delay:
+
+      function debounce(fn, delay) { /* your code */ }
+ 
+        Explain how it works internally.
+
+4. You have an input box and want to call an API only after the user stops typing for 500ms.
+      How will you use debounce here?
+      Write a small code snippet showing usage.
+
+5. What happens in this scenario?
+
+      const fn = () => console.log("API Call");
+        const debounced = debounce(fn, 1000);
+
+        debounced();
+        debounced();
+        debounced();
+
+    How many times does "API Call" print, and why?
+
+
+6. Why must we use clearTimeout inside a debounce function?
+      Explain what happens if we don't.
+
+7. Modify debounce so it supports an option:
+
+      immediate: true
+
+      Meaning:
+      Run the function immediately at the first call, and then ignore calls until after the delay.
+
+      Describe how you’d add this feature.
+
+8. Why is this debounce implementation incorrect?
+
+      function debounce(fn, delay) {
+          let timer;
+          return function() {
+            setTimeout(() => {
+              fn();
+            }, delay);
+          };
+        }
+
+      Describe the specific bug and how to fix it.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+🤔 Throttling
+
+1. What is throttling in JavaScript, and why do we use it?
+Explain using a real-world example (like scroll events or window resize).
+
+2. Write a basic throttle function that ensures a callback runs at most once every delay milliseconds:
+
+      function throttle(fn, delay) { /* your code */ }
+
+      Explain the internal mechanism.
+
+3. You want to run a function while a user scrolls, but not on every pixel movement — only once every 200ms.
+      Show how you would use throttle in this situation.
+
+4.  const fn = () => console.log("Scroll event");
+      const throttled = throttle(fn, 1000);
+
+      throttled();
+      throttled();
+      throttled();
+
+      How many times does "Scroll event" print and why?
+
+
+5. Types of Throttling
+
+Explain the difference between:
+
+Leading throttle
+Trailing throttle
+
+Which one fires the callback at the start, and which one at the end of the delay window?
+
+6. Modify your throttle function so it supports both options:
+
+      leading: true,
+      trailing: false
+
+      Explain how you would handle these scenarios.
+
+
+7. Why is the following throttle implementation incorrect?
+
+        function throttle(fn, delay) {
+          let timer;
+          return function() {
+            if (!timer) {
+              setTimeout(() => {
+                fn();
+              }, delay);
+            }
+          };
+        }
+
+    Describe the exact bug and how to fix it.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+🤔 Event Bubbling
+
+1. What is event bubbling in JavaScript?
+Explain how an event moves through the DOM when a user clicks on a nested element.
+
+2. Given the HTML:
+
+      <div id="parent">
+        <button id="child">Click me</button>
+      </div>
+
+    And JavaScript:
+
+    document.getElementById("parent").addEventListener("click", () => {
+        console.log("Parent clicked");
+      });
+
+      document.getElementById("child").addEventListener("click", () => {
+        console.log("Child clicked");
+      });
+
+      If you click the button,
+      what is the order of console logs and why?
+
+
+3.   How does event.stopPropagation() affect event bubbling?
+      Write a code snippet showing how to prevent the parent from receiving the event when the child is clicked.
+
+4.   Why is event bubbling important for event delegation?
+     Explain with an example where you handle clicks on multiple list items using a single event listener.
+
+5.   Why does this code log both messages even after trying to stop bubbling?
+
+      parent.addEventListener("click", () => console.log("Parent"));
+        child.addEventListener("click", (e) => {
+          console.log("Child");
+          e.stopImmediatePropagation();
+        });
+
+        Explain what mistake was made and how to correctly prevent the parent's event from firing.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+🤔 Event capturing/trickling
+
+1. What is event capturing in JavaScript?
+    Explain how events travel during the capturing phase before they bubble back up.
+
+2.  Given the HTML:
+
+      <div id="outer">
+        <div id="middle">
+          <button id="inner">Click</button>
+        </div>
+      </div>
+
+    And JavaScript:
+
+    outer.addEventListener("click", () => console.log("Outer"), true);
+    middle.addEventListener("click", () => console.log("Middle"));
+    inner.addEventListener("click", () => console.log("Inner"));
+
+    If you click the button,
+    what is the exact log order and why?
+
+    (Hint: one uses capturing, others default to bubbling)
+
+
+3.  Explain the difference between:
+
+    element.addEventListener("click", handler, true);
+      vs
+    element.addEventListener("click", handler, false);
+
+    Give one scenario where capturing is actually useful.
+
+4.  Does event.stopPropagation() stop the capturing phase, bubbling phase, or both?
+      Explain with a small code example.
+
+5.  Why does this code still log "Parent" even though the child listener is in the capturing phase?
+
+      parent.addEventListener("click", () => console.log("Parent"), true);
+
+      child.addEventListener("click", (e) => {
+        console.log("Child");
+        e.stopPropagation();
+      }, true);
+
+      Explain what is happening, and how to make sure only the child logs.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+🤔 Event Delegation
+
+1.  What is event delegation in JavaScript, and why do we use it?
+      Explain using a real-world example (such as clicking multiple list items with one event listener).
+
+2.  Given this HTML:
+
+      <ul id="menu">
+        <li class="item">Home</li>
+        <li class="item">About</li>
+        <li class="item">Contact</li>
+      </ul>
+
+    Write JavaScript code using event delegation so that clicking any <li> logs its text content.
+
+3.  What is the difference between event.target and event.currentTarget in event delegation?
+      Explain with an example of a nested HTML structure.
+
+4.  Why is event delegation better for performance when dealing with a large number of dynamically created DOM elements?
+    Give a practical scenario where delegation is the only scalable option.
+
+5.  Why does the following event delegation fail to log anything?
+
+      document.getElementById("list").addEventListener("click", (e) => {
+          if (e.target === "li") {
+            console.log("Clicked:", e.target.textContent);
+          }
+        });
+
+      Identify the bug and explain how to fix it.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+🤔 Event propogation
+
+1.  What is event propagation in JavaScript?
+    Explain the three phases of event propagation:
+
+    Capturing (trickling)
+    Target
+    Bubbling
+
+    Provide a simple example to demonstrate the full flow.
+
+2. Given this HTML:
+
+    <div id="grandparent">
+      <div id="parent">
+        <button id="child">Click</button>
+      </div>
+    </div>
+
+    And JavaScript:
+
+    grandparent.addEventListener("click", () => console.log("Grandparent Capture"), true);
+    parent.addEventListener("click", () => console.log("Parent Bubble"));
+    child.addEventListener("click", () => console.log("Child Target"));
+
+    If the user clicks the button,
+    what is the exact log order and why?
+
+
+3.  What is the difference between stopPropagation() and stopImmediatePropagation()?
+
+    Give an example where both listeners are on the same element, and only one method prevents the second from firing.
+
+4.  If an event listener calls event.stopPropagation() inside the capturing phase, does it prevent:
+
+    only bubbling?
+    only capturing?
+    or both?
+
+    Explain with a code snippet.
+
+5.  Why does this code still trigger the parent click event even though we are trying to stop propagation?
+
+    parent.addEventListener("click", () => console.log("Parent clicked"));
+    child.addEventListener("click", (e) => {
+      console.log("Child clicked");
+      e.stopPropagation();
+    });
+    child.innerHTML = "<span>Click me</span>";
+
+    Clicking the <span> logs:
+
+    Child clicked
+    Parent clicked
+
+    Explain what is happening and how to correctly stop propagation.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 

@@ -1,0 +1,80 @@
+🤔  Custom Hooks
+
+    1. What is a custom hook, and how is it different from a normal JavaScript function? When should you create one?
+    2. What rules of hooks apply to custom hooks, and what problems happen if you call hooks conditionally inside them?
+    3. Why must all custom hooks start with the keyword use, and what does React depend on this for?
+    4. How would you build a reusable useFetch hook that handles loading, error, cleanup (abort), and refetching? What should it return?
+    5. How do custom hooks help in separating business logic from UI logic, and do components using the same hook share state? Why or why not?
+    6. How would you design a custom hook for form handling (inputs, validation, submission)? What states and functions should it return?
+    7. When and why would you use useMemo or useCallback inside a custom hook? How do they prevent unnecessary re-renders in consuming components?
+    8. What are some common pitfalls in writing custom hooks (stale closures, infinite loops in useEffect, unnecessary reruns, memory leaks)?
+    9. How do you test a custom hook using React Testing Library or Vitest? What needs to be mocked or simulated?
+    10. When should you NOT create a custom hook? What’s the difference between reusable logic and over-abstracted code?
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+🤔 context
+
+    1. What problem does the React Context API solve, and how is it different from simply passing props (prop-drilling)?
+    2. What are the main building blocks of Context (createContext, Provider, Consumer), and how do they work together?
+    3. How do you decide when to use Context instead of other state management solutions like Redux, Zustand, or Recoil?
+    4. What performance problems can occur when using Context, and how do you prevent unnecessary re-renders in components?
+    5. How would you structure and organize multiple contexts in a large-scale React project (for auth, theme, user preferences, etc.)?
+    6. How do you update values inside a Context? Should the state live inside the Provider, or should the Provider receive the state as a prop?
+    7. Why should heavy or changing values inside Context be memoized (e.g., using useMemo or splitting context)? Give a practical example.
+    8. How do you consume Context in a functional component, and what are the differences between using useContext and a Context Consumer?
+    9. What are the common pitfalls when using Context (deep tree re-renders, wrong default values, multiple providers)? How do you avoid them?
+    10. How do you test components that use Context? How do you mock or wrap providers during unit tests?
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+🤔 Redux
+
+    1. What problem does Redux solve that Context or local component state cannot, and when should you avoid using Redux?
+
+    (Architecture + decision-making)
+
+    2. Explain the core principles of Redux (Single Source of Truth, Pure Reducers, Immutable State). How do these principles help in large applications?
+    
+    3. What are the main building blocks of Redux (store, reducer, action, dispatch, subscription), and how do they work together internally?
+    
+    4. What is Redux Toolkit (RTK), why was it introduced, and how does it solve pain points of traditional Redux?
+
+    (Immutability, boilerplate, reducers, slices, createAsyncThunk)
+
+    5. How does createAsyncThunk work internally? How does it manage request lifecycle states like pending, fulfilled, rejected?
+    
+    6. What are the common performance issues with Redux, and how do you prevent unnecessary re-renders in connected components?
+
+    (e.g., memoization, splitting slices, using selectors, shallow comparison)
+
+    7. What are selectors in Redux? When should you use reselect or memoized selectors, and how do they improve performance?
+    
+    8. What are the differences between Redux Thunk, Redux Saga, and Redux Observable? Why would you choose one over another?
+
+    (Async flow + architecture)
+
+    9. How does Redux manage immutability? What happens if you mutate state inside a reducer? How does Immer handle this under the hood in RTK?
+    
+    10. How do you test Redux logic (reducers, thunks, slices, store)? What needs to be mocked and what should be tested as pure functions?
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+🤔 useMemo
+
+1. What problem does useMemo solve, and how does it help optimize performance in React? Give a real-world example where not using useMemo causes unnecessary re-renders or expensive recalculations.
+2. How does useMemo work internally? Explain how React decides when to recompute the memoized value, and what happens if you pass an empty dependency array.
+3. When should you NOT use useMemo? Explain cases where useMemo adds overhead instead of improving performance.
+4. What is the difference between useMemo and useCallback? In what situations would you choose one over the other?
+5. How does useMemo behave when memoizing derived state or computed values (e.g., filtered lists, expensive calculations)? What are the common pitfalls, such as stale dependencies or unnecessary dependency array values?
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+🤔 useCallback
+
+1. What problem does useCallback solve, and how does it help prevent unnecessary re-renders in child components? Give a real scenario where not using useCallback breaks memoization.
+2. How does useCallback work internally? Explain how React decides when to return a new function reference vs. a memoized function.
+3. When should you NOT use useCallback? Explain how useCallback can create performance overhead instead of improving performance.
+4. What is the difference between useCallback and useMemo? When should you return a function vs. when should you memoize a computed value?
+5. What are common pitfalls when using useCallback (like missing dependencies, stale closures, or recreating functions unnecessarily)? How do you debug these issues?
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+🤔 useRef
+
+1. What is the primary purpose of useRef, and how is it different from using state? In what situations should you store values in a ref instead of state?
+2. How does useRef help in accessing and manipulating DOM elements? Give a real-world example (e.g., focusing an input, scrolling, playing a video).
+3. Why does updating a useRef value not cause a re-render? Explain how React treats ref objects internally.
+4. What are common use cases where useRef helps avoid re-renders or stale values—for example, timers, previous values, or storing large objects?
+5. What are common pitfalls when using useRef (like modifying refs inside render, not syncing with state, or breaking controlled components)? How do you avoid them?
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------

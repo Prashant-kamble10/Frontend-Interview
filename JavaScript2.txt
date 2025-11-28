@@ -264,7 +264,7 @@
                         printFullName.call(name, "Navi Mumbai", "maharashtra") // prashant kamble Navi Mumbai maharashtra
                         printFullName.call(name2, "Mumbai", "maharashtra")  // sachin tendulkar Mumbai maharashtra
 
-                        printFullName.apply(name2, ["Mumbai", "maharashtra"])  // sachin tendulka Mumbai maharashtra
+                        printFullName.apply(name2, ["Mumbai", "maharashtra"])  // sachin tendulkar Mumbai maharashtra
 
         📌 bind() =  bindes the method & returns us the copy of that method & use it later,
                         Syntax little bit similar to call.

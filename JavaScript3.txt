@@ -129,7 +129,9 @@
 
                 Use when - When you want to set prototype manually
 
-        6. Factory Function
+        6. Factory Function - A factory function is simply a function that creates and returns an object — no new keyword, no classes, no constructors.
+                                It’s called a “factory” because it produces (manufactures) objects.
+
                 function createPerson(name, age) {
                     return { name, age };
                     }

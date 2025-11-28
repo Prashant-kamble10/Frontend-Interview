@@ -230,7 +230,7 @@
                                   let name = "vinod"
                                   let name = "thapa"
                                   console.log(name)      // SyntaxError: Identifier 'name' has already been declared
-                                  // you can declare the same variable using "let" more than once in the same scope
+                                  // you cannot declare the same variable using "let" more than once in the same scope
 
                                    let name = "vinod"
                                   name = "thapa"
@@ -332,7 +332,7 @@
                                       var b = 100
 
   Temporal Dead Zone = is the time since when this, let a / const xyz was hoisted & till it is initialised same value.
-                          time btn both of this id known as "temporal dead zone"
+                          time btn both of this is known as "temporal dead zone"
 
                           whenever you access a variable in temporal dead zone it throws "Reference error"
 
@@ -1330,6 +1330,11 @@
 ----------------------------------------------------------------------------------------------------------------------------
 🤔. types of function ?
 🅰️  🔴Void function: functions which does not return anything, they just display value.
+
+            eg: function greetUser() {
+                    console.log("Hello, welcome!");
+                    }
+
      🔴anonymous Function
 
         eg: function(){
@@ -1341,6 +1346,7 @@
     🔴Higher order function  (eg: shown in respective question )
     🔴arrow function (eg: shown in respective question )
     🔴pure function  (eg: shown in respective question )
+    🔴IIFE
     🔴function statement == function declaration (eg: shown in respective question )
     🔴function expression (eg: shown in respective question )
     🔴Named function expression
@@ -1676,7 +1682,7 @@
 🤔 Higher order function ?
 
 🅰️ A function that takes one or more functions as arguments and/or returns a function as its result. It is called
-    "higher order" bcoz it operates on other functions, either byy taking them as arguments or by returning them as
+    "higher order" bcoz it operates on other functions, either by taking them as arguments or by returning them as
     results. Hogher order functions are often used to create abstractions that can be reused accross multiple parts 
     of a program
 
