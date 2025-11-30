@@ -788,20 +788,121 @@ setInterval(() => console.log("Ping"), 1000);
 
 1. What is a Promise in JavaScript, and why do we use it?
 
+🅰️  Before promises, developers used callbacks to handle async operations,
+      but this created an "inversion of control" problem where you blindly trust external code to call your callback.
+
+      With promises, API returns a promise object that initially contains undefined data but 
+      will eventually be filled with the result of the async operation.
+
+      Instead of passing callbacks to functions, you attach callbacks to promise objects using .then(),
+      which guarantees the callback will be called exactly once when data is available.
+
+      Promises have three possible states: pending (initial state), fulfilled (successful completion), or rejected (failed operation).
+            ✅ resolve, success, fulfilled.
+            ❌ reject, failure, rejected.
+
+      A promise is defined as "an object representing eventual completion of an async operation."
+
+      Promises solve the "callback hell" problem by allowing chaining with .then() methods, 
+      transforming horizontal nested callbacks into a vertical, more readable chain.
+
+      Key advantages of promises: they maintain control of your program flow, guarantee callbacks are called exactly once, 
+      and provide a more readable way to handle asynchronous operations.
+
+      Promise returns a Promise object
+      .then() also returns a Promise object
+      But the callback inside .then() returns the value, which becomes the resolution of the new Promise
+
+        code snippet 1
+
+      const p = Promise.resolve(5);
+      const result = p.then(x => x + 1);
+      console.log(result);     // Promise {<fulfilled>: 6}
+
+      code snippet 2
+
+      const p = Promise.resolve(5);
+      const result = p.then(x => x + 1).then(v => console.log(v));
+
+
 2. What are the three states of a Promise?
 
+🅰️  1. Pending
+
+      The initial state
+      The promise is running its async operation
+      Neither fulfilled nor rejected yet
+
+      2. Fulfilled (Resolved)
+
+      The async operation completed successfully
+      The promise now has a value
+      Calls the .then() handlers
+
+      3. Rejected
+
+      The async operation failed
+      The promise now has a reason (error)
+      Calls the .catch() handlers
+
 3. What is the difference between: return Promise.resolve(5); and return 5; inside an async function?
+
+🅰️ Inside an async function, return 5 and return Promise.resolve(5) are equivalent — both return a resolved Promise with value 5, 
+    because async functions wrap return values in a Promise.
+
+    Inside an async function,
+      return 5 is automatically converted into a resolved Promise.
+      So inside an async function:
+      return 5
+      becomes → return Promise.resolve(5)
+      return Promise.resolve(5)
+      is explicitly returning the same thing.
+
+      ✔ Both produce a promise resolved with 5.
+
+     code snippet 1:
+
+      async function foo1(){
+            return 5    
+        }
+      foo1().then(console.log)   // 5
+
+      code snippet 2: 
+
+      async function foo2(){
+          return Promise.resolve(5)    
+      }
+      foo2().then(console.log)   // 5
+
+      code snippet 3:
+
+      return Promise.resolve(5) inside an async function
+        Here you manually create a resolved Promise:
+
+        async function foo() {
+          return Promise.resolve(5);
+        }
+
+        Since it’s inside an async function, the returned Promise is wrapped, but JS automatically unwraps it (promise flattening).
+        Result is the same.
+
 
 4. What is logged and in what order?
 
     const p = new Promise((resolve, reject) => {
-        console.log("A");
-        resolve("B");
+        console.log("A");                               // promise executor -> consider has a synchronous code
+        resolve("B");                                    // promise executor -> consider has a synchronous code
       });
 
-      p.then(val => console.log(val));
-      console.log("C");
+      p.then(val => console.log(val));                // promise handler -> consider has a asynchronous code
+      console.log("C");                        // normal JS synchronous code
 
+🅰️  1. The code inside new Promise(...) is the executor, which runs immediately and synchronously.
+    2. The code inside .then(...) is a Promise handler, which runs asynchronously as a microtask after all synchronous code finishes.
+
+      output : A
+               C 
+               B
 
 5. What does it print?
 
@@ -813,6 +914,26 @@ setInterval(() => console.log("Ping"), 1000);
       .catch(err => 5)
       .then(x => console.log(x));
 
+🅰️  5
+
+      Why? (clear, short explanation)
+
+      1. Promise.resolve(1)
+            Resolves with 1.
+
+      2. .then(x => x + 1)
+            Receives 1, returns 2.
+
+      3. .then(x => { throw new Error("Oops") })
+            Throws an error → Promise goes into rejected state.
+
+      4. .catch(err => 5)
+            Catches the error and returns 5 → Promise is fulfilled with value 5.
+
+      5. .then(x => console.log(x))
+            Receives 5 and prints:
+
+      Yes — when an error occurs in a Promise chain, it bypasses the remaining .then() handlers and goes straight to the nearest .catch().
 
 6. What prints first?
 
@@ -822,7 +943,42 @@ setInterval(() => console.log("Ping"), 1000);
 
       console.log("Hello");
 
+🅰️  output : Hello
+              After 2 second
+              Done
+
 7. Why does .then() return a new Promise?
+
+🅰️ 1. To allow chaining
+        Every .then() creates and returns a new Promise, so you can write:
+           p.then(...).then(...).then(...)
+        If .then() didn’t return a new Promise, chaining would not work.
+
+    2. To capture the result of the previous step
+        Whatever you return inside .then() becomes the value of the new Promise it creates:
+          Promise.resolve(1)
+            .then(x => x + 1)   // returns 2 → becomes new Promise value
+    
+    3. To handle errors cleanly
+
+    .then() returns a new Promise so you can chain asynchronous steps, pass transformed values to the next step, and propagate errors through the chain.
+
+      code snippet 1 : 
+
+      const p = new Promise((resolve, reject)=>{
+            resolve(5)
+        })
+
+        p.then((x)=> console.log(x)).then((y) => console.log(y + 2))
+
+       code snippet 2 : 
+
+       p.then((x)=> {
+          console.log(x);
+          return x;   // return the value for the next .then
+        })
+        .then((y) => console.log(y + 2));
+
 
 8. What is wrong with this code?
 
@@ -835,8 +991,19 @@ setInterval(() => console.log("Ping"), 1000);
       }
 
       const result = getData();
-      console.log(result); // What prints? Why?
+      console.log(result); // What prints? Why?    // Promise { <pending> }
 
+🅰️ The mistake is logging the Promise instead of its resolved value — since Promises are asynchronous, you must use .then() or await to access "data".
+
+    function getData() {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve("data");
+          }, 1000);
+        });
+      }
+
+      const result = getData().then(data => console.log(data));
 
 9. What numbers print?
 
@@ -850,6 +1017,10 @@ setInterval(() => console.log("Ping"), 1000);
           return Promise.resolve(x * 2);
         })
         .then(console.log);
+      
+🅰️ 10
+    20
+    40
 
 
 10. What prints?
@@ -863,7 +1034,24 @@ setInterval(() => console.log("Ping"), 1000);
           console.log("Then:", msg);
         });
 
+🅰️ A .catch() that returns a value converts the Promise back into a fulfilled state, so the next .then() runs normally. .catch() does not stop the chain.
+
+      output : Caught: Error
+                Then: Recovered
+
 11. What happens if you forget to return in a .then() chain?
+
+🅰️ If you forget to return inside a .then(), the next .then() receives undefined, which breaks your Promise chain.
+
+      Promise.resolve(5)
+        .then(x => {
+          console.log(x);  // prints 5
+          // forgot to return x + 1
+        })
+        .then(y => {
+          console.log(y);  // prints undefined
+        });
+
 
 12. Why does this code NOT catch the error?
 
@@ -873,6 +1061,27 @@ setInterval(() => console.log("Ping"), 1000);
           console.log("Caught:", err);
         }
 
+🅰️ try/catch only catches synchronous errors. Promise rejections are asynchronous, 
+    so you must use .catch() or await inside an async function for try/catch to work.
+
+      ⭐ Correct ways to catch it
+
+        code snippet 1:
+
+        Promise.reject("Fail")
+          .catch(err => console.log("Caught:", err));
+
+        code snippet 2: 
+
+        async function run() {
+          try {
+            await Promise.reject("Fail");
+          } catch (err) {
+            console.log("Caught:", err);
+          }
+        }
+
+        run();
   
 13.  What prints? Why is it not 1?
 
@@ -882,14 +1091,27 @@ setInterval(() => console.log("Ping"), 1000);
 
           console.log(test());
 
+🅰️ output : Promise { <fulfilled>: 1 }
+    Because async functions ALWAYS return a Promise, no matter what you return inside them.
+
 14.  What is Promise.all, and what happens if one promise rejects?
+🅰️ Alreadyy done
 
 15. Write a function wait(ms) that returns a Promise which resolves after ms milliseconds.
 
       wait(1000).then(() => console.log("1 second passed"));
 
+🅰️       function wait(ms){
+       
+              return new Promise((resolve, reject)=> {
+                  resolve("promise resolved")
+                    })
+                setTimeout(resolve, ms)
+            }
+      
+         wait(1000).then(() => console.log("1 second passed"));    
 
-16. Convert this callback-based function into a Promise:
+16. Convert this callback-based function into a Promise: 
 
       function fetchUser(callback) {
         setTimeout(() => {
@@ -897,7 +1119,17 @@ setInterval(() => console.log("Ping"), 1000);
         }, 1000);
       }
 
-    
+🅰️   function fetchUser() {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve({ name: "John" });
+          }, 1000);
+        });
+      }
+
+      fetchUser().then(user => console.log(user));        // { name: "John" }
+
+
 17. What is the difference between:
 
         Promise.all
@@ -906,16 +1138,282 @@ setInterval(() => console.log("Ping"), 1000);
         Promise.any
 
         Explain real use cases.
+🅰️ Alreadyy done
+
+18. In how many ways promise can we create ? 
+
+🅰️  1. Using the new Promise constructor (most common)
+
+        const p = new Promise((resolve, reject) => {
+            resolve(10);
+          });
+
+     2. Using Promise.resolve(), const p = Promise.resolve(42);
+        Using Promise.reject(), const p = Promise.reject("Error");
+
+      3. Using async functions (automatically returns a Promise) 
+             async function foo() {
+                return 5; // becomes Promise.resolve(5)
+              }
+
+      4. Using Promise utility methods
+          These also create Promises internally:
+
+          Promise.all([...])
+          Promise.allSettled([...])
+          Promise.race([...])
+          Promise.any([...])
+
+    ⭐ Code Snippet: Compulsory Things to Remember When Creating a Promise
+
+          function fetchData() {
+
+              // 1. Always RETURN the Promise so the caller can use .then() or await
+              return new Promise((resolve, reject) => {
+
+                // 2. Promise executor runs IMMEDIATELY and SYNCHRONOUSLY
+                console.log("Executor started");
+
+                // Simulate async task
+                setTimeout(() => {
+
+                  try {
+                    // 3. You MUST call either resolve() or reject()
+                    const data = { name: "John" };
+
+                    // If everything is OK → resolve once
+                    resolve(data);
+
+                    // ❗ Never call resolve() or reject() more than once
+                    // resolve("won't run");  // WRONG
+
+                  } catch (error) {
+
+                    // 4. If something fails → reject the Promise
+                    reject(error);
+                  }
+
+                }, 1000);
+
+              });
+            }
+
+
+            // USING THE PROMISE
+            fetchData()
+              .then((data) => {
+                console.log("Resolved with:", data);
+              })
+              .catch((err) => {
+                console.log("Rejected with:", err);
+              });
+
+19. Prmoise chain
+
+🅰️ function step1(){
+      return new Promise((resolve, reject) => {
+        resolve("data 1");
+      });
+    }
+
+    function step2(a){
+      return new Promise((resolve, reject) => {
+        resolve("data 2," + a);
+      });
+    }
+
+    function step3(b){
+      return new Promise((resolve, reject) => {
+        resolve("data 3,"+ b);
+      });
+    }
+
+    // Proper chaining
+    step1()
+      .then(x => {
+        console.log(x);        // "data 1"
+        return step2(x);        // <-- return the Promise from step2
+      })
+      .then(y => {
+        console.log(y);        // "data 2"
+        return step3(y);        // <-- return the Promise from step3
+      })
+      .then(z => {
+        console.log(z);        // "data 3"
+      })
+      .catch(err => {
+        console.error("Error:", err);
+      });
+
+20. JavaScript Promise Corner Cases Asked in Interviews
+
+🅰️ 1. Microtask Queue vs Macrotask Queue
+
+          .then() runs in microtask queue
+
+          setTimeout runs in macrotask queue
+
+          Microtasks run before macrotasks
+
+          Example:
+          console.log("A");
+          Promise.resolve().then(() => console.log("B"));
+          setTimeout(() => console.log("C"), 0);
+          console.log("D");
+
+          Output:
+          A
+          D
+          B
+          C
+
+    2. Missing return inside .then() chain
+          
+          Example:
+          Promise.resolve("X")
+          .then(x => {
+          console.log(x);
+          step2(); // not returned
+          })
+          .then(y => console.log("Y:", y));
+
+          Output:
+          Y: undefined
+
+    3. Promise inside another Promise
+
+          Example:
+          Promise.resolve(1)
+          .then(() => Promise.resolve(2))
+          .then(v => console.log(v));
+
+          Output:
+          2
+
+    4. Error handling corner cases
+
+        A: Throwing inside .then()
+        Promise.resolve()
+        .then(() => { throw "ERR"; })
+        .catch(e => console.log("Caught:", e));
+
+        Output:
+        Caught: ERR
+
+        B: Returning a rejected Promise
+        Promise.resolve()
+        .then(() => Promise.reject("Oops"))
+        .catch(console.log);
+
+        Output:
+        Oops
+
+        C: .catch() does not stop the chain
+        Promise.reject("A")
+        .catch(() => "Recovered")
+        .then(v => console.log(v));
+
+        Output:
+        Recovered
+
+    5. Promise constructor trick
+          new Promise((resolve, reject) => {
+          throw "ERR";
+          });
+
+          This becomes a rejected Promise; it does NOT crash the program.
+
+    6. Double resolve or resolve-after-reject
+          Only the first call counts.
+
+          new Promise((resolve, reject) => {
+          resolve("A");
+          reject("B");
+          resolve("C");
+          }).then(console.log, console.error);
+
+          Output:
+          A
+
+    7. Promise.all failure behavior
+        Promise.all rejects fast — if ANY Promise rejects, the whole thing rejects.
+
+        Promise.all([
+        Promise.resolve("A"),
+        Promise.reject("B"),
+        Promise.resolve("C")
+        ]).catch(console.log);
+
+        Output:
+        B
+    
+    8. Promise.race behavior
+        Whichever Promise resolves OR rejects first wins.
+
+    9. async/await error propagation
+
+          async function test() {
+          try {
+          await Promise.reject("Err");
+          } catch (e) {
+          console.log("Caught:", e);
+          }
+          }
+
+    10. async functions always return a Promise
+
+          async function x() { return 10; }
+          x().then(console.log); // prints 10
+
+    11. await on non-promise
+
+            await 5;
+            Equivalent to:
+            Promise.resolve(5)
+        
+    12. console.log(1);
+        setTimeout(() => console.log(2), 0);
+
+        Promise.resolve().then(() => {
+        console.log(3);
+        setTimeout(() => console.log(4), 0);
+        });
+
+        Promise.resolve().then(() => console.log(5));
+        console.log(6);
+
+        Output:
+        1
+        6
+        3
+        5
+        2
+        4
+
 --------------------------------------------------------------------------------------------------------------------------------
 🤔 async/await 
 
 1. What is async/await, and why was it introduced in JavaScript?
 
+🅰️  Async/await is ES8 syntax that makes asynchronous JavaScript look synchronous.
+    It was introduced to solve callback hell, reduce Promise chaining complexity, improve error handling with try/catch, 
+    and make async code easier to read and maintain. It is built on top of Promises.
+
 2. What does the async keyword do to a function?
+
+🅰️ 1. It automatically makes the function return a Promise
+    2. It allows you to use await inside the function
+    3. It wraps errors inside rejected promises
 
 3. What happens if you await a non-Promise value?
 
+🅰️ If you await a non-Promise value, JavaScript automatically wraps it in Promise.resolve() and await returns 
+    that value immediately without any delay or error.
+
 4. Why must await only be used inside an async function?
+
+🅰️ await must be used inside an async function because async functions create a special asynchronous context 
+    that allows execution to pause without blocking the main thread. Normal functions cannot be paused, so JavaScript disallows await in them.
 
 5. What gets printed, and why?
 
@@ -924,6 +1422,17 @@ setInterval(() => console.log("Ping"), 1000);
     }
 
     console.log(test());
+
+🅰️  output : Promise { 'Hello' }  
+
+    async function test() {
+          return "Hello";
+        }
+
+        console.log(test().then((x)=> console.log(x)));
+
+    output : Promise { <pending> }
+              Hello
 
 
 6. What is the exact output order?
@@ -938,6 +1447,11 @@ setInterval(() => console.log("Ping"), 1000);
       f();
       console.log(4);
 
+🅰️ 3
+    1
+    4
+    2
+
 
 7. What logs first?
 
@@ -949,8 +1463,34 @@ setInterval(() => console.log("Ping"), 1000);
     getData().then(console.log);
     console.log("Done");
 
+🅰️ Done
+    10
+
 8. How do you handle errors in async/await?
     Show both try/catch and .catch() approaches.
+
+🅰️ Error handling with try/catch (most common way) Inside async
+
+        async function fetchData() {
+          try {
+            const response = await fetch("/api/data");
+            const data = await response.json();
+            return data;
+          } catch (err) {
+            console.error("Error:", err);
+          }
+        }
+     
+     Error handling with .catch() outside the async function
+
+     async function fetchData() {
+        const response = await fetch("/api/data");
+        return response.json();
+      }
+
+      fetchData()
+        .then(data => console.log(data))
+        .catch(err => console.error("Error:", err));
 
 9.  Will “After” print? Why?
 
@@ -961,7 +1501,20 @@ setInterval(() => console.log("Ping"), 1000);
         test();
         console.log("After");
 
-      
+🅰️  output : After
+              Error
+
+        function testSync() {
+            throw new Error("Oops");
+          }
+
+          testSync();            // throws here
+          console.log("After"); // never reached
+
+      output : Uncaught Error: Oops
+              // "After" is NOT printed because the exception terminated the synchronous flow
+
+ 
 10. Why doesn't this catch the error?
 
       try {
@@ -973,6 +1526,10 @@ setInterval(() => console.log("Ping"), 1000);
         console.log("Caught!");
       }
 
+🅰️ try/catch only catches synchronous errors.
+    Because async functions don’t throw errors synchronously.
+    The throw inside an async function turns into a rejected Promise, which happens asynchronously, so the outer try/catch cannot catch it.
+    You must either await the Promise inside the try block or use .catch() on the Promise.
   
 11. What logs and in what order?
 
@@ -989,10 +1546,18 @@ setInterval(() => console.log("Ping"), 1000);
 
       a();
 
+🅰️  A1
+     B1
+     A2
+
 12.  What is the difference between:
 
       ✔️ awaiting multiple Promises sequentially
       ✔️ awaiting them in parallel with Promise.all
+
+🅰️   Sequential awaits run tasks one by one, while Promise.all runs 
+      them in parallel and waits for all to finish. Use sequential when 
+      tasks depend on each other; use Promise.all when they don’t.
 
 13. What prints and after how long?
 
@@ -1010,6 +1575,8 @@ setInterval(() => console.log("Ping"), 1000);
         const s = slow();
         const f = fast();
         console.log(await f, await s);
+         //  console.log(await f);
+         //  console.log(await s)
       }
 
       run();
@@ -1049,10 +1616,22 @@ setInterval(() => console.log("Ping"), 1000);
 
       test();
 
+🅰️  Start
+      Inside Promise
+      Done
+      End
 
 18. Why should you almost always return inside a try block when using async/await?
 
+🅰️ You should return inside a try block when using async/await because if you don’t, 
+   the function will keep running after the try/catch finishes, even when an error happens. This can lead to unintended code execution, wrong return values, 
+   and swallowed errors. Returning inside the try ensures a clean, predictable control flow for both success and failure cases.
+
 19. What happens if you forget await before a Promise?
+
+🅰️ If you forget await before a Promise, the async function won’t pause. You get the Promise itself instead of the resolved value, 
+   errors won’t be caught by try/catch, the code runs out of order, and you often return Promises you didn’t mean to. 
+   This is one of the most common async/await bugs.
 
 20. Create a sleep(ms) function using async/await:
 
