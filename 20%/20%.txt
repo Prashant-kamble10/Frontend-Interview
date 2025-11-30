@@ -69,5 +69,7 @@ useContext, createContext, context-provider, user-context-consumer ?
 Redux, redux toolkit, Dispatch, slice, slicer, Action, Reducer, selector, subscribe, zustand ?
 useMemo ,useCallback, useRef ?
 
+React 19 updates
+
 RectJS machine coding round
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------

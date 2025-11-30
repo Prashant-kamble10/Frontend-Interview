@@ -179,9 +179,109 @@ setInterval(() => console.log("Ping"), 1000);
 
 1. What is a callback function in JavaScript, and why do we use it?
 
+🅰️ A function that is passed as an argument to another functiion and is executed inside the function it was passed to it.
+    The purpose of a callback functiion is to allow the caller to specify what action should be taken after the
+    function it was passed to has completed its task.
+    Basically it helps to perform asynchronous task
+
 2. What is the difference between: doSomething(callback); and  doSomething(callback());
 
+🅰️   code 1 :
+
+      function main(cb){
+          console.log("main function")
+          cb()
+      }
+
+      function callback(){
+          console.log("callback function")
+      }
+
+      main(callback)      
+
+      output : main function
+              callback function
+
+      main(callback) passes the function itself, not executed yet.
+      Inside main, it prints "main function".
+      cb() executes the callback function.
+      Callback prints "callback function".
+
+      code 2 : 
+
+      function main(cb){
+          console.log("main function")
+          cb
+      }
+      function callback(){
+          console.log("callback function")
+      }
+      main(callback())
+
+       output : callback function
+                main function
+
+        callback() is executed immediately, before calling main.
+        So "callback function" prints first.
+        Whatever callback() returns (undefined) is passed to main.
+        Inside main, it prints "main function".
+        cb (undefined) is not executed, because no ().
+
+      code 3 : 
+
+      function main(cb){
+            console.log("main function")
+            console.log(cb)
+          }
+
+          function callback(){
+            console.log("callback function")
+          }
+
+          main(callback())
+
+        output : callback function
+                  main function
+                  undefined
+
+        main(callback()) means execute callback() immediately.
+        callback() runs before main():
+        It prints: "callback function".
+        It returns undefined (because no return statement).
+        That undefined value becomes the argument cb for main.
+        Inside main(cb):
+        It prints "main function".
+        It prints the value of cb, which is undefined.
+                  
+      code 4 : 
+
+       function main(cb){
+          console.log("main function")
+                console.log(cb)
+        }
+        function callback(){
+          return 2
+        }
+        
+        main(callback())
+
+        output : main function
+                  2
+
+        callback() is executed before calling main.
+        callback() returns 2.
+        That value (2) is passed as cb to main.
+        Inside main, it prints "main function".
+        Then it prints the value of cb, which is 2.
+              
+
 3. Why are callbacks important in asynchronous programming?
+
+🅰️ Non-blocking: JavaScript is single-threaded, so callbacks let it continue execution without waiting for slow tasks.
+    Async result handling: They run only when an asynchronous task (API call, file read, timer) finishes.
+    Concurrency: Enable the program to do other work while async operations run in the background.
+    Foundation of modern async: Promises and async/await are built on top of callbacks.
+    Event-driven behavior: Used to respond to events like clicks, network responses, and timers.
 
 4. function greet(name, callback) {
       console.log("Hello", name);
@@ -195,6 +295,9 @@ setInterval(() => console.log("Ping"), 1000);
     greet("John", sayBye);   
 
     What will be printed?
+
+🅰️ output :  Hello John
+              Bye!
 
 
 5. function a(cb) {
@@ -211,9 +314,83 @@ setInterval(() => console.log("Ping"), 1000);
       console.log("C");
     }
 
-    a(b(c));
+    a(b(c)); 
 
     Will this work? What will happen?
+
+🅰️ B
+    C
+    A
+    TypeError: cb is not a function
+
+    Explanation :
+
+    Step 1: Evaluate the inner call first → b(c)
+          cb = c
+          Inside b:
+            console.log("B") → prints B
+            cb() → executes c()
+
+    Step 2: Inside c()
+            console.log("C") → prints C
+            c() returns undefined
+
+    Step 3: Return value of b(c)
+              b(c) returns undefined
+            So the call becomes:
+              a(undefined)
+
+    Step 4: Now execute a(undefined)
+          Inside a:
+          console.log("A") → prints A
+          cb() → but cb is undefined
+          Calling undefined() causes:
+
+          TypeError: cb is not a function
+
+     ✅ Imporving above code
+
+        code 1 : 
+        function a(cb) {
+          console.log("A");
+          cb(c);   // pass c into b
+        }
+
+        function b(cb) {
+          console.log("B");
+          cb();    // run c()
+        }
+
+        function c() {
+          console.log("C");
+        }
+
+        a(b);
+
+        output :  A
+                  B
+                  C
+
+        code 2 : 
+        function a(cb) {
+            console.log("A");
+            cb();
+          }
+
+          function b(cb) {
+            console.log("B");
+            cb();
+          }
+
+          function c() {
+            console.log("C");
+          }
+
+          a(() => b(c));
+
+          output :  A
+                    B
+                    C
 
 
 6. function x(cb) {
@@ -229,8 +406,18 @@ setInterval(() => console.log("Ping"), 1000);
 
     What is printed?
 
+🅰️ output : X
+            Y got: test
+
 
 7. What is “callback hell”? Why is it a problem?
+
+🅰️    good and bad parts of callbacks in JavaScript.
+        Good part of callbacks: essential for handling asynchronous operations in JavaScript by allowing code to execute later.
+        bad parts of callbacks: callback hell(pyramid of doom) horizontal expansion of code, inversion of control
+
+        Inversion of control: when callbacks are passed to other functions, developers lose control over the execution of the code,
+        which can lead to issues like callbacks not being called or being called multiple times.
 
 8. Why does this code crash?
 
@@ -245,6 +432,33 @@ setInterval(() => console.log("Ping"), 1000);
       }
      Explain what the fix is.
 
+🅰️  Why it crashes?
+
+      first( second() );
+        second() is executed immediately, before first runs.
+        second() prints "Second" and returns undefined.
+        So JavaScript actually calls:
+
+        first(undefined);
+          Inside first:
+          cb();  // cb is undefined → NOT a function
+          This causes:
+          TypeError: cb is not a function
+
+    The code crashes because second() runs immediately, returns undefined, and first tries to call undefined as a function.
+    The fix is to pass the function reference instead: first(second).
+
+       FIX: 
+         function first(cb) {
+            cb();
+          }
+
+          first( second );
+
+          function second() {
+            console.log("Second");
+          }
+
 
 9. What happens if a callback is not passed?
 
@@ -254,6 +468,25 @@ setInterval(() => console.log("Ping"), 1000);
       }
 
       fetchData();  // no callback provided
+
+🅰️ output : Fetching...
+            TypeError: cb is not a function
+
+    If a callback isn’t passed, the callback parameter becomes undefined, and calling cb() causes a TypeError.
+    To avoid this, always validate the callback before calling it.
+
+     ✅  Correct Defensive Fix
+          function fetchData(cb) {
+              console.log("Fetching...");
+
+              if (typeof cb === "function") {
+                cb();
+              }
+            }
+
+          or 
+
+          cb?.();
 
 
 10. function step1(cb) {
@@ -278,6 +511,20 @@ setInterval(() => console.log("Ping"), 1000);
 
       Explain the exact order and timing of logs.
 
+🅰️ The exact order is:
+
+      Step 1 → at 1000ms
+      Step 2 → at 1500ms
+      Step 3 → immediately after Step 2 (also ~1500ms)
+
+      but by the observation I see in logs step 1 executes after 1000ms after that step 2 executes from there onwards 500ms, 
+      so If we see from the 0 ms we say that step 1 executes after 1000ms and step 2 executes after 1500ms
+
+      Step 1 runs 1000 ms after the program starts.
+      After Step 1 finishes, Step 2 starts its own timer of 500 ms.
+      So Step 2 executes at 1000 + 500 = 1500 ms from the beginning
+      Yes — this understanding is correct.
+
     
 11. Why is this wrong?
 
@@ -296,12 +543,111 @@ setInterval(() => console.log("Ping"), 1000);
 
         Explain the bug and fix it.
 
+🅰️  output : Got: undefined
+              John
+              TypeError: cb is not a function
+
+    cb() runs immediately, so before anything else you see:
+      Got: undefined       (at ~0ms)
+
+    Because cb() returns undefined, getUser(cb()) becomes getUser(undefined).
+    After 1000ms, the first correct getUser(...) call prints:
+        John                 (at ~1000ms)
+
+    Immediately after that, the incorrect getUser(undefined) tries to run cb({name:"John"}), but cb is undefined, so it throws:
+    TypeError: cb is not a function   (at ~1000ms)
+
+    ✅ Final Correct Fix
+
+      getUser(function(result) {
+          console.log(result.name);
+        });
+
+        function getUser(cb) {
+          setTimeout(() => {
+            cb({ name: "John" });
+          }, 1000);
+        }
+
+        const cb = (x) => console.log("Got:", x);
+        getUser(cb);
+
+        output : After 1000ms
+                  John
+                  Got: { name: 'John' }
+
+        1. The program starts by calling:
+
+            getUser(function(result) {
+              console.log(result.name);
+            });
+
+            This schedules a setTimeout for 1000ms.
+            No output yet — the callback will run after 1 second.
+
+        2. The getUser function is defined (hoisted), so it’s available before use.
+
+        3. The arrow function cb is defined:
+              const cb = (x) => console.log("Got:", x);
+            This does nothing immediately; it just stores a function in cb.
+
+        4. The program calls:
+            getUser(cb);
+            This schedules another 1000ms timer that will call cb({ name: "John" }).
+
+        Timer 1 (from the first call):
+            console.log(result.name);
+
+        Timer 2 (from getUser(cb)):
+              cb({ name: "John" });
+
 
 12. What is the difference between: 
       a. callback that expects a value : cb(result);
       b. callback that passes function instead of value : cb(() => result);
 
       When do you use each?
+
+🅰️   When to Use Each (Interview-Ready)
+        ✅ Use cb(result) when:
+        The result is ready.
+        You want to pass data immediately.
+        No need for deferred/lazy execution.
+
+        ✅ Use cb(() => result) when:
+
+        The caller should decide when to run the code.
+        You want lazy evaluation.
+        The value is expensive to compute.
+        You want to pass logic/behavior instead of raw data.
+
+      cb(result) gives the caller data immediately.
+      cb(() => result) gives the caller a function so they can compute or use the data later.
+
+      code snippet 1:
+
+      function getNumber(cb) {
+          const result = 42;
+          cb(result); // pass the value NOW
+        }
+
+        getNumber(function (value) {
+          console.log("Received:", value);
+        });
+
+         code snippet 2:
+
+         function getNumber(cb) {
+              const result = 42;
+              cb(() => result); // pass a FUNCTION, NOT the value
+            }
+
+            getNumber(function (getValue) {
+              console.log("Callback received a function, not the value");
+
+              console.log("Now I decide when to get the value...");
+              console.log("Received:", getValue()); // call the function here
+            });
 
 13. Write a function repeatNTimes that accepts:
       a callback,
@@ -310,13 +656,133 @@ setInterval(() => console.log("Ping"), 1000);
 
       repeatNTimes(() => console.log("Hi"), 3);
 
+🅰️     function repeatNTimes(cb, N){
+          for(let i = 0; i < N; i++){
+            cb()
+          }
+      }
+
+      repeatNTimes(() => console.log("Hi"), 3);
+
+      output : Hi
+               Hi
+               Hi
+
 14. Turn this into callback-based asynchronous flow:
 
       Wash vegetables → Cut vegetables → Cook food → Serve food
 
       Each step should happen after a timeout with a callback.
 
+🅰️  ✅ version 1
+
+        //  Wash vegetables → Cut vegetables → Cook food → Serve food
+ 
+              function washVegetables(cb){
+                  setTimeout(()=>{
+                      console.log("washed vegetable")
+                      cb(cookFood)
+                  },1000)
+              }
+              
+              function cutVegaetable(cb){
+                  setTimeout(()=>{
+                      console.log("cut vegetable")
+                      cb(serveFood)
+                  }, 1000)
+              }
+              
+              function cookFood(cb){
+                  setTimeout(()=>{
+                      console.log("cooked food")
+                      cb()
+                  }, 1000)
+              }
+              
+              function serveFood(){
+                  setTimeout(()=>{
+                      console.log("served food")
+                  }, 1000)
+              }
+              
+              washVegetables(cutVegaetable)
+ 
+    ✅ version 2
+
+              function washVegetables(cb) {
+                  setTimeout(() => {
+                    console.log("Washed vegetables");
+                    cb();
+                  }, 1000);
+                }
+
+                function cutVegetables(cb) {
+                  setTimeout(() => {
+                    console.log("Cut vegetables");
+                    cb();
+                  }, 1000);
+                }
+
+                function cookFood(cb) {
+                  setTimeout(() => {
+                    console.log("Cooked food");
+                    cb();
+                  }, 1000);
+                }
+
+                function serveFood() {
+                  setTimeout(() => {
+                    console.log("Served food");
+                  }, 1000);
+                }
+
+                // Call them in sequence:
+                washVegetables(() => 
+                  cutVegetables(() => 
+                    cookFood(() => 
+                      serveFood()
+                    )
+                  )
+                );
+
+
+  ✅ version 3
+
+          function washVegetables(next) {
+                setTimeout(() => {
+                  console.log("Washed vegetables");
+                  next(cookFood); // pass the next function to cutVegetables
+                }, 1000);
+              }
+
+              function cutVegetables(next) {
+                setTimeout(() => {
+                  console.log("Cut vegetables");
+                  next(serveFood); // pass cookFood a reference to serveFood
+                }, 1000);
+              }
+
+              function cookFood(next) {
+                setTimeout(() => {
+                  console.log("Cooked food");
+                  next();
+                }, 1000);
+              }
+
+              function serveFood() {
+                setTimeout(() => {
+                  console.log("Served food");
+                }, 1000);
+              }
+
+              // Start the chain:
+              washVegetables(cutVegetables);
+
+
 15. Why do modern JS developers prefer Promises and async/await over callbacks?
+
+🅰️  Developers prefer Promises and async/await because they avoid callback hell, provide cleaner error handling, offer predictable flow,
+        and make asynchronous code easier to read, write, and maintain.
 ---------------------------------------------------------------------------------------------------------------------------------------
 🤔 Promise
 

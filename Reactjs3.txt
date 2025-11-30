@@ -794,5 +794,6 @@ Explanation - Too much state in Redux store can cause unnecessary re-renders. Op
         It helps developers spot problems early and make their code more reliable.
         It also helps with improving your app’s performance and keeping it future-proof by preparing it for newer React features.
 -------------------------------------------------------------------------------------------------------------------------------------
+🤔  ReactJs Optimization Technique
 
-
+-------------------------------------------------------------------------------------------------------------------------------------
