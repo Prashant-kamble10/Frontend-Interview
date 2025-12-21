@@ -574,7 +574,7 @@ Explanation - Too much state in Redux store can cause unnecessary re-renders. Op
 
 🅰️ 
 
-🔴 1. useMemo
+🔴 1. useMemo  (Difference between React.memo and useMemo)
       What?
       useMemo memoizes (remembers) the result of a calculation.
       It recalculates only if the dependencies change.

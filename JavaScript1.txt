@@ -331,7 +331,8 @@
                                       console.log(a)        // 100
                                       var b = 100
 
-  Temporal Dead Zone = is the time since when this, let a / const xyz was hoisted & till it is initialised same value.
+  Temporal Dead Zone =   Time between hoisting of let/const and initialization
+                          is the time since when this, let a / const xyz was hoisted & till it is initialised same value.
                           time btn both of this is known as "temporal dead zone"
 
                           whenever you access a variable in temporal dead zone it throws "Reference error"
@@ -434,7 +435,7 @@
                                             x()
                                             console.log(c)          // 100
 
-                    ✅ code snippet 16  (illegal shadowing in JS)
+                    ✅ code snippet 17  (illegal shadowing in JS)
 
                                         var a = 20
                                         {
@@ -465,7 +466,7 @@
                                           let a = 20;         ✅
                                         }
 
-                      ✅ code snippet 17
+                      ✅ code snippet 18
 
                                         const a = 20
                                             {
@@ -508,7 +509,9 @@
 ----------------------------------------------------------------------------------------------------------------------------
 🤔 Window & this keyword ?
 
-🅰️  📌 <script>  👀
+🅰️  this is decided at runtime based on how a function is called, not where it is written.
+
+    📌1 <script>  👀
             // If you are running JS in browsers, the global object is "window",
             // In nodejs env, the global object is "global" or "globalThis"
 
@@ -523,24 +526,24 @@
                 sum()
         </script>
 
-    📌 <script> 👀
+    📌2 <script> 👀
             const thapa = {
                 name: "vinod thapa",
                 qualif: "MCS",
-                sum: function () {
-                var add = 2 + 2;
-                console.log(add);    // 4
-                console.log(this);   //  {name: 'vinod thapa', qualif: 'MCS', sum: ƒ}
-                // In a method, this refers to the owner object
-                
-                console.log(this.name);   // vinod thapa
-                },
+                    sum: function () {
+                        var add = 2 + 2;
+                        console.log(add);    // 4
+                        console.log(this);   //  {name: 'vinod thapa', qualif: 'MCS', sum: ƒ}
+                        // In a method, this refers to the owner object
+                        
+                        console.log(this.name);   // vinod thapa
+                    },
             };
 
             thapa.sum()
          </script>
 
-    📌 <script>  👀
+    📌3 <script>  👀
       "use strict";
 
             function sum() {
@@ -553,7 +556,7 @@
             sum();
         </script>
 
-    📌 <script> 👀
+    📌4 <script> 👀
           "use strict";
 
                 function x() {
@@ -563,7 +566,7 @@
                 x()
         </script>
 
-    📌 <script> 👀
+    📌5 <script> 👀
             function x() {
                 console.log(this)    // window
             }
@@ -575,7 +578,7 @@
         </script>
 
 
-    📌 <script>  👀
+    📌6 <script>  👀
          "use strict";
 
             function x(){
@@ -594,7 +597,7 @@
         </script>
 
 
-    📌 <script> 👀
+    📌7 <script> 👀
 
         const student = {
             name: "Akshay",
@@ -614,7 +617,7 @@
         </script>
 
 
-    📌 <script>  👀
+    📌8 <script>  👀
 
         const student = {
             name: "Akshay",
@@ -635,7 +638,7 @@
 
         </script>
 
-    📌 <script> 👀
+    📌9 <script> 👀
       // this inside arrow function
       // Arrow function do not have their own "this" binding and take the value of the enclosing lexical context,
       //  often the global space
@@ -652,7 +655,7 @@
             obj.x();
     </script>
 
-    📌  <script> 👀
+    📌10  <script> 👀
           // this inside nested arrow function.
                 "use strict" or do not use "use strict", answer is same
 
@@ -669,7 +672,7 @@
             obj.x();
     </script>
 
-    📌      <script> 👀
+    📌11      <script> 👀
 
                 function x(){
                 const y = () =>{
@@ -683,7 +686,7 @@
     </script>
 
 
-    📌 <script> 👀
+    📌12 <script> 👀
                 "use strict" 
 
                 function x(){
@@ -696,7 +699,7 @@
                 x()
       </script>
 
-    📌<script> 👀
+    📌13 <script> 👀
                 "use strict";
 
                 function x(){
@@ -767,8 +770,9 @@
 🤔 scope, scope chain, lexical env ?
 
 🅰️  Scope : means you can access a specific variable or function in our code.
-     Scope chain : chain of lexcial env & parent references
-     lexcial env : local memory + reference to the lexical Environment
+     Scope Chain → Inside → outside variable lookup
+     Outside-in lookup ❌ | Inside-out lookup ✅
+     lexcial env : local memory + reference to the parent Environment
 
      pak <- Ind  (Inside out value searching, OK)✅
      pak -> Ind  (Outside In value searching, Not OK)❌
@@ -1358,6 +1362,12 @@
                 b()
                 xyz()    // ReferenceError: xyz is not defined
 
+        eg: var b = function (){
+                    console.log("function called")
+                }
+
+                b()
+
 
         eg: var b = function xyz(){
                     console.log(xyz)     // ƒ xyz(){
@@ -1366,9 +1376,6 @@
                   }
 
                  b() 
-
-
-
 ----------------------------------------------------------------------------------------------------------------------------
 🤔 How many ways you can pass arguments to the functions ?
 🅰️   ✅ Positional Arguments
@@ -2268,6 +2275,9 @@
 
     // Call the async function
         fetchUserData();
+
+
+    // same above code can be written in axios as well
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
  🤔 Difference between promise & async await ?
 

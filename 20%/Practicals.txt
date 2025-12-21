@@ -1,0 +1,110 @@
+🤔 Window & this keyword ?
+
+🤔 pure vs Impure function ?
+
+🤔 setTimeout, setInterval ?
+
+🤔 first class function ?
+
+🤔 callback function ?
+
+🤔 Higher order function ?
+
+🤔 map, reduce, filter ?
+
+🤔  IIFE ?
+
+🤔 Currying function ?
+
+🤔 callback hell ?
+
+🤔 Promises, promises stage/state ?
+
+🤔  how to create custom Promises, implement proper error handling, and manage asynchronous operations effectively ?
+
+🤔 promise API ?
+
+🤔 async await ?
+
+🤔 Difference between promise & async await ?
+
+🤔 Template Literals, interpolation, mutability , Immutability ?
+
+🤔 Destructuring Assignment in object & array ?
+
+🤔 Spread and Rest Operator (...), optional chaining, nullish coalescing operator ?
+
+🤔 Deep copy vs shallow copy ?
+
+🤔 call, bind & apply ? [used for sharing methods of objects]
+
+🤔 for loop, while loop, Do while, for...of, for...in, forEach loop, map function ?
+
+🤔 throw statement, try {} catch(){ }, finally{ }
+
+🤔 Imp Array Methods &  String Methods
+
+🤔 How manys ways to create Objects ?
+
+🤔 How add, delete, modify properties in Object ?
+
+🤔 How add, delete, modify elements in array ?
+
+🤔 common methods to iterate over properties of object ?
+
+🤔 common methods to iterate over elements of array ?
+
+🤔 confirm property exist or not in object ?
+
+🤔 confirm elements exist or not in array ?
+
+🤔 how to select, modify, create, remove DOM ?
+
+🤔 Debouncing ?
+
+🤔 Throttling ?
+
+🤔 Recursion ?
+
+🤔 event-related concepts or mechanisms -> bubbling,  capturing/trickling, delegation, propogation ?
+
+🤔 Arrow function can be used as a contructor ? If new keyword is used ?
+-------------------------------------------------------------------------------------------------------------------------------------
+
+🤔 write h1 tag in html, js, reactsjs
+
+🤔 React Element vs React functional component ?
+
+🤔 JS statement vs JS Expression ?
+
+🤔 Reconciliation
+
+🤔 state, props ?
+
+🤔 useState 
+
+🤔 one way vs two way - data binding ?
+
+🤔 state lifting up, prop drilling ?
+
+🤔 controlled vs uncontrolled component ?
+
+🤔 useEffect, APIs call - fetch, axios ? class based vs functional based component ?
+
+🤔 props & state in class based component ?
+
+🤔  mounting phase -> componentDidMount(), render(),
+    updating phase -> shouldComponentUpdate(), componentWillUpdate(), componentDidUpdate(),
+    unmounting phase -> componentWillUnmount(),
+    compare above methods with useEffect() ?
+
+🤔 custom hooks ?
+
+🤔 HOC ?
+
+🤔 useContext, createContext, context-provider, user-context-consumer ?
+
+🤔 Redux, redux toolkit, Dispatch, slice, slicer, Action, Reducer, selector, subscribe, zustand ?
+
+🤔 useMemo ,useCallback, useRef ?
+-------------------------------------------------------------------------------------------------------------------------------------
