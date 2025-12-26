@@ -510,6 +510,7 @@
 🤔 Window & this keyword ?
 
 🅰️  this is decided at runtime based on how a function is called, not where it is written.
+    this depends on HOW a function is called, not where it is defined.
 
     📌1 <script>  👀
             // If you are running JS in browsers, the global object is "window",

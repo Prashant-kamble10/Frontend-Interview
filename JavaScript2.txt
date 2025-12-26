@@ -703,6 +703,8 @@
                 Arguments object
                 Generators & custom iterables
                 Use when you don’t need the index or key, just the value.
+        
+                I prefer for...of over forEach because it supports break, continue, and await.
 
       📌 for...in
              "I use for...in when I want to iterate through all enumerable properties of an object,

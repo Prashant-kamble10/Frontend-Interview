@@ -87,6 +87,10 @@
 
             In JavaScript, strings are immutable.
             Any operation that "changes" a string actually returns a new string, leaving the original unchanged.
+
+    📌 mutability , Immutability ?
+        In JavaScript, primitive values are immutable, while objects and arrays are mutable by default.
+        Mutability means changing the same memory reference, while immutability means creating a new value or object instead of modifying the original one.
 -------------------------------------------------------------------------------------------------------------------------------------
 🤔 How manys ways to create Objects ?
 
@@ -129,7 +133,8 @@
 
                 Use when - When you want to set prototype manually
 
-        6. Factory Function - A factory function is simply a function that creates and returns an object — no new keyword, no classes, no constructors.
+        6. Factory Function - A factory function is simply a function that creates and returns an object — no new keyword, no classes, 
+                                no constructors.
                                 It’s called a “factory” because it produces (manufactures) objects.
 
                 function createPerson(name, age) {
@@ -186,7 +191,9 @@
 🅰️ 🔹 Add Property
          const obj = {};
         obj.name = "Alice";          // Dot notation
-        obj["age"] = 25;             // Bracket notation
+        
+        const key = "user-name";
+        obj[key] = "Alice";           // Bracket notation
 
     🔸 Modify Property
           obj.name = "Bob";           // Just reassign it
@@ -628,7 +635,7 @@
 -------------------------------------------------------------------------------------------------------------------------------------
 🤔  event-related concepts or mechanisms -> bubbling,  capturing/trickling, delegation, propogation ?
 
-🅰️  ✅ Event propogation
+🅰️  ✅ Event propogation (प्रसार)
 
         Event Propagation is the process that defines how events move through the DOM tree when an event occurs on a nested element
         (like clicking a button inside a div). The overall process of how events move in DOM (includes capturing & bubbling).

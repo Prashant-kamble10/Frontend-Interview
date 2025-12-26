@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function makeDough() {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            const success = true; // toggle to false to simulate error
+
+            if (!success) {
+              reject("❌ Failed to make dough");
+              return;
+            }
+
+            console.log("🍞 Dough is ready");
+            resolve("doughaaaa");
+          }, 1000);
+        });
+      }
+
+      function addToppings(dough) {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            if (!dough) {
+              reject("❌ No dough provided");
+              return;
+            }
+
+            console.log("🧀 Toppings added");
+            resolve("pizza-with-toppings");
+          }, 1000);
+        });
+      }
+
+      function bakePizza(pizza) {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            if (!pizza) {
+              reject("❌ Nothing to bake");
+              return;
+            }
+
+            console.log("🔥 Pizza baked");
+            resolve("baked-pizza");
+          }, 1000);
+        });
+      }
+
+      function servePizza(bakedPizza) {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            if (!bakedPizza) {
+              reject("❌ No pizza to serve");
+              return;
+            }
+
+            console.log("🍕 Pizza served");
+            resolve("served-pizza");
+          }, 1000);
+        });
+      }
+
+      async function makePizza() {
+        try {
+          const dough = await makeDough();
+          const pizzaWithToppings = await addToppings(dough);
+          const bakedPizza = await bakePizza(pizzaWithToppings);
+          const result = await servePizza(bakedPizza);
+
+          console.log("✅ Process completed:", result);
+        } catch (error) {
+          console.error("💥 Error occurred:", error);
+        }
+      }
+
+      // start the process
+      makePizza();
+    </script>
+  </body>
+</html>
