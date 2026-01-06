@@ -1,0 +1,19 @@
+Tab form,
+
+pagination,
+
+autocomplete search bar,
+
+file explorer/vs code sidebar,
+
+progress bar,
+
+otp input,
+
+nested checkboxes,
+
+chip inputs,
+
+todo list,
+
+accordion.

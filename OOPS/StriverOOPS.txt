@@ -1,0 +1,38 @@
+https://chatgpt.com/c/6958f827-5084-8321-a3af-5c172bdacbc6
+
+1. Introduction to OOPS
+
+JS program basic
+what is OOPS ?
+classes and Objects ?
+Attributes and Methods ?
+constructors ?
+
+2. core principles of OOPS
+
+Encapsulation
+Access modifiers
+Inheritance
+polymorphism
+
+3. Advance OOPS features
+
+Abstraction
+static keyword
+
+4. relationships and object behaviour
+
+Association
+Aggregation
+Composition
+object cloning
+
+5. OOP Design and lifecycle Management
+
+Factory Pattern
+Constructor Pattern
+Module Pattern
+Singleton Pattern
+Observer Pattern
+Prototype Pattern
+SOLID

@@ -1,0 +1,63 @@
+1. Write a program to remove duplicates from an array ?
+
+2. Write a JavaScript function that takes an array of numbers and returns a new array with only the even numbers.
+
+3. How to check whether a string is palindrome or not ?
+
+4. Find the factorial of given number ?
+
+5. Program to find longest word in a given sentence ?
+
+6. Write a JavaScript program to find the maximum number in an array.
+
+7. Write a JavaScript function to check if a given number is prime
+
+8. Program to find Reverse of a string without using built-in method ?
+
+9. Find the smallest word in a given sentence ?
+
+10. Write a function sumOfThirds(arr), which takes an array arr as an argument. This function should return a sum of
+every third number in the array, starting from the first one.
+
+11. Write a JavaScript function that returns the Fibonacci sequence up to a given number of terms.
+
+12. Find the max count of consecutive 1’s in an array
+
+13. Given 2 arrays that are sorted [0,3,4,31] and [4,6,30]. Merge them and sort [0,3,4,4,6,30,31] ?
+
+14. Create a function which will accepts two arrays arr1 and arr2. The function should return true if every value in arr1 has
+its corresponding value squared in array2. The frequency of values must be same.(Effecient)
+
+15. Given two strings. Find if one string can be formed by rearranging the letters of other string. (Effecient)
+
+16. Write logic to get unique objects from below array ?
+
+17. Write a JavaScript program to find the largest element in a nested array.
+
+18. Given a string, write a javascript function to count the occurrences of each character in the string.
+
+19. Write a javascript function that sorts an array of numbers in ascending order.
+
+20. Write a javascript function that sorts an array of numbersin descending order.
+
+21. Write a javascript function that reverses the order of words
+in a sentence without using the built-in reverse() method.
+
+22. Implement a javascript function that flattens a nested array into a single-dimensional array.
+
+23. Write a function which converts string input into an object
+
+24. Given an array, return an array where the each value is the product of the next two items: E.g. [3, 4, 5] -> [20, 15, 12]
+
+25. Find the 2nd largest element from a given array ? [100,20,112,22]
+
+26. Program challenge: Find the pairs from given input ?
+
+27. Write a javascript program to get below output from given input ?
+
+28. find first repeating character ?
+
+29. find the thrird largest number from an array ?
+
+30. currying function for infinite sum ?
+
