@@ -1,55 +1,897 @@
 1. Write a program to remove duplicates from an array ?
 
+🅰️  solution 1 :-
+
+    const arr = [1, 2, 3, 2, 4, 1, 5];
+    const uniqueArr = [...new Set(arr)];
+    console.log(uniqueArr); // [1, 2, 3, 4, 5]
+
+    solution 2 :-
+
+    const arr = [1, 2, 3, 2, 4, 1, 5];
+    const uniqueArr = [];
+
+    for (let i = 0; i < arr.length; i++) {
+    let isDuplicate = false;
+
+    for (let j = 0; j < uniqueArr.length; j++) {
+        if (arr[i] === uniqueArr[j]) {
+        isDuplicate = true;
+        break;
+        }
+    }
+
+    if (!isDuplicate) {
+        uniqueArr.push(arr[i]);
+    }
+    }
+
+    console.log(uniqueArr); // [1, 2, 3, 4, 5]
+
 2. Write a JavaScript function that takes an array of numbers and returns a new array with only the even numbers.
+
+🅰️ solution 1 :- 
+
+    function getEvenNumbers(arr) {
+        return arr.filter(num => num % 2 === 0);
+    }
+
+    console.log(getEvenNumbers([1, 2, 3, 4, 5, 6])); 
+    // Output: [2, 4, 6]
+
+    solution 2 :-
+
+    function getEvenNumbers(arr) {
+    const result = [];
+
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] % 2 === 0) {
+        result.push(arr[i]);
+        }
+    }
+
+    return result;
+    }
+
+    console.log(getEvenNumbers([1, 2, 3, 4, 5, 6])); 
+    // Output: [2, 4, 6]
+
 
 3. How to check whether a string is palindrome or not ?
 
+🅰️ solution 1 :-
+
+    function isPalindrome(str) {
+    const reversed = str.split('').reverse().join('');
+        return str === reversed;
+    }
+
+    console.log(isPalindrome("madam"));  // true
+    console.log(isPalindrome("hello"));  // false
+
+    solution 2 :-
+
+    function isPalindrome(str) {
+    let left = 0;
+    let right = str.length - 1;
+
+    while (left < right) {
+        if (str[left] !== str[right]) {
+            return false;
+        }
+        left++;
+        right--;
+    }
+
+    return true;
+    }
+
+    console.log(isPalindrome("madam"));  // true
+    console.log(isPalindrome("hello"));  // false
+
+
+
 4. Find the factorial of given number ?
+
+🅰️ solution 1 :-
+ 
+    function factorial(n) {
+    let result = 1;
+
+    for (let i = 1; i <= n; i++) {
+        result *= i;
+    }
+
+    return result;
+    }
+
+    console.log(factorial(5)); // 120
+
+    solution 2 :- 
+
+    function factorial(n) {
+    if (n === 0 || n === 1) {
+        return 1;
+    }
+
+    return n * factorial(n - 1);
+    }
+
+    console.log(factorial(5)); // 120
+
 
 5. Program to find longest word in a given sentence ?
 
+🅰️ solution 1 :- 
+
+    function findLongestWord(sentence) {
+    const words = sentence.split(' ');
+    let longest = '';
+
+    for (let word of words) {
+        if (word.length > longest.length) {
+        longest = word;
+        }
+    }
+
+    return longest;
+    }
+
+    console.log(findLongestWord("I am learning JavaScript programming"));
+    // Output: "programming"
+
+    solution 2 :-
+
+    function findLongestWord(sentence) {
+    let longest = '';
+    let currentWord = '';
+
+    for (let i = 0; i < sentence.length; i++) {
+        if (sentence[i] !== ' ') {
+            currentWord += sentence[i];
+        } else {
+        if (currentWord.length > longest.length) {
+            longest = currentWord;
+        }
+        currentWord = '';
+        }
+    }
+
+    // Check last word
+    if (currentWord.length > longest.length) {
+        longest = currentWord;
+    }
+
+    return longest;
+    }
+
+    console.log(findLongestWord("I am learning JavaScript programming"));
+    // Output: "programming"
+
+
+
 6. Write a JavaScript program to find the maximum number in an array.
+
+🅰️ solution 1 :-
+
+    function findMax(arr) {
+         return Math.max(...arr);
+    }
+
+    console.log(findMax([10, 5, 20, 8, 25])); 
+    // Output: 25
+
+    solution 2 :-
+
+    function findMax(arr) {
+    let max = arr[0];
+
+    for (let i = 1; i < arr.length; i++) {
+            if (arr[i] > max) {
+             max = arr[i];
+        }
+    }
+     return max;
+    }
+
+    console.log(findMax([10, 5, 20, 8, 25])); 
+    // Output: 25
+
+
 
 7. Write a JavaScript function to check if a given number is prime
 
+🅰️  solution 1 :-
+
+    function isPrime(n) {
+    if (n <= 1) return false;
+
+    for (let i = 2; i < n; i++) {
+        if (n % i === 0) return false;
+    }
+
+    return true;
+    }
+
+    console.log(isPrime(7));  // true
+    console.log(isPrime(10)); // false
+
+    solution 2 :-
+
+    function isPrime(n) {
+    if (n <= 1) return false;
+
+    for (let i = 2; i * i <= n; i++) {
+        if (n % i === 0) return false;
+    }
+
+    return true;
+    }
+
+    console.log(isPrime(7));  // true
+    console.log(isPrime(10)); // false
+
+
+
 8. Program to find Reverse of a string without using built-in method ?
 
+🅰️ solution 1 :-
+
+    function reverseString(str) {
+    return str.split('').reverse().join('');
+    }
+
+    console.log(reverseString("hello")); // "olleh"
+
+    solution 2 :-
+
+    function reverseString(str) {
+    let reversed = '';
+
+    for (let i = str.length - 1; i >= 0; i--) {
+        reversed += str[i];
+    }
+
+    return reversed;
+    }
+
+    console.log(reverseString("hello")); // "olleh"
+
+
 9. Find the smallest word in a given sentence ?
+
+🅰️ solution 1 :-
+
+    function findSmallestWord(sentence) {
+    const words = sentence.split(' ');
+    let smallest = words[0];
+
+    for (let word of words) {
+        if (word.length < smallest.length) {
+        smallest = word;
+        }
+    }
+
+    return smallest;
+    }
+
+    console.log(findSmallestWord("I am learning JavaScript programming"));
+    // Output: "I"
+
+    solution 2 :-
+
+    function findSmallestWord(sentence) {
+    let smallest = '';
+    let currentWord = '';
+
+    for (let i = 0; i < sentence.length; i++) {
+        if (sentence[i] !== ' ') {
+        currentWord += sentence[i];
+        } else {
+        if (smallest === '' || currentWord.length < smallest.length) {
+            smallest = currentWord;
+        }
+        currentWord = '';
+        }
+    }
+
+    // Check last word
+    if (smallest === '' || currentWord.length < smallest.length) {
+        smallest = currentWord;
+    }
+
+    return smallest;
+    }
+
+    console.log(findSmallestWord("I am learning JavaScript programming"));
+    // Output: "I"
+
+
 
 10. Write a function sumOfThirds(arr), which takes an array arr as an argument. This function should return a sum of
 every third number in the array, starting from the first one.
 
+🅰️ solution 1 :-
+
+    function sumOfThirds(arr) {
+    return arr
+        .filter((_, index) => index % 3 === 0)
+        .reduce((sum, num) => sum + num, 0);
+    }
+
+    console.log(sumOfThirds([1, 2, 3, 4, 5, 6, 7, 8, 9])); 
+    // 12
+
+    solution 2 :-
+
+    function sumOfThirds(arr) {
+    let sum = 0;
+
+    for (let i = 0; i < arr.length; i += 3) {
+        sum += arr[i];
+    }
+
+    return sum;
+    }
+
+    console.log(sumOfThirds([1, 2, 3, 4, 5, 6, 7, 8, 9])); 
+    // 1 + 4 + 7 = 12
+
+
 11. Write a JavaScript function that returns the Fibonacci sequence up to a given number of terms.
+
+🅰️ solution 1 :- 
+
+    function fibonacci(n) {
+        if (n <= 1) return [0];
+        if (n === 2) return [0, 1];
+
+        const seq = fibonacci(n - 1);
+        seq.push(seq[seq.length - 1] + seq[seq.length - 2]);
+
+        return seq;
+    }
+
+    console.log(fibonacci(7)); 
+    // Output: [0, 1, 1, 2, 3, 5, 8]
+
+    solution 2 :-
+
+    function fibonacci(n) {
+        const result = [0, 1];
+
+        for (let i = 2; i < n; i++) {
+            result.push(result[i - 1] + result[i - 2]);
+        }
+
+        return result.slice(0, n);
+    }
+
+    console.log(fibonacci(7)); 
+    // Output: [0, 1, 1, 2, 3, 5, 8]
+
+
 
 12. Find the max count of consecutive 1’s in an array
 
+🅰️ solution 1 :-
+
+    function maxConsecutiveOnes(arr) {
+    let currentCount = 0;
+    let maxCount = 0;
+
+    for (let num of arr) {
+        if (num === 1) {
+        currentCount++;
+        maxCount = Math.max(maxCount, currentCount);
+        } else {
+        currentCount = 0;
+        }
+    }
+
+    return maxCount;
+    }
+
+    console.log(maxConsecutiveOnes([1, 1, 0, 1, 1, 1])); 
+    // Output: 3
+
+    solution 2 :-
+
+    function maxConsecutiveOnes(arr) {
+    let currentCount = 0;
+    let maxCount = 0;
+
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] === 1) {
+        currentCount++;
+
+        if (currentCount > maxCount) {
+            maxCount = currentCount;
+        }
+        } else {
+        currentCount = 0;
+        }
+    }
+
+    return maxCount;
+    }
+
+    console.log(maxConsecutiveOnes([1, 1, 0, 1, 1, 1]));
+    // Output: 3
+
+
 13. Given 2 arrays that are sorted [0,3,4,31] and [4,6,30]. Merge them and sort [0,3,4,4,6,30,31] ?
+
+🅰️ solution 1 :-
+ 
+    function mergeAndSort(arr1, arr2) {
+    return [...arr1, ...arr2].sort((a, b) => a - b);
+    }
+
+    console.log(mergeAndSort([0,3,4,31], [4,6,30]));
+    // Output: [0, 3, 4, 4, 6, 30, 31]
+
+    solution 2 :-
+
+    function mergeSortedArrays(arr1, arr2) {
+        let i = 0, j = 0;
+        const result = [];
+
+        while (i < arr1.length && j < arr2.length) {
+            if (arr1[i] < arr2[j]) {
+            result.push(arr1[i]);
+            i++;
+            } else {
+            result.push(arr2[j]);
+            j++;
+            }
+        }
+
+        // Add remaining elements
+        while (i < arr1.length) {
+            result.push(arr1[i]);
+            i++;
+        }
+
+        while (j < arr2.length) {
+            result.push(arr2[j]);
+            j++;
+        }
+
+        return result;
+        }
+
+        console.log(mergeSortedArrays([0,3,4,31], [4,6,30]));
+        // Output: [0, 3, 4, 4, 6, 30, 31]
+
 
 14. Create a function which will accepts two arrays arr1 and arr2. The function should return true if every value in arr1 has
 its corresponding value squared in array2. The frequency of values must be same.(Effecient)
 
+🅰️ solution 1 :-
+
+    function same(arr1, arr2) {
+    if (arr1.length !== arr2.length) return false;
+
+    const freq1 = {};
+    const freq2 = {};
+
+    // Count frequencies
+    for (let val of arr1) {
+        freq1[val] = (freq1[val] || 0) + 1;
+    }
+
+    for (let val of arr2) {
+        freq2[val] = (freq2[val] || 0) + 1;
+    }
+
+    // Compare squares
+    for (let key in freq1) {
+        const squared = key * key;
+
+        if (!(squared in freq2)) return false;
+        if (freq2[squared] !== freq1[key]) return false;
+    }
+
+    return true;
+    }
+
+    console.log(same([1,2,2], [1,4,4])); // true
+    console.log(same([1,2,3], [1,9]));   // false
+
+
+    solution 2 :- 
+
+    function same(arr1, arr2) {
+    for (let i = 0; i < arr1.length; i++) {
+        const index = arr2.indexOf(arr1[i] * arr1[i]);
+
+        if (index === -1) return false;
+
+        arr2.splice(index, 1); // remove matched value
+    }
+    return true;
+    }
+
+    console.log(same([1,2,2], [1,4,4])); // true
+
+
 15. Given two strings. Find if one string can be formed by rearranging the letters of other string. (Effecient)
+
+🅰️ solution 1 :-
+
+    function isAnagram(str1, str2) {
+    return str1.split('').sort().join('') === 
+            str2.split('').sort().join('');
+    }
+
+    console.log(isAnagram("listen", "silent")); // true
+
+    solution 2 :-
+
+    function isAnagram(str1, str2) {
+    if (str1.length !== str2.length) return false;
+
+    const count = {};
+
+    // Count characters in str1
+    for (let char of str1) {
+        count[char] = (count[char] || 0) + 1;
+    }
+
+    // Subtract using str2
+    for (let char of str2) {
+        if (!count[char]) return false;
+        count[char]--;
+    }
+
+    return true;
+    }
+
+    console.log(isAnagram("listen", "silent")); // true
+    console.log(isAnagram("hello", "olelh"));   // true
+    console.log(isAnagram("test", "best"));     // false
+
 
 16. Write logic to get unique objects from below array ?
 
+🅰️ solution 1 :- 
+
+    const arr = [
+        { id: 1, name: "A" },
+        { id: 2, name: "B" },
+        { id: 1, name: "A" }
+    ];
+
+    Expected output:
+
+    [
+        { id: 1, name: "A" },
+        { id: 2, name: "B" }
+    ]
+
+    const unique = Array.from(
+        new Map(arr.map(obj => [obj.id, obj])).values()
+    );
+
+    console.log(unique);
+
+    solution 2 :-
+
+        const arr = [
+        { id: 1, name: "A" },
+        { id: 2, name: "B" },
+        { id: 1, name: "A" }
+    ];
+
+    Expected output:
+
+    [
+        { id: 1, name: "A" },
+        { id: 2, name: "B" }
+    ]
+
+    function getUniqueObjects(arr) {
+    const result = [];
+
+    for (let i = 0; i < arr.length; i++) {
+        let exists = false;
+
+        for (let j = 0; j < result.length; j++) {
+        if (arr[i].id === result[j].id) {
+            exists = true;
+            break;
+        }
+        }
+
+        if (!exists) {
+        result.push(arr[i]);
+        }
+    }
+
+    return result;
+    }
+
+    console.log(getUniqueObjects(arr));
+
+
 17. Write a JavaScript program to find the largest element in a nested array.
+
+🅰️ solution 1 :-
+
+    const arr = [1, [5, 3], [9, [2, 15]], 4];    // 15
+
+    function findLargest(arr) {
+    const flatArray = arr.flat(Infinity); // flatten all levels
+    return Math.max(...flatArray);
+    }
+
+    console.log(findLargest([1, [5, 3], [9, [2, 15]], 4]));    // 15
+
+
+    solution 2 :-
+
+    const arr = [1, [5, 3], [9, [2, 15]], 4];    // 15
+
+    function findLargest(arr) {
+    let max = -Infinity;
+
+    function helper(subArr) {
+        for (let item of subArr) {
+        if (Array.isArray(item)) {
+            helper(item); // recursion for nested array
+        } else {
+            if (item > max) {
+            max = item;
+            }
+        }
+        }
+    }
+
+    helper(arr);
+    return max;
+    }
+
+    console.log(findLargest([1, [5, 3], [9, [2, 15]], 4]));    // 15
+
 
 18. Given a string, write a javascript function to count the occurrences of each character in the string.
 
+🅰️ solution 1 :-
+
+    Input: "hello"
+    Output: { h: 1, e: 1, l: 2, o: 1 }
+
+    function countChars(str) {
+    return str.split('').reduce((acc, char) => {
+        acc[char] = (acc[char] || 0) + 1;
+        return acc;
+    }, {});
+    }
+
+    console.log(countChars("hello"));
+
+
+    solution 2 :-
+
+    Input: "hello"
+    Output: { h: 1, e: 1, l: 2, o: 1 }
+
+    function countChars(str) {
+    const result = {};
+
+    for (let i = 0; i < str.length; i++) {
+        const char = str[i];
+        result[char] = (result[char] || 0) + 1;
+    }
+
+    return result;
+    }
+
+    console.log(countChars("hello"));
+
+
 19. Write a javascript function that sorts an array of numbers in ascending order.
 
+🅰️ solution 1 :-
+
+    function sortAscending(arr) {
+    return arr.sort((a, b) => a - b);
+    }
+
+    console.log(sortAscending([5, 2, 9, 1, 7]));
+    // Output: [1, 2, 5, 7, 9]
+
+    solution 2 :-
+
+    function sortAscending(arr) {
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = 0; j < arr.length - i - 1; j++) {
+        if (arr[j] > arr[j + 1]) {
+            // swap
+            let temp = arr[j];
+            arr[j] = arr[j + 1];
+            arr[j + 1] = temp;
+        }
+        }
+    }
+    return arr;
+    }
+
+    console.log(sortAscending([5, 2, 9, 1, 7]));
+    // Output: [1, 2, 5, 7, 9]
+
+
 20. Write a javascript function that sorts an array of numbersin descending order.
+
+🅰️ solution 1 :-
+
+    function sortDescending(arr) {
+    return arr.sort((a, b) => b - a);
+    }
+
+    console.log(sortDescending([5, 2, 9, 1, 7]));
+    // Output: [9, 7, 5, 2, 1]
+
+    solution 2 :- 
+
+    function sortDescending(arr) {
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = 0; j < arr.length - i - 1; j++) {
+        if (arr[j] < arr[j + 1]) {
+            // swap
+            let temp = arr[j];
+            arr[j] = arr[j + 1];
+            arr[j + 1] = temp;
+        }
+        }
+    }
+    return arr;
+    }
+
+    console.log(sortDescending([5, 2, 9, 1, 7]));
+    // Output: [9, 7, 5, 2, 1]
+
 
 21. Write a javascript function that reverses the order of words
 in a sentence without using the built-in reverse() method.
 
+🅰️   function reverseWords(sentence) {
+        let words = [];
+        let currentWord = "";
+
+        // Step 1: Extract words manually
+        for (let i = 0; i < sentence.length; i++) {
+            if (sentence[i] !== " ") {
+            currentWord += sentence[i];
+            } else {
+            words.push(currentWord);
+            currentWord = "";
+            }
+        }
+        // Push the last word
+        words.push(currentWord);
+
+        // Step 2: Build reversed sentence
+        let result = "";
+        for (let i = words.length - 1; i >= 0; i--) {
+            result += words[i];
+            if (i !== 0) result += " ";
+        }
+
+        return result;
+        }
+
+        console.log(reverseWords("Hello world from JavaScript"));
+        // Output: "JavaScript from world Hello"
+
+
 22. Implement a javascript function that flattens a nested array into a single-dimensional array.
+
+🅰️ solution 1 :- 
+
+    function flattenArray(arr) {
+        return arr.flat(Infinity);
+    }
+
+    console.log(flattenArray([1, [2, 3], [4, [5, 6]], 7]));
+    // Output: [1, 2, 3, 4, 5, 6, 7]
+
+    solution 2 :- 
+
+    function flattenArray(arr) {
+    let result = [];
+
+    for (let i = 0; i < arr.length; i++) {
+        if (Array.isArray(arr[i])) {
+        result = result.concat(flattenArray(arr[i]));
+        } else {
+        result.push(arr[i]);
+        }
+    }
+
+    return result;
+    }
+
+    console.log(flattenArray([1, [2, 3], [4, [5, 6]], 7]));
+    // Output: [1, 2, 3, 4, 5, 6, 7]
+
 
 23. Write a function which converts string input into an object
 
+🅰️ '{"name":"John","age":30}'
+
+    function stringToObject(str) {
+         return JSON.parse(str);
+    }
+
+    console.log(stringToObject('{"name":"John","age":30}'));
+
+
 24. Given an array, return an array where the each value is the product of the next two items: E.g. [3, 4, 5] -> [20, 15, 12]
 
+🅰️ solution 1 :-
+
+    function productOfNextTwo(arr) {
+    return arr.map((_, i) =>
+        arr[(i + 1) % arr.length] * arr[(i + 2) % arr.length]
+    );
+    }
+
+    console.log(productOfNextTwo([3, 4, 5]));
+    // [20, 15, 12]
+
+
+    solution 2 :- 
+
+    function productOfNextTwo(arr) {
+    const result = [];
+
+    for (let i = 0; i < arr.length; i++) {
+        const next1 = arr[(i + 1) % arr.length];
+        const next2 = arr[(i + 2) % arr.length];
+
+        result.push(next1 * next2);
+    }
+
+    return result;
+    }
+
+    console.log(productOfNextTwo([3, 4, 5]));
+    // Output: [20, 15, 12]
+
+
 25. Find the 2nd largest element from a given array ? [100,20,112,22]
+
+🅰️ solution 1 :-
+
+    function secondLargest(arr) {
+        const sorted = [...arr].sort((a, b) => b - a);
+        return sorted[1];
+    }
+
+    console.log(secondLargest([100, 20, 112, 22])); // 100
+
+    solution 2 :-
+
+    function secondLargest(arr) {
+    let largest = -Infinity;
+    let secondLargest = -Infinity;
+
+    for (let num of arr) {
+        if (num > largest) {
+        secondLargest = largest;
+        largest = num;
+        } else if (num > secondLargest && num !== largest) {
+        secondLargest = num;
+        }
+    }
+
+    return secondLargest;
+    }
+
+    console.log(secondLargest([100, 20, 112, 22])); // 100
+
 
 26. Program challenge: Find the pairs from given input ?
 
@@ -57,7 +899,79 @@ in a sentence without using the built-in reverse() method.
 
 28. find first repeating character ?
 
+🅰️ "javascript" => "a"   // first character that appears more than once
+
+    solution 1 :-
+
+    function firstRepeatingChar(str) {
+        const seen = new Set();
+
+        for (let char of str) {
+            if (seen.has(char)) {
+            return char;
+            }
+            seen.add(char);
+        }
+
+        return null; // no repeating character
+        }
+
+        console.log(firstRepeatingChar("javascript")); // "a"
+
+    solution 2 :- 
+
+    function firstRepeatingChar(str) {
+    for (let i = 0; i < str.length; i++) {
+        for (let j = i + 1; j < str.length; j++) {
+        if (str[i] === str[j]) {
+            return str[i];
+        }
+        }
+    }
+    return null;
+    }
+
+    console.log(firstRepeatingChar("javascript")); // "a"
+
+
 29. find the thrird largest number from an array ?
 
+🅰️ solution 1 :-
+
+    function thirdLargest(arr) {
+        const sorted = [...arr].sort((a, b) => b - a);
+        return sorted[2];
+    }
+
+    console.log(thirdLargest([10, 5, 20, 8, 15])); // 10
+
+    solution 2 :-
+
+    function thirdLargest(arr) {
+    let first = -Infinity;
+    let second = -Infinity;
+    let third = -Infinity;
+
+    for (let num of arr) {
+        if (num > first) {
+        third = second;
+        second = first;
+        first = num;
+        } else if (num > second && num !== first) {
+        third = second;
+        second = num;
+        } else if (num > third && num !== second && num !== first) {
+        third = num;
+        }
+    }
+
+    return third;
+    }
+
+    console.log(thirdLargest([10, 5, 20, 8, 15])); // 10
+
+
 30. currying function for infinite sum ?
+
+🅰️ sum(1)(2)(3)(4)()   // 10
 
