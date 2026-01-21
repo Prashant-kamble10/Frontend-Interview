@@ -975,3 +975,12 @@ in a sentence without using the built-in reverse() method.
 
 🅰️ sum(1)(2)(3)(4)()   // 10
 
+31. find 2nd most non repeating character from string ?
+
+🅰️ 
+
+32. from a string find a longest palindrome substring ?
+
+🅰️ 
+
+33. 
