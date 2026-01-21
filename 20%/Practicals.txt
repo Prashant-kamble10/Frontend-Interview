@@ -28,6 +28,18 @@
 
 🤔 Difference between promise & async await ?
 
+🤔 Debouncing ?
+
+🤔 Throttling ?
+
+🤔 Recursion ?
+
+🤔 event-related concepts or mechanisms -> propogation, bubbling,  capturing/trickling, delegation ?
+
+🤔 call, bind & apply ? [used for sharing methods of objects]
+
+🤔 for loop, while loop, Do while, for...of, for...in, forEach loop, map function ?
+
 🤔 Template Literals, interpolation, mutability , Immutability ?
 
 🤔 Destructuring Assignment in object & array ?
@@ -35,10 +47,6 @@
 🤔 Spread and Rest Operator (...), optional chaining, nullish coalescing operator ?
 
 🤔 Deep copy vs shallow copy ?
-
-🤔 call, bind & apply ? [used for sharing methods of objects]
-
-🤔 for loop, while loop, Do while, for...of, for...in, forEach loop, map function ?
 
 🤔 throw statement, try {} catch(){ }, finally{ }
 
@@ -59,14 +67,6 @@
 🤔 confirm elements exist or not in array ?
 
 🤔 how to select, modify, create, remove DOM ?
-
-🤔 Debouncing ?
-
-🤔 Throttling ?
-
-🤔 Recursion ?
-
-🤔 event-related concepts or mechanisms -> bubbling,  capturing/trickling, delegation, propogation ?
 
 🤔 Arrow function can be used as a contructor ? If new keyword is used ?
 -------------------------------------------------------------------------------------------------------------------------------------
@@ -97,6 +97,8 @@
     updating phase -> shouldComponentUpdate(), componentWillUpdate(), componentDidUpdate(),
     unmounting phase -> componentWillUnmount(),
     compare above methods with useEffect() ?
+
+🤔 dynamic routes ?
 
 🤔 custom hooks ?
 
