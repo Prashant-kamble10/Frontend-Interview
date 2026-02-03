@@ -24,7 +24,7 @@
   // console.log(a==b);  false
   // console.log(a===b);  false
 
-  // Two arrays are not equal unless they reference the same memory location.
+  // Two objects are not equal unless they reference the same memory location.
   // Even if the contents of two arrays are identical, they will still be considered not equal when compared directly.
 </script>
 
@@ -102,8 +102,9 @@
   console.log(b); // 20
 </script>
 
-// Q] Difference btn let [a] = [20] and let a =[20] // Q] there is difference
-btn (a==b) & (a[0] == b[0])
+// Q] Difference btn let [a] = [20] and let a =[20] 
+// Q] there is difference btn (a==b) & (a[0] == b[0])
+
 
 <script>
   //3.3
@@ -134,7 +135,7 @@ btn (a==b) & (a[0] == b[0])
 <script>
   //7.    topic name --> set, setWeak, setMap
   // const set = new Set([1,1,2,3,4]);               set is a data type
-  // console.log(set);                               //{1,2,3,4};
+  // console.log(set);                               //{1,2,3,4};  => It is a built-in JavaScript data structure ✅ A special collection object
 </script>
 
 <script>
@@ -218,7 +219,7 @@ btn (a==b) & (a[0] == b[0])
 
 <script>
   //16.
-  // const result = false || {} ||  null;               false, null, " ",0, undefined, null are falsy value in JS & {} is truthy value so ||(or operator) returns 1st truthy value
+  // const result = false || {} ||  null;               false, null, " ",0, undefined, NaN are falsy value in JS & {} is truthy value so ||(or operator) returns 1st truthy value
   // console.log(result); //{} it returns true value
 </script>
 
@@ -557,7 +558,7 @@ btn (a==b) & (a[0] == b[0])
 
 <script>
   //55.
-  // console.log(!"anil");                //false    //String "anil" is Truthy, so truthy opposite if false
+  // console.log(!"anil");                //false    //String "anil" is Truthy, so truthy opposite is false
   // console.log(typeof("anil"));         //string
 
   // console.log(typeof([ ]))             // object

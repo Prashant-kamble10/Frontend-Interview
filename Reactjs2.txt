@@ -796,7 +796,7 @@ setTimeout: Delaying the execution of code.
 
             export default ConditionalRenderingExample;
 -------------------------------------------------------------------------------------------------------------------------------------
-🤔 routing, createBrowserRouter, RouteProvider, useRouteError, Link, Outlet, useParams, Dynamic Routing, child Routing ?
+🤔 routing, createBrowserRouter, RouteProvider, useRouteError, Link, Outlet, useParams, Dynamic Routing, child Routing, protected Route ?
 
 🅰️  Routing allows for navigation in SPAs, and React Router helps handle this.
     Dynamic and child routing enables flexible, modular routes that can adapt to user interaction and display nested content.
